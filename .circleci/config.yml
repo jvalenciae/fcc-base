@@ -1,0 +1,56 @@
+# This file is a config template example.  
+
+version: 2
+jobs:
+  test:
+    working_directory: ~/application
+    docker:
+      - image: dynamicwit/circleci:0.12.24
+    environment:
+      PROJECT_NAME: taylorhoffman
+      SERVICE_NAME: backend
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Run Linter
+          command:
+            # COMMANDS_TO_RUBOCOP_LINTERS_HERE
+            # COMMANDS_TO_JSLINT_LINTERS_TESTS
+      - run:
+          name: Run tests
+          command:
+            # COMMANDS_TO_RSPEC_TESTS_HERE
+            # COMMANDS_TO_JS_TESTS_HERE
+  deploy:
+    working_directory: ~/application
+    docker:
+      - image: dynamicwit/circleci:0.12.24
+    environment:
+      PROJECT_NAME: taylorhoffman
+      SERVICE_NAME: backend
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Building Docker image for release
+          command:
+            # COMMAND_FOR_IMAGE_BUILD_HERE (if needed)
+      - run:
+          name: Deployment steps
+          command:
+            # COMMAND_FOR_DEPLOYMENT_HERE
+workflows:
+  version: 2
+  backend:
+    jobs:
+      - test
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              # modify with the production and trunk branches respectively
+              only:
+                - main 
+                - develop

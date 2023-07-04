@@ -1,0 +1,48 @@
+require:
+  - rubocop-rails
+  - rubocop-performance
+  - rubocop-rspec
+  - rubocop-gitlab-security
+
+AllCops:
+  Exclude:
+    - '**/assets/**/*'
+    - '**/javascript/**/*'
+    - '**/views/**/*'
+    - '**/bin/**/*'
+    - '**/coverage/**/*'
+    - '**/db/migrate/*'
+    - '**/db/**/schema.rb'
+    - '**/log/**/*'
+    - '**/public/**/*'
+    - '**/storage/**/*'
+    - '**/script/**/*'
+    - '**/vendor/**/*'
+    - '**/tmp/**/*'
+    - '**/node_modules/**/*'
+  ExtraDetails: true
+  NewCops: enable
+  TargetRubyVersion: 2.7
+
+# Style
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  EnforcedStyle: always_true
+
+Style/Documentation:
+  Enabled: false
+
+Style/ReturnNil:
+  Description: 'Use return instead of return nil.'
+  Enabled: true
+
+# Rspec
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*_spec.rb
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
