@@ -50,13 +50,17 @@ gem 'bootsnap', require: false
 # gem 'sassc-rails'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.2'
 
 gem 'sentry-ruby'
 gem 'sentry-rails'
 gem 'sentry-sidekiq'
 
+# List of Countries and Cities
+gem 'city-state'
 
+# Serializer
+gem 'active_model_serializers', '~> 0.10.0'
 
 group :development, :test do
   gem 'dotenv-rails', '~> 2.7.0'
@@ -66,7 +70,7 @@ group :development, :test do
   gem 'pry-rails', '~> 0.3.9'
   # indented print of Ruby and Rails Objs and Arrays by using `ap something
   gem 'awesome_print', '~> 1.9', '>= 1.9.2', require: 'ap'
-  
+
   gem 'rspec', '~> 3.11'
   gem 'rspec-rails', '~> 5.1', '>= 5.1.2'
   gem 'faker', '~> 2.0'
@@ -127,5 +131,4 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'webdrivers'
-
 end
