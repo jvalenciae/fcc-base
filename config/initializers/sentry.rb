@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 Sentry.init do |config|
-  config.dsn = ENV['SENTRY_DSN'] unless ENV['SENTRY_DSN'].blank?
+  config.dsn = ENV['SENTRY_DSN'] if ENV['SENTRY_DSN'].present?
   config.enabled_environments = %w[production staging]
   config.excluded_exceptions = Sentry::Configuration::IGNORE_DEFAULT - ['ActiveRecord::RecordNotFound']
   config.breadcrumbs_logger = [:active_support_logger]
@@ -7,9 +9,7 @@ Sentry.init do |config|
   config.traces_sample_rate = 0.2 # set a float between 0.0 and 1.0 to enable performance monitoring
   config.traces_sampler = lambda do |sampling_context|
     # if this is the continuation of a trace, just use that decision (rate controlled by the caller)
-    unless sampling_context[:parent_sampled].nil?
-      next sampling_context[:parent_sampled]
-    end
+    next sampling_context[:parent_sampled] unless sampling_context[:parent_sampled].nil?
 
     # transaction_context is the transaction object in hash form
     # keep in mind that sampling happens right after the transaction is initialized

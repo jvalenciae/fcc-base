@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe 'Branches', type: :request do
+RSpec.describe 'Branches' do
   describe 'GET #index' do
     let(:organization) { create(:organization) }
 
-    let!(:branch1) { create(:branch, organization: organization) }
-    let!(:branch2) { create(:branch, organization: organization) }
+    let!(:first_branch) { create(:branch, organization: organization) }
+    let!(:second_branch) { create(:branch, organization: organization) }
 
     it 'returns a list of branches for the specified organization' do
       get '/api/v1/branches', params: { organization_id: organization.id }
@@ -13,10 +15,12 @@ RSpec.describe 'Branches', type: :request do
       expect(response).to have_http_status(:success)
       expect(json_response[:data]).to eq(
         [
-          { 'id' => branch1.id, 'name' => branch1.name, 'country' => branch1.country, 'city' => branch1.city,
-            'address' => branch1.address, 'phone_number' => branch1.phone_number, 'organization_id' => branch1.organization_id },
-          { 'id' => branch2.id, 'name' => branch2.name, 'country' => branch2.country, 'city' => branch2.city,
-            'address' => branch2.address, 'phone_number' => branch2.phone_number, 'organization_id' => branch2.organization_id }
+          { 'id' => first_branch.id, 'name' => first_branch.name, 'country' => first_branch.country,
+            'city' => first_branch.city, 'address' => first_branch.address, 'phone_number' => first_branch.phone_number,
+            'organization_id' => first_branch.organization_id },
+          { 'id' => second_branch.id, 'name' => second_branch.name, 'country' => second_branch.country,
+            'city' => second_branch.city, 'address' => second_branch.address,
+            'phone_number' => second_branch.phone_number, 'organization_id' => second_branch.organization_id }
         ]
       )
     end

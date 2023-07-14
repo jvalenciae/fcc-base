@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe 'Countries', type: :request do
+RSpec.describe 'Countries' do
   describe 'GET #index' do
     before do
       allow(CS).to receive(:countries).and_return({ 'US' => 'United States', 'CA' => 'Canada' })

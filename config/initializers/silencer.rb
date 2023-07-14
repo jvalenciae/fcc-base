@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'silencer/rails/logger'
 
 Rails.application.configure do
@@ -5,6 +7,6 @@ Rails.application.configure do
     Rails::Rack::Logger,
     Silencer::Logger,
     config.log_tags,
-    silence: ["/healthcheck"]
+    silence: ['/healthcheck']
   )
 end

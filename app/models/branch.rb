@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Branch < ApplicationRecord
   validates :name, :country, :city, :address, :phone_number, presence: true
 

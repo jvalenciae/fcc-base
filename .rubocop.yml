@@ -38,11 +38,21 @@ Style/ReturnNil:
 
 # Rspec
 Metrics/BlockLength:
+  Max: 30
   Exclude:
     - spec/**/*_spec.rb
+
+Metrics/MethodLength:
+  Max: 15
+
+Metrics/ParameterLists:
+  MaxOptionalParameters: 5
 
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
 
 RSpec/MultipleExpectations:
   Enabled: false
+
+RSpec/ExampleLength:
+  Max: 15

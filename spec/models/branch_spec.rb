@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe Branch, type: :model do
+RSpec.describe Branch do
   subject(:branch) { create(:branch) }
 
   describe 'validations' do
