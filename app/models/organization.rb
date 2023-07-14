@@ -3,4 +3,7 @@ class Organization < ApplicationRecord
 
   has_one_attached :logo
   has_many :branches, dependent: :destroy
+
+  has_many :user_organizations, dependent: :destroy
+  has_many :users, through: :user_organizations
 end

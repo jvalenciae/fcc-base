@@ -14,6 +14,8 @@ RSpec.describe Organization, type: :model do
   describe 'associations' do
     it 'validates associations' do
       expect(organization).to have_many(:branches).dependent(:destroy)
+      expect(organization).to have_many(:user_organizations).dependent(:destroy)
+      expect(organization).to have_many(:users).through(:user_organizations)
     end
   end
 end

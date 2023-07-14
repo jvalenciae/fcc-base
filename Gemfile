@@ -62,6 +62,11 @@ gem 'city-state'
 # Serializer
 gem 'active_model_serializers', '~> 0.10.0'
 
+# Authentication
+gem 'devise'
+
+gem 'devise-i18n'
+
 group :development, :test do
   gem 'dotenv-rails', '~> 2.7.0'
   gem 'goldiloader'
