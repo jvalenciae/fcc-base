@@ -36,7 +36,7 @@ Style/ReturnNil:
   Description: 'Use return instead of return nil.'
   Enabled: true
 
-# Rspec
+# Metrics
 Metrics/BlockLength:
   Max: 30
   Exclude:
@@ -48,6 +48,7 @@ Metrics/MethodLength:
 Metrics/ParameterLists:
   MaxOptionalParameters: 5
 
+# Rspec
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
 

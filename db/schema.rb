@@ -92,7 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_14_203901) do
     t.string "last_name"
     t.string "phone_number"
     t.string "country"
-    t.string "role"
+    t.integer "role"
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"

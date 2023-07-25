@@ -67,6 +67,8 @@ gem 'devise'
 gem 'devise-i18n'
 
 gem 'newrelic_rpm'
+# Permissions
+gem 'cancancan'
 
 group :development, :test do
   gem 'dotenv-rails', '~> 2.7.0'

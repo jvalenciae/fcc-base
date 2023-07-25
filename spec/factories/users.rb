@@ -8,6 +8,14 @@ FactoryBot.define do
     password { Faker::Internet.password }
     phone_number { Faker::Number.number(digits: 10) }
     country { 'CO' }
-    role { 'role' }
+    role { 'trainer' }
+
+    trait :super_admin do
+      role { User::SUPER_ADMIN_ROLES.keys.first }
+    end
+
+    trait :admin do
+      role { User::ADMIN_ROLES.keys.first }
+    end
   end
 end
