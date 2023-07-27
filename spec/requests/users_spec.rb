@@ -10,7 +10,7 @@ RSpec.describe 'Users' do
           first_name: 'John',
           last_name: 'Doe',
           email: 'john.doe@example.com',
-          password: 'password123',
+          password: 'Password123!',
           phone_number: '123456789',
           country: 'CO',
           role: 'trainer',

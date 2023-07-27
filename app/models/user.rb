@@ -9,6 +9,14 @@ class User < ApplicationRecord
   validates :first_name, :last_name, :email, :phone_number, :country, :role, presence: true
   validate :validate_branches_belongs_to_organizations
 
+  PASSWORD_PATTERN = %r{\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-\=\[\]{}|\'"/\.,`<>:;?~])}.freeze
+  validates :password,
+            presence: true,
+            format: {
+              with: PASSWORD_PATTERN,
+              message: I18n.t('user.errors.weak_password')
+            }, allow_blank: true
+
   has_many :user_organizations, dependent: :destroy
   has_many :organizations, through: :user_organizations
 
@@ -49,7 +57,7 @@ class User < ApplicationRecord
     token = Devise.token_generator.generate(User, :reset_password_token).last
     self.reset_password_token = token
     self.reset_password_sent_at = Time.now.utc
-    save
+    save!
   end
 
   def validate_reset_password_token

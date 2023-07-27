@@ -48,6 +48,26 @@ RSpec.describe User do
         end
       end
     end
+
+    describe '#password validations' do
+      it 'is valid with a complex password' do
+        user = build(:user, password: 'Password123!', password_confirmation: 'Password123!')
+        expect(user).to be_valid
+      end
+
+      it 'is invalid with a weak password' do
+        user = build(:user, password: 'weakpassword', password_confirmation: 'weakpassword')
+        expect(user).not_to be_valid
+        msg = 'must include at least one lowercase letter, one uppercase letter, one digit, and one special character'
+        expect(user.errors[:password]).to include(msg)
+      end
+
+      it 'is invalid when password and password_confirmation do not match' do
+        user = build(:user, password: 'Password123!', password_confirmation: 'Mismatched123!')
+        expect(user).not_to be_valid
+        expect(user.errors[:password_confirmation]).to include("doesn't match Password")
+      end
+    end
   end
 
   describe 'associations' do

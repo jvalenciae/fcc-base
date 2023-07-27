@@ -41,3 +41,6 @@ en:
       user: "You are not authorized to access this user."
     update:
       user: "You are not authorized to update this user."
+  user:
+    errors:
+      weak_password: 'must include at least one lowercase letter, one uppercase letter, one digit, and one special character'

@@ -10,3 +10,6 @@ es:
         user: "No estás autorizado para acceder a ese usuario."
       update:
         user: "No estás autorizado para actualizar ese usuario."
+  user:
+    errors:
+      weak_password: 'debe contener por lo menos una letra minúscula, una mayúscula, un número y un carácter especial'
