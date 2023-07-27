@@ -20,5 +20,10 @@ module FccSimeon2Api
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    # Load my own middleware
+    Dir[Rails.root.join('lib/middleware/*.{rb}')].sort.each { |file| require file }
+
+    # Add own middleware for catching errors
+    config.middleware.use Middleware::CatchRackErrors
   end
 end

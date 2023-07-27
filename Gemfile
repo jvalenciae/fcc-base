@@ -65,6 +65,9 @@ gem 'active_model_serializers', '~> 0.10.0'
 # Authentication
 gem 'devise'
 gem 'devise-i18n'
+gem 'devise-jwt'
+gem 'jsonapi-serializer'
+gem 'rack-cors'
 
 gem 'newrelic_rpm'
 # Permissions

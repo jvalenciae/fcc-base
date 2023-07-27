@@ -80,6 +80,9 @@ Metrics/BlockLength:
   Exclude:
     - spec/**/*_spec.rb
 
+Metrics/MethodLength:
+  Max: 15
+
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
 
@@ -87,4 +90,7 @@ RSpec/MultipleExpectations:
   Enabled: false
 
 RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/NestedGroups:
   Enabled: false
