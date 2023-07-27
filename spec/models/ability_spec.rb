@@ -8,7 +8,7 @@ RSpec.describe Ability do
 
   let(:user) { create(:user) }
   let(:organization) { create(:organization) }
-  let(:branch) { create(:branch, organization: organization) }
+  let(:branch) { create(:branch, organizations: [organization]) }
 
   context 'when user is a super admin' do
     let(:user) { create(:user, :super_admin) }

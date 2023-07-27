@@ -8,8 +8,8 @@ RSpec.describe 'Branches' do
       let(:user) { create(:user) }
       let(:organization) { create(:organization) }
 
-      let!(:first_branch) { create(:branch, organization: organization) }
-      let!(:second_branch) { create(:branch, organization: organization) }
+      let!(:first_branch) { create(:branch, organizations: [organization]) }
+      let!(:second_branch) { create(:branch, organizations: [organization]) }
 
       it 'returns a list of branches for the specified organization' do
         get '/api/v1/branches', params: { organization_id: organization.id }, headers: authenticated_header(user)
@@ -19,10 +19,14 @@ RSpec.describe 'Branches' do
           [
             { 'id' => first_branch.id, 'name' => first_branch.name, 'country' => first_branch.country,
               'city' => first_branch.city, 'address' => first_branch.address,
-              'phone_number' => first_branch.phone_number, 'organization_id' => first_branch.organization_id },
+              'phone_number' => first_branch.phone_number,
+              'organizations' => [{ 'id' => organization.id, 'name' => organization.name,
+                                    'country' => organization.country }] },
             { 'id' => second_branch.id, 'name' => second_branch.name, 'country' => second_branch.country,
               'city' => second_branch.city, 'address' => second_branch.address,
-              'phone_number' => second_branch.phone_number, 'organization_id' => second_branch.organization_id }
+              'phone_number' => second_branch.phone_number,
+              'organizations' => [{ 'id' => organization.id, 'name' => organization.name,
+                                    'country' => organization.country }] }
           ]
         )
       end

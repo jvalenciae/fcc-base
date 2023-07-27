@@ -10,6 +10,44 @@ RSpec.describe User do
     it { is_expected.to validate_presence_of(:phone_number) }
     it { is_expected.to validate_presence_of(:country) }
     it { is_expected.to validate_presence_of(:role) }
+
+    describe '#validate_branches_belongs_to_organizations' do
+      let(:user) { create(:user) }
+      let(:organization) { create(:organization) }
+      let(:valid_branch) { create(:branch, organizations: [organization]) }
+      let(:invalid_branch) { create(:branch) }
+
+      context 'when all branches belong to user organizations' do
+        before do
+          user.organizations << organization
+          user.branches << valid_branch
+        end
+
+        it 'does not add errors' do
+          user.valid?
+          expect(user.errors[:branches]).to be_empty
+        end
+      end
+
+      context 'when some branches do not belong to user organizations' do
+        before do
+          user.organizations << organization
+          user.branches << invalid_branch
+        end
+
+        it 'adds an error message' do
+          user.valid?
+          expect(user.errors[:branches]).to include("Some branches don't belong to user's organizations")
+        end
+      end
+
+      context 'when user has no branches' do
+        it 'does not add errors' do
+          user.valid?
+          expect(user.errors[:branches]).to be_empty
+        end
+      end
+    end
   end
 
   describe 'associations' do
@@ -86,6 +124,62 @@ RSpec.describe User do
     it 'returns false if the role is not a member' do
       user.role = User::ADMIN_ROLES.keys.first
       expect(user.member?).to be(false)
+    end
+  end
+
+  describe '#generate_reset_password_token' do
+    let(:user) { create(:user) }
+
+    before do
+      allow(Devise.token_generator).to receive(:generate).and_return(%w[raw hashed])
+      user.generate_reset_password_token
+    end
+
+    it 'generates a reset password token' do
+      expect(user.reset_password_token).to eq('hashed')
+    end
+
+    it 'sets the reset password sent time' do
+      expect(user.reset_password_sent_at).not_to be_nil
+    end
+  end
+
+  describe '#validate_reset_password_token' do
+    let(:user) { build(:user) }
+
+    context 'when the reset password token is present and valid' do
+      before do
+        user.reset_password_token = 'valid_token'
+        allow(user).to receive(:reset_password_period_valid?).and_return(true)
+        user.validate_reset_password_token
+      end
+
+      it 'does not add an error' do
+        expect(user.errors[:reset_password_token]).to be_empty
+      end
+    end
+
+    context 'when the reset password token is present but expired' do
+      before do
+        user.reset_password_token = 'expired_token'
+        allow(user).to receive(:reset_password_period_valid?).and_return(false)
+        user.validate_reset_password_token
+      end
+
+      it 'adds an error' do
+        expect(user.errors[:reset_password_token]).to include('has expired')
+      end
+    end
+
+    context 'when the reset password token is not present' do
+      before do
+        user.reset_password_token = nil
+        user.validate_reset_password_token
+      end
+
+      it 'does not add an error' do
+        expect(user.errors[:reset_password_token]).to include('not present')
+      end
     end
   end
 end

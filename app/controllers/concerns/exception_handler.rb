@@ -18,6 +18,7 @@ module ExceptionHandler
     rescue_from(ActiveModel::ForbiddenAttributesError) do |err|
       handle_active_model_forbidden_attributes_error(err)
     end
+    rescue_from(CanCan::AccessDenied) { |err| handle_access_denied_error(err) }
     rescue_from(JWT::ExpiredSignature) { |err| handle_jwt_expired_signature_error(err) }
     rescue_from(JWT::VerificationError) { |err| handle_jwt_verification_error(err) }
   end

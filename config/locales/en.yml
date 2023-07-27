@@ -30,4 +30,14 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  mailer:
+    user:
+      password_reset: 'Set up your password'
+  unauthorized:
+    default: "Error"
+    create:
+      user: "You are not authorized to create this user."
+    read:
+      user: "You are not authorized to access this user."
+    update:
+      user: "You are not authorized to update this user."

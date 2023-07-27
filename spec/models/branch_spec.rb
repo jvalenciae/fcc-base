@@ -17,7 +17,8 @@ RSpec.describe Branch do
 
   describe 'associations' do
     it 'validates associations' do
-      expect(branch).to belong_to(:organization)
+      expect(branch).to have_many(:organization_branches).dependent(:destroy)
+      expect(branch).to have_many(:organizations).through(:organization_branches)
       expect(branch).to have_many(:user_branches).dependent(:destroy)
       expect(branch).to have_many(:users).through(:user_branches)
     end
@@ -26,7 +27,7 @@ RSpec.describe Branch do
   describe 'scopes' do
     let!(:org) { create(:organization) }
     let!(:branch) { create(:branch) }
-    let!(:org_branches) { create_list(:branch, 3, organization: org) }
+    let!(:org_branches) { create_list(:branch, 3, organizations: [org]) }
 
     describe '::by_organizations' do
       it 'finds branches by given organizations' do

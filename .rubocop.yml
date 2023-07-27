@@ -75,7 +75,10 @@ Style/ReturnNil:
 Style/RedundantFetchBlock:
   Enabled: false
 
-# Rspec
+Style/RaiseArgs:
+  EnforcedStyle: compact
+
+# Metrics
 Metrics/BlockLength:
   Exclude:
     - spec/**/*_spec.rb
@@ -83,6 +86,7 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Max: 15
 
+# Rspec
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
 

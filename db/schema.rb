@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_14_203901) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_26_120303) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,16 +48,23 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_14_203901) do
     t.string "city"
     t.string "address"
     t.string "phone_number"
-    t.bigint "organization_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["organization_id"], name: "index_branches_on_organization_id"
   end
 
   create_table "jwt_denylist", force: :cascade do |t|
     t.string "jti", null: false
     t.datetime "exp", null: false
     t.index ["jti"], name: "index_jwt_denylist_on_jti"
+  end
+
+  create_table "organization_branches", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.bigint "branch_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["branch_id"], name: "index_organization_branches_on_branch_id"
+    t.index ["organization_id"], name: "index_organization_branches_on_organization_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -110,7 +117,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_14_203901) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "branches", "organizations"
+  add_foreign_key "organization_branches", "branches"
+  add_foreign_key "organization_branches", "organizations"
   add_foreign_key "user_branches", "branches"
   add_foreign_key "user_branches", "users"
   add_foreign_key "user_organizations", "organizations"

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   devise_for :users, path: '',
                      controllers: {
+                       passwords: 'api/v1/auth/passwords',
                        sessions: 'api/v1/auth/sessions'
                      }, defaults: { format: :json }
 
@@ -19,6 +20,8 @@ Rails.application.routes.draw do
           post '/sign_in', to: 'sessions#create'
           delete '/sign_out', to: 'sessions#destroy'
         end
+
+        resources :passwords, only: %i[create update]
       end
 
       resources :countries, only: %i[index]
@@ -28,6 +31,8 @@ Rails.application.routes.draw do
       resources :organizations, only: %i[index]
 
       resources :branches, only: %i[index]
+
+      resources :users, only: %i[create]
     end
   end
 end

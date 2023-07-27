@@ -51,7 +51,7 @@ class Ability
         { user_organizations: { organization_id: user.organization_ids }, role: User::MEMBER_ROLES.keys }
     can :read, User, { user_organizations: { organization_id: user.organization_ids } }
     can :manage, Organization, { user_organizations: { organization_id: user.organization_ids } }
-    can :manage, Branch, organization_id: user.organization_ids
+    can :manage, Branch, { organization_branches: { organization_id: user.organization_ids } }
   end
 
   def define_member_abilities(user)

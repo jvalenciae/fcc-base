@@ -56,6 +56,10 @@ module ErrorResponses
     render_error_response(err, err&.message, :forbidden, 'forbidden_error')
   end
 
+  def handle_access_denied_error(err = 'Forbidden action')
+    render_error_response(err, err&.message, :unauthorized, 'unauthorized_error')
+  end
+
   def handle_jwt_expired_signature_error(err = 'Signature has expired')
     render_error_response(err, err&.message, :unauthorized, 'unauthorized_error')
   end

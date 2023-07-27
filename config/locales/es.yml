@@ -1,0 +1,12 @@
+es:
+  mailer:
+    user:
+      password_reset: 'Configura tu contraseña'
+  unauthorized:
+      default: "Error"
+      create:
+        user: "No estás autorizado para crear ese usuario."
+      read:
+        user: "No estás autorizado para acceder a ese usuario."
+      update:
+        user: "No estás autorizado para actualizar ese usuario."
