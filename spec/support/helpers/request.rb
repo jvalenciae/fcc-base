@@ -11,17 +11,12 @@ module Request
     def parse_json(response = nil)
       raise 'No response' if response.blank?
 
-      if response.body.blank?
-        {}
-      else
-        parsed = JSON.parse(response.body)
+      return {} if response.body.blank?
 
-        if parsed.is_a?(Hash)
-          parsed.with_indifferent_access
-        else
-          parsed
-        end
-      end
+      parsed = JSON.parse(response.body)
+      return parsed.with_indifferent_access if parsed.is_a?(Hash)
+
+      parsed
     end
   end
 end

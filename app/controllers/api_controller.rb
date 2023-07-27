@@ -15,10 +15,7 @@ class ApiController < ApplicationController
   end
 
   def render_response(data: nil, status_code: :ok, serializer: nil, meta: nil, serializer_params: {})
-    if status_code == :no_content
-      render_no_content
-      return
-    end
+    render_no_content and return if status_code == :no_content
 
     if serializer.present?
       if data.respond_to?(:each)

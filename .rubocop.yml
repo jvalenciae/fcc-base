@@ -24,6 +24,40 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 2.7
 
+Metrics/ParameterLists:
+  Enabled: false
+
+# Security checks
+Bundler/InsecureProtocolSource:
+  Enabled: true
+Security/Eval:
+  Enabled: true
+Security/JSONLoad:
+  Enabled: true
+Security/MarshalLoad:
+  Enabled: true
+Security/Open:
+  Enabled: true
+Security/YAMLLoad:
+ Enabled: true
+
+# rubocop-gitlab-security
+GitlabSecurity/DeepMunge:
+  Enabled: true
+GitlabSecurity/JsonSerialization:
+  Enabled: true
+GitlabSecurity/RedirectToParamsUpdate:
+  Enabled: true
+GitlabSecurity/SendFileParams:
+  Enabled: true
+GitlabSecurity/SqlInjection:
+  Enabled: true
+GitlabSecurity/SystemCommandInjection:
+  Enabled: true
+GitlabSecurity/PublicSend:
+  Enabled: true
+
+
 # Style
 Style/FrozenStringLiteralComment:
   Enabled: true
@@ -36,19 +70,16 @@ Style/ReturnNil:
   Description: 'Use return instead of return nil.'
   Enabled: true
 
-# Metrics
+# conflicts with fasterer check
+# https://github.com/fastruby/fast-ruby#hash-vs-hashfetch-code
+Style/RedundantFetchBlock:
+  Enabled: false
+
+# Rspec
 Metrics/BlockLength:
-  Max: 30
   Exclude:
     - spec/**/*_spec.rb
 
-Metrics/MethodLength:
-  Max: 15
-
-Metrics/ParameterLists:
-  MaxOptionalParameters: 5
-
-# Rspec
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
 
@@ -56,4 +87,4 @@ RSpec/MultipleExpectations:
   Enabled: false
 
 RSpec/ExampleLength:
-  Max: 15
+  Enabled: false

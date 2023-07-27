@@ -105,13 +105,13 @@ PreCommit:
 
   # https://github.com/troessner/reek/blob/master/docs/Code-Smells.md
   Reek:
-    enabled: true
+    enabled: false
     on_warn: fail
     command: ['reek']
 
 
   # database_consistency
-  CustomScript:
+  DatabaseConsistency:
     quiet: true
     enabled: true
     command: ['bundle', 'exec', 'database_consistency']

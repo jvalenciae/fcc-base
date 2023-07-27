@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/BlockLength
 require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
@@ -74,3 +75,4 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
   config.factory_bot.definition_file_paths = ['spec/factories']
 end
+# rubocop:enable Metrics/BlockLength

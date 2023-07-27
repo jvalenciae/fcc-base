@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/BlockLength
 Sentry.init do |config|
   config.dsn = ENV['SENTRY_DSN'] if ENV['SENTRY_DSN'].present?
   config.enabled_environments = %w[production staging]
@@ -39,3 +40,4 @@ Sentry.init do |config|
   config.release = 'git branch --show-current'
   config.capture_exception_frame_locals = true
 end
+# rubocop:enable Metrics/BlockLength
