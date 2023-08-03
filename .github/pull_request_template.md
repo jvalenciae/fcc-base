@@ -30,11 +30,11 @@ N/A
 ### Environment variables Changes
 [Describe the enviariables and or secrets that need to be added to the environments before or after the changes are deployed]: text
 [Provide the values of the vars unless the data is private]: text
-* [ ] Add the new env variable `USER_ACTIVE_SCOPE=true` 
+* [ ] Add the new env variable `USER_ACTIVE_SCOPE=true`
 
 ### Non-Code Changes
 [Describe tasks that need to be run when the changes these changes are deployed to specific environments]: text
-* Run data migration to update inactive users's deleted_at 
+* Run data migration to update inactive users's deleted_at
 
 ### Other Notes
 

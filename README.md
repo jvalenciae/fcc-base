@@ -3,7 +3,7 @@
 
 ## Overview
 
-This Repository should serve as a template for the default github configurations for Rails apps 
+This Repository should serve as a template for the default github configurations for Rails apps
 
 ## Getting Started
 

@@ -5,12 +5,16 @@ es:
   unauthorized:
       default: "Error"
       create:
+        organization: "No estás autorizado para crear esa organización."
         user: "No estás autorizado para crear ese usuario."
       destroy:
+        organization: "No estás autorizado para borrar esa organización."
         user: "No estás autorizado para borrar ese usuario."
       read:
-        user: "No estás autorizado para acceder a ese usuario."
+        organization: "No estás autorizado para acceder esa organización."
+        user: "No estás autorizado para acceder ese usuario."
       update:
+        organization: "No estás autorizado para actualizar esa organización."
         user: "No estás autorizado para actualizar ese usuario."
   user:
     errors:

@@ -36,12 +36,16 @@ en:
   unauthorized:
     default: "Error"
     create:
+      organization: "You are not authorized to create this organization."
       user: "You are not authorized to create this user."
     destroy:
+      organization: "You are not authorized to delete this organization."
       user: "You are not authorized to delete this user."
     read:
+      organization: "You are not authorized to access this organization."
       user: "You are not authorized to access this user."
     update:
+      organization: "You are not authorized to update this organization."
       user: "You are not authorized to update this user."
   user:
     errors:

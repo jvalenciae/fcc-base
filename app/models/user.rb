@@ -17,6 +17,8 @@ class User < ApplicationRecord
               message: I18n.t('user.errors.weak_password')
             }, allow_blank: true
 
+  validates :reset_password_token, uniqueness: true, allow_nil: true
+
   has_many :user_organizations, dependent: :destroy
   has_many :organizations, through: :user_organizations
 

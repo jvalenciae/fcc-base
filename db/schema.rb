@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_26_120303) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_31_150224) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,11 +43,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_26_120303) do
   end
 
   create_table "branches", force: :cascade do |t|
-    t.string "name"
-    t.string "country"
-    t.string "city"
-    t.string "address"
-    t.string "phone_number"
+    t.string "name", null: false
+    t.string "country", null: false
+    t.string "city", null: false
+    t.string "address", null: false
+    t.string "phone_number", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -68,9 +68,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_26_120303) do
   end
 
   create_table "organizations", force: :cascade do |t|
-    t.string "name"
-    t.string "country"
-    t.string "report_id"
+    t.string "name", null: false
+    t.string "country", null: false
+    t.string "report_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -101,11 +101,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_26_120303) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "first_name"
-    t.string "last_name"
-    t.string "phone_number"
-    t.string "country"
-    t.integer "role"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "phone_number", null: false
+    t.string "country", null: false
+    t.integer "role", null: false
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"

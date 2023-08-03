@@ -28,7 +28,7 @@ workflows:
           filters:
             branches:
                 only:
-                  - develop # deploy to staging environment 
+                  - develop # deploy to staging environment
       - checking-rubocop:
           requires:
             - check-build
