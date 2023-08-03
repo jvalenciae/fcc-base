@@ -73,6 +73,10 @@ gem 'newrelic_rpm'
 # Permissions
 gem 'cancancan'
 
+# Endpoints Documentation
+gem 'rswag-api'
+gem 'rswag-ui'
+
 group :development, :test do
   gem 'dotenv-rails', '~> 2.7.0'
   gem 'goldiloader'
