@@ -20,7 +20,7 @@ RSpec.describe 'Sessions' do
         expect(user_data[:email]).to eq(user.email)
         expect(user_data[:first_name]).to eq(user.first_name)
         expect(user_data[:last_name]).to eq(user.last_name)
-        expect(user_data[:country]).to eq(user.country)
+        expect(user_data[:country]).to eq({ 'code' => 'CO', 'name' => 'Colombia' })
         expect(user_data[:role]).to eq(user.role)
       end
     end

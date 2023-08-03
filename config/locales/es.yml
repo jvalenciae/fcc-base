@@ -6,6 +6,8 @@ es:
       default: "Error"
       create:
         user: "No estás autorizado para crear ese usuario."
+      destroy:
+        user: "No estás autorizado para borrar ese usuario."
       read:
         user: "No estás autorizado para acceder a ese usuario."
       update:

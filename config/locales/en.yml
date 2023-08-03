@@ -37,6 +37,8 @@ en:
     default: "Error"
     create:
       user: "You are not authorized to create this user."
+    destroy:
+      user: "You are not authorized to delete this user."
     read:
       user: "You are not authorized to access this user."
     update:

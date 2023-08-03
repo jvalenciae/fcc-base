@@ -17,13 +17,13 @@ RSpec.describe 'Branches' do
         expect(response).to have_http_status(:success)
         expect(json_response[:data]).to eq(
           [
-            { 'id' => first_branch.id, 'name' => first_branch.name, 'country' => first_branch.country,
-              'city' => first_branch.city, 'address' => first_branch.address,
+            { 'id' => first_branch.id, 'name' => first_branch.name, 'city' => first_branch.city,
+              'country' => { 'code' => 'CO', 'name' => 'Colombia' }, 'address' => first_branch.address,
               'phone_number' => first_branch.phone_number,
               'organizations' => [{ 'id' => organization.id, 'name' => organization.name,
                                     'country' => organization.country }] },
-            { 'id' => second_branch.id, 'name' => second_branch.name, 'country' => second_branch.country,
-              'city' => second_branch.city, 'address' => second_branch.address,
+            { 'id' => second_branch.id, 'name' => second_branch.name, 'city' => second_branch.city,
+              'country' => { 'code' => 'CO', 'name' => 'Colombia' }, 'address' => second_branch.address,
               'phone_number' => second_branch.phone_number,
               'organizations' => [{ 'id' => organization.id, 'name' => organization.name,
                                     'country' => organization.country }] }

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :email, :first_name, :last_name, :country, :role
+  attributes :id, :email, :first_name, :last_name, :country, :role, :last_sign_in_at
 
   has_many :organizations
 
@@ -28,5 +28,16 @@ class UserSerializer < ActiveModel::Serializer
         phone_number: branch.phone_number
       }
     end
+  end
+
+  def country
+    {
+      code: object.country,
+      name: CS.countries[object.country.to_sym]
+    }
+  end
+
+  def last_sign_in_at
+    object.last_sign_in_at&.strftime('%Y-%m-%d: %H:%M %Z')
   end
 end

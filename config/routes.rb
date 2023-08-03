@@ -32,7 +32,7 @@ Rails.application.routes.draw do
 
       resources :branches, only: %i[index]
 
-      resources :users, only: %i[create]
+      resources :users, only: %i[index show create update destroy]
     end
   end
 end

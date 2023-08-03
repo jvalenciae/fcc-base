@@ -14,4 +14,11 @@ class BranchSerializer < ActiveModel::Serializer
       }
     end
   end
+
+  def country
+    {
+      code: object.country,
+      name: CS.countries[object.country.to_sym]
+    }
+  end
 end

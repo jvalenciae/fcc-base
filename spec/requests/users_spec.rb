@@ -42,7 +42,7 @@ RSpec.describe 'Users' do
           'first_name' => 'John',
           'last_name' => 'Doe',
           'email' => 'john.doe@example.com',
-          'country' => 'CO',
+          'country' => { 'code' => 'CO', 'name' => 'Colombia' },
           'role' => 'trainer'
         )
       end
@@ -80,6 +80,110 @@ RSpec.describe 'Users' do
       it 'returns the error messages' do
         post '/api/v1/users', params: user_params, headers: authenticated_header(admin_user)
         expect(json_response['errors']).not_to be_empty
+      end
+    end
+  end
+
+  describe 'GET #index' do
+    let!(:super_admin) { create(:user, :super_admin) }
+    let(:organization) { create(:organization) }
+    let!(:admin) { create(:user, :admin, organizations: [organization]) }
+    let!(:trainer) { create(:user) }
+
+    context 'when user is super_admin' do
+      it 'returns a list of users' do
+        get '/api/v1/users', headers: authenticated_header(super_admin)
+        expect(response).to have_http_status(:success)
+        expect(json_response[:data].length).to eq(User.count)
+      end
+    end
+
+    context 'when user is an admin' do
+      before do
+        create(:user, organizations: [organization])
+      end
+
+      it 'returns users that are in the same organizations' do
+        get '/api/v1/users', headers: authenticated_header(admin)
+        expect(response).to have_http_status(:success)
+        expect(json_response[:data].length).to eq(2)
+      end
+    end
+
+    context 'when user is a member' do
+      it 'only returns itself' do
+        get '/api/v1/users', headers: authenticated_header(trainer)
+        expect(response).to have_http_status(:success)
+        expect(json_response[:data].length).to eq(1)
+      end
+    end
+  end
+
+  describe 'GET #show' do
+    let!(:super_admin) { create(:user, :super_admin, id: 9999) }
+    let!(:user) { create(:user, id: 1234) }
+
+    context 'when user have permissions' do
+      it 'returns the details of a user' do
+        get '/api/v1/users/1234', headers: authenticated_header(super_admin)
+        expect(response).to have_http_status(:success)
+        expect(json_response[:data][:id]).to eq(user.id)
+        expect(json_response[:data][:email]).to eq(user.email)
+        expect(json_response[:data][:role]).to eq(user.role)
+      end
+    end
+
+    context 'when user does not have permissions' do
+      it 'gives unauthorized' do
+        get '/api/v1/users/9999', headers: authenticated_header(user)
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+  end
+
+  describe 'PUT #update' do
+    let!(:super_admin) { create(:user, :super_admin, id: 9999) }
+    let!(:user) { create(:user, id: 1234) }
+    let(:user_params) do
+      {
+        user: {
+          first_name: 'New_Name'
+        }
+      }
+    end
+
+    context 'when user have permissions' do
+      it 'updates the user' do
+        put '/api/v1/users/1234', params: user_params, headers: authenticated_header(super_admin)
+        expect(response).to have_http_status(:success)
+        expect(json_response[:data][:first_name]).to eq(user_params[:user][:first_name])
+      end
+    end
+
+    context 'when user does not have permissions' do
+      it 'gives unauthorized' do
+        put '/api/v1/users/9999', params: user_params, headers: authenticated_header(user)
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    let!(:super_admin) { create(:user, :super_admin, id: 9999) }
+    let!(:user) { create(:user, id: 1234) }
+
+    context 'when user have permissions' do
+      it 'deletes the user' do
+        delete '/api/v1/users/1234', headers: authenticated_header(super_admin)
+        expect(response).to have_http_status(:success)
+        expect(json_response[:message]).to eq('User successfully deleted.')
+      end
+    end
+
+    context 'when user does not have permissions' do
+      it 'gives unauthorized' do
+        delete '/api/v1/users/9999', headers: authenticated_header(user)
+        expect(response).to have_http_status(:unauthorized)
       end
     end
   end

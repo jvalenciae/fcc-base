@@ -18,9 +18,9 @@ RSpec.describe 'Organizations' do
         expect(json_response[:data]).to eq(
           [
             { 'id' => first_organization.id, 'name' => first_organization.name,
-              'country' => first_organization.country, 'report_id' => first_organization.report_id },
+              'country' => { 'code' => 'CO', 'name' => 'Colombia' }, 'report_id' => first_organization.report_id },
             { 'id' => second_organization.id, 'name' => second_organization.name,
-              'country' => second_organization.country, 'report_id' => second_organization.report_id }
+              'country' => { 'code' => 'CO', 'name' => 'Colombia' }, 'report_id' => second_organization.report_id }
           ]
         )
       end
