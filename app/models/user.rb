@@ -43,6 +43,40 @@ class User < ApplicationRecord
 
   enum role: ROLES
 
+  include PgSearch::Model
+  pg_search_scope :search_by_q,
+                  against: %i[first_name last_name phone_number],
+                  using: {
+                    tsearch: { prefix: true }
+                  }, ignoring: :accents
+
+  scope :by_role, lambda { |role|
+    return all if role.blank?
+
+    case role
+    when 'super_admin'
+      where(role: SUPER_ADMIN_ROLES.keys)
+    when 'admin'
+      where(role: ADMIN_ROLES.keys)
+    when 'member'
+      where(role: MEMBER_ROLES.keys)
+    else
+      where(role: role)
+    end
+  }
+
+  scope :by_organization_ids, lambda { |organization_ids|
+    return all if organization_ids.blank?
+
+    joins(:organizations).where(organizations: { id: organization_ids }).distinct
+  }
+
+  scope :by_branch_ids, lambda { |branch_ids|
+    return all if branch_ids.blank?
+
+    joins(:branches).where(branches: { id: branch_ids }).distinct
+  }
+
   def super_admin?
     SUPER_ADMIN_ROLES.include?(role)
   end

@@ -322,4 +322,69 @@ describe 'Users API' do
       end
     end
   end
+
+  path '/api/v1/users/members' do
+    get 'Get members filtered by branch_ids and q' do
+      tags 'Users'
+      security [bearerAuth: []]
+
+      produces 'application/json'
+      parameter name: 'branch_ids[]', in: :query, style: :form, explode: true, schema: {
+        type: :array,
+        items: { type: :integer }
+      }, description: 'An array of branch IDs to filter members by', required: false
+      parameter name: :q, in: :query, type: :string,
+                description: 'A query string to search for members by first name, last name, or phone number',
+                required: false
+
+      response '200', 'OK' do
+        schema type: :object,
+               properties: {
+                 status: { type: :string },
+                 data: {
+                   type: :object,
+                   properties: {
+                     id: { type: :integer },
+                     email: { type: :string },
+                     first_name: { type: :string },
+                     last_name: { type: :string },
+                     phone_number: { type: :string },
+                     role: { type: :string },
+                     groups_in_charge: { type: :integer },
+                     students_in_change: { type: :integer }
+                   }
+                 },
+                 meta: { type: :object }
+               }
+
+        xit
+      end
+    end
+  end
+
+  path '/api/v1/users/roles' do
+    get 'Get a list of user roles' do
+      tags 'Users'
+      security [bearerAuth: []]
+
+      produces 'application/json'
+      response '200', 'OK' do
+        schema type: :object,
+               properties: {
+                 status: { type: :string },
+                 data: {
+                   type: :object,
+                   properties: {
+                     super_admin: { type: :array, items: { type: :string } },
+                     admin: { type: :array, items: { type: :string } },
+                     member: { type: :array, items: { type: :string } }
+                   }
+                 },
+                 meta: { type: :object }
+               }
+
+        xit
+      end
+    end
+  end
 end

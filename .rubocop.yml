@@ -82,6 +82,7 @@ Style/RaiseArgs:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*_spec.rb
+    - config/routes.rb
 
 Metrics/MethodLength:
   Max: 15

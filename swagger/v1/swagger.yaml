@@ -9,7 +9,13 @@ paths:
       summary: Create password reset token
       tags:
       - Authentication
-      parameters: []
+      parameters:
+      - name: email
+        in: query
+        description: User email
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: OK
@@ -20,13 +26,6 @@ paths:
                 properties:
                   token:
                     type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: string
-        required: true
-        description: User email
     put:
       summary: Update password
       tags:
@@ -35,6 +34,18 @@ paths:
       - name: token
         in: query
         description: Password reset token received in the email
+        required: true
+        schema:
+          type: string
+      - name: password
+        in: query
+        description: New password
+        required: true
+        schema:
+          type: string
+      - name: password_confirmation
+        in: query
+        description: Password confirmation
         required: true
         schema:
           type: string
@@ -50,13 +61,6 @@ paths:
                     type: string
                   message:
                     type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: string
-        required: true
-        description: New password
   "/api/v1/auth/sign_in":
     post:
       summary: Sign in
@@ -771,6 +775,96 @@ paths:
                 properties:
                   message:
                     type: string
+  "/api/v1/users/members":
+    get:
+      summary: Get members filtered by branch_ids and q
+      tags:
+      - Users
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: branch_ids[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+        description: An array of branch IDs to filter members by
+        required: false
+      - name: q
+        in: query
+        description: A query string to search for members by first name, last name,
+          or phone number
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      email:
+                        type: string
+                      first_name:
+                        type: string
+                      last_name:
+                        type: string
+                      phone_number:
+                        type: string
+                      role:
+                        type: string
+                      groups_in_charge:
+                        type: integer
+                      students_in_change:
+                        type: integer
+                  meta:
+                    type: object
+  "/api/v1/users/roles":
+    get:
+      summary: Get a list of user roles
+      tags:
+      - Users
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      super_admin:
+                        type: array
+                        items:
+                          type: string
+                      admin:
+                        type: array
+                        items:
+                          type: string
+                      member:
+                        type: array
+                        items:
+                          type: string
+                  meta:
+                    type: object
 components:
   securitySchemes:
     bearerAuth:

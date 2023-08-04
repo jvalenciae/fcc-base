@@ -34,7 +34,12 @@ Rails.application.routes.draw do
 
       resources :branches, only: %i[index]
 
-      resources :users, only: %i[index show create update destroy]
+      resources :users, only: %i[index show create update destroy] do
+        collection do
+          get 'members', to: 'users#members'
+          get 'roles', to: 'users#roles'
+        end
+      end
     end
   end
 end

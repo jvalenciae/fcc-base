@@ -12,6 +12,6 @@ class Branch < ApplicationRecord
   scope :by_organization_ids, lambda { |organization_ids|
     return all if organization_ids.blank?
 
-    joins(:organizations).where(organizations: { id: organization_ids })
+    joins(:organizations).where(organizations: { id: organization_ids }).distinct
   }
 end

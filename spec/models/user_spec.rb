@@ -108,6 +108,88 @@ RSpec.describe User do
     }
   end
 
+  describe 'scopes' do
+    describe '.search_by_q' do
+      # rubocop:disable RSpec/IndexedLet
+      let!(:user1) { create(:user, first_name: 'John', last_name: 'Doe', phone_number: '12345') }
+      let!(:user2) { create(:user, first_name: 'Jane', last_name: 'Smith', phone_number: '67890') }
+      let!(:user3) { create(:user, first_name: 'Alice', last_name: 'Wonderland', phone_number: '55555') }
+      # rubocop:enable RSpec/IndexedLet
+
+      it 'returns users matching the query' do
+        expect(described_class.search_by_q('John')).to eq([user1])
+        expect(described_class.search_by_q('Smith')).to eq([user2])
+        expect(described_class.search_by_q('55555')).to eq([user3])
+      end
+
+      it 'ignores accents in the search' do
+        expect(described_class.search_by_q('Álice')).to eq([user3])
+      end
+    end
+
+    describe '.by_role' do
+      let!(:super_admin_user) { create(:user, :super_admin) }
+      let!(:admin_user) { create(:user, :admin) }
+      let!(:member_user) { create(:user) }
+
+      it 'returns users with the given role' do
+        expect(described_class.by_role('super_admin')).to eq([super_admin_user])
+        expect(described_class.by_role('admin')).to eq([admin_user])
+        expect(described_class.by_role('member')).to eq([member_user])
+      end
+
+      it 'returns all users when role is blank' do
+        expect(described_class.by_role('')).to eq([super_admin_user, admin_user, member_user])
+        expect(described_class.by_role(nil)).to eq([super_admin_user, admin_user, member_user])
+      end
+    end
+
+    describe '.by_organization_ids' do
+      # rubocop:disable RSpec/IndexedLet
+      let!(:organization1) { create(:organization) }
+      let!(:organization2) { create(:organization) }
+      let!(:user1) { create(:user, organizations: [organization1]) }
+      let!(:user2) { create(:user, organizations: [organization2]) }
+      let!(:user3) { create(:user, organizations: [organization1, organization2]) }
+      let!(:user4) { create(:user) }
+      # rubocop:enable RSpec/IndexedLet
+
+      it 'returns users belonging to the specified organizations' do
+        expect(described_class.by_organization_ids([organization1.id])).to eq([user1, user3])
+        expect(described_class.by_organization_ids([organization2.id])).to eq([user2, user3])
+        expect(described_class.by_organization_ids([organization1.id, organization2.id])).to eq([user1, user2, user3])
+      end
+
+      it 'returns all users when organization_ids is blank' do
+        expect(described_class.by_organization_ids([])).to eq([user1, user2, user3, user4])
+        expect(described_class.by_organization_ids(nil)).to eq([user1, user2, user3, user4])
+      end
+    end
+
+    describe '.by_branch_ids' do
+      # rubocop:disable RSpec/IndexedLet
+      let!(:organization) { create(:organization) }
+      let!(:branch1) { create(:branch, organizations: [organization]) }
+      let!(:branch2) { create(:branch, organizations: [organization]) }
+      let!(:user1) { create(:user, branches: [branch1], organizations: [organization]) }
+      let!(:user2) { create(:user, branches: [branch2], organizations: [organization]) }
+      let!(:user3) { create(:user, branches: [branch1, branch2], organizations: [organization]) }
+      let!(:user4) { create(:user) }
+      # rubocop:enable RSpec/IndexedLet
+
+      it 'returns users belonging to the specified branches' do
+        expect(described_class.by_branch_ids([branch1.id])).to eq([user1, user3])
+        expect(described_class.by_branch_ids([branch2.id])).to eq([user2, user3])
+        expect(described_class.by_branch_ids([branch1.id, branch2.id])).to eq([user1, user2, user3])
+      end
+
+      it 'returns all users when branch_ids is blank' do
+        expect(described_class.by_branch_ids([])).to eq([user1, user2, user3, user4])
+        expect(described_class.by_branch_ids(nil)).to eq([user1, user2, user3, user4])
+      end
+    end
+  end
+
   describe '#super_admin?' do
     let(:user) { build(:user, role: User::SUPER_ADMIN_ROLES.keys.first) }
 

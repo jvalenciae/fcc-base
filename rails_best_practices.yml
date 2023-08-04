@@ -23,7 +23,14 @@ ProtectMassAssignmentCheck: { }
 RemoveEmptyHelpersCheck: { }
 # RemoveTabCheck: { }
 # RemoveTrailingWhitespaceCheck: { }
-RemoveUnusedMethodsInControllersCheck: { except_methods: [] }
+RemoveUnusedMethodsInControllersCheck: {
+  except_methods: [
+    'Api::V1::UsersController#index',
+    'Api::V1::UsersController#create',
+    'Api::V1::UsersController#members',
+    'Api::V1::UsersController#roles'
+  ]
+}
 RemoveUnusedMethodsInHelpersCheck: { except_methods: [] }
 # RemoveUnusedMethodsInModelsCheck: { except_methods: [] }
 ReplaceComplexCreationWithFactoryMethodCheck: { attribute_assignment_count: 2 }

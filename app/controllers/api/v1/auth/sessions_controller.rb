@@ -14,7 +14,7 @@ module Api
           render json: {
             status: :ok,
             message: 'Logged in successfully.',
-            data: { user: UserSerializer.new(current_user) }
+            data: { user: Users::UserSerializer.new(current_user) }
           }, status: :ok
         end
 

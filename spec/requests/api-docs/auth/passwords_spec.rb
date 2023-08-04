@@ -9,7 +9,7 @@ describe 'Passwords API' do
 
       consumes 'application/json'
       produces 'application/json'
-      parameter name: :email, in: :body, type: :string, description: 'User email', required: true
+      parameter name: :email, in: :query, type: :string, description: 'User email', required: true
 
       response '200', 'OK' do
         schema type: :object,
@@ -30,9 +30,9 @@ describe 'Passwords API' do
       produces 'application/json'
       parameter name: :token, in: :query, type: :string,
                 description: 'Password reset token received in the email', required: true
-      parameter name: :password, in: :body, type: :string,
+      parameter name: :password, in: :query, type: :string,
                 description: 'New password', required: true
-      parameter name: :password_confirmation, in: :body, type: :string,
+      parameter name: :password_confirmation, in: :query, type: :string,
                 description: 'Password confirmation', required: true
 
       response '200', 'OK' do

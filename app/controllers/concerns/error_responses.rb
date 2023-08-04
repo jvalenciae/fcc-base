@@ -24,11 +24,11 @@ module ErrorResponses
     render_error_response(err, err&.message, :not_found, type: 'not_found_error')
   end
 
-  def handle_active_record_statement_invalid_error(_err)
+  def handle_active_record_statement_invalid_error(err)
     render_error_response(err, 'Invalid statement in field', :unprocessable_entity, 'invalid_statement_error')
   end
 
-  def handle_active_model_forbidden_attributes_error(_err)
+  def handle_active_model_forbidden_attributes_error(err)
     render_error_response(err, 'Forbidden attributes in record', :unprocessable_entity, 'forbidden_attribute_error')
   end
 
@@ -40,7 +40,7 @@ module ErrorResponses
     render_error_response(err, err&.message, :bad_request, 'routing_error')
   end
 
-  def handle_active_record_not_unique_error(_err)
+  def handle_active_record_not_unique_error(err)
     render_error_response(err, 'A record already exists', :bad_request, 'not_unique_error')
   end
 

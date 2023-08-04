@@ -187,4 +187,56 @@ RSpec.describe 'Users' do
       end
     end
   end
+
+  describe 'GET #members' do
+    let(:org) { create(:organization) }
+    let(:first_branch) { create(:branch, organizations: [org]) }
+    let(:second_branch) { create(:branch, organizations: [org]) }
+
+    let(:super_admin) { create(:user, :super_admin) }
+    let!(:user) { create(:user, branches: [first_branch], organizations: [org]) }
+
+    before do
+      create(:user, branches: [second_branch], organizations: [org])
+    end
+
+    it 'returns a successful response with members filtered by branch_ids and q' do
+      get '/api/v1/users/members', params: { branch_ids: [first_branch.id], q: user.first_name },
+                                   headers: authenticated_header(super_admin)
+
+      expect(response).to have_http_status(:ok)
+      expect(json_response[:data].size).to eq(1)
+      expect(json_response[:data][0][:id]).to eq(user.id)
+    end
+
+    it 'returns all members if branch_ids and q are blank' do
+      get '/api/v1/users/members', headers: authenticated_header(super_admin)
+
+      expect(response).to have_http_status(:ok)
+      expect(json_response[:data].size).to eq(2)
+    end
+
+    it 'returns an empty array if no members match the criteria' do
+      get '/api/v1/users/members', params: { branch_ids: [9999], q: 'nonexistent' },
+                                   headers: authenticated_header(super_admin)
+
+      expect(response).to have_http_status(:ok)
+      expect(json_response[:data]).to be_empty
+    end
+  end
+
+  describe 'GET #roles' do
+    let(:super_admin) { create(:user, :super_admin) }
+
+    it 'returns a list of user roles' do
+      get '/api/v1/users/roles', headers: authenticated_header(super_admin)
+      expect(response).to have_http_status(:ok)
+      expected_response = {
+        super_admin: User::SUPER_ADMIN_ROLES.keys,
+        admin: User::ADMIN_ROLES.keys,
+        member: User::MEMBER_ROLES.keys
+      }.with_indifferent_access
+      expect(json_response[:data]).to eq(expected_response)
+    end
+  end
 end
