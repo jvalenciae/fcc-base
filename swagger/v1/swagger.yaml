@@ -168,6 +168,293 @@ paths:
                     type: string
                   message:
                     type: string
+  "/api/v1/branches":
+    get:
+      summary: Retrieve list of branches
+      tags:
+      - Branches
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        country:
+                          type: object
+                          properties:
+                            code:
+                              type: string
+                            name:
+                              type: string
+                        city:
+                          type: string
+                        address:
+                          type: string
+                        phone_number:
+                          type: string
+                        organizations:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                              name:
+                                type: string
+                              country:
+                                type: object
+                                properties:
+                                  code:
+                                    type: string
+                                  name:
+                                    type: string
+                  meta:
+                    type: object
+    post:
+      summary: Create a new branch
+      tags:
+      - Branches
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      country:
+                        type: object
+                        properties:
+                          code:
+                            type: string
+                          name:
+                            type: string
+                      city:
+                        type: string
+                      address:
+                        type: string
+                      phone_number:
+                        type: string
+                      organizations:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            country:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                name:
+                                  type: string
+                  meta:
+                    type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                branch:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    country:
+                      type: string
+                    city:
+                      type: string
+                    address:
+                      type: string
+                    phone_number:
+                      type: string
+                    organization_ids:
+                      type: array
+                      items:
+                        type: integer
+                  required:
+                  - name
+                  - country
+                  - city
+                  - address
+                  - phone_number
+  "/api/v1/branches/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: Branch ID
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Retrieve a branch by ID
+      tags:
+      - Branches
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      country:
+                        type: object
+                        properties:
+                          code:
+                            type: string
+                          name:
+                            type: string
+                      city:
+                        type: string
+                      address:
+                        type: string
+                      phone_number:
+                        type: string
+                      organizations:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            country:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                name:
+                                  type: string
+                  meta:
+                    type: object
+    put:
+      summary: Update a branch by ID
+      tags:
+      - Branches
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      country:
+                        type: object
+                        properties:
+                          code:
+                            type: string
+                          name:
+                            type: string
+                      city:
+                        type: string
+                      address:
+                        type: string
+                      phone_number:
+                        type: string
+                      organizations:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            country:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                name:
+                                  type: string
+                  meta:
+                    type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                branch:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    country:
+                      type: string
+                    city:
+                      type: string
+                    address:
+                      type: string
+                    phone_number:
+                      type: string
+                    organization_ids:
+                      type: array
+                      items:
+                        type: integer
+                  required:
+                  - name
+                  - country
+                  - city
+                  - address
+                  - phone_number
   "/api/v1/cities":
     get:
       summary: Retrieve list of cities
@@ -252,7 +539,12 @@ paths:
                         name:
                           type: string
                         country:
-                          type: string
+                          type: object
+                          properties:
+                            code:
+                              type: string
+                            name:
+                              type: string
                         report_id:
                           type: string
                   meta:
@@ -282,7 +574,12 @@ paths:
                       name:
                         type: string
                       country:
-                        type: string
+                        type: object
+                        properties:
+                          code:
+                            type: string
+                          name:
+                            type: string
                       report_id:
                         type: string
                   meta:
@@ -338,7 +635,12 @@ paths:
                       name:
                         type: string
                       country:
-                        type: string
+                        type: object
+                        properties:
+                          code:
+                            type: string
+                          name:
+                            type: string
                       report_id:
                         type: string
                   meta:
@@ -368,7 +670,12 @@ paths:
                       name:
                         type: string
                       country:
-                        type: string
+                        type: object
+                        properties:
+                          code:
+                            type: string
+                          name:
+                            type: string
                       report_id:
                         type: string
                   meta:
@@ -439,7 +746,12 @@ paths:
                               name:
                                 type: string
                               country:
-                                type: string
+                                type: object
+                                properties:
+                                  code:
+                                    type: string
+                                  name:
+                                    type: string
                               report_id:
                                 type: string
                               branches:
@@ -452,7 +764,12 @@ paths:
                                     name:
                                       type: string
                                     country:
-                                      type: string
+                                      type: object
+                                      properties:
+                                        code:
+                                          type: string
+                                        name:
+                                          type: string
                                     city:
                                       type: string
                                     address:
@@ -510,7 +827,12 @@ paths:
                             name:
                               type: string
                             country:
-                              type: string
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                name:
+                                  type: string
                             report_id:
                               type: string
                             branches:
@@ -523,7 +845,12 @@ paths:
                                   name:
                                     type: string
                                   country:
-                                    type: string
+                                    type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                      name:
+                                        type: string
                                   city:
                                     type: string
                                   address:
@@ -629,7 +956,12 @@ paths:
                             name:
                               type: string
                             country:
-                              type: string
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                name:
+                                  type: string
                             report_id:
                               type: string
                             branches:
@@ -642,7 +974,12 @@ paths:
                                   name:
                                     type: string
                                   country:
-                                    type: string
+                                    type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                      name:
+                                        type: string
                                   city:
                                     type: string
                                   address:
@@ -700,7 +1037,12 @@ paths:
                             name:
                               type: string
                             country:
-                              type: string
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                name:
+                                  type: string
                             report_id:
                               type: string
                             branches:
@@ -713,7 +1055,12 @@ paths:
                                   name:
                                     type: string
                                   country:
-                                    type: string
+                                    type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                      name:
+                                        type: string
                                   city:
                                     type: string
                                   address:
@@ -740,7 +1087,12 @@ paths:
                     phone_number:
                       type: string
                     country:
-                      type: string
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                        name:
+                          type: string
                     role:
                       type: string
                     organization_ids:

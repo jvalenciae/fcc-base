@@ -54,7 +54,7 @@ RSpec.describe 'Organizations' do
     let!(:organization) { create(:organization, id: 123) }
 
     context 'when user have permissions' do
-      it 'returns the details of a user' do
+      it 'returns the details of an organization' do
         get '/api/v1/organizations/123', headers: authenticated_header(super_admin)
         expect(response).to have_http_status(:success)
         expect(json_response[:data][:id]).to eq(organization.id)
@@ -123,10 +123,10 @@ RSpec.describe 'Organizations' do
     context 'when the request is invalid' do
       before { organization_params[:organization][:name] = '' }
 
-      it 'does not create a new user' do
+      it 'does not create a new organization' do
         expect do
           post '/api/v1/organizations', params: organization_params, headers: authenticated_header(super_admin_user)
-        end.not_to change(User, :count)
+        end.not_to change(Organization, :count)
       end
 
       it 'returns an unprocessable entity response' do

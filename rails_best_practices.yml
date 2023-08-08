@@ -28,7 +28,9 @@ RemoveUnusedMethodsInControllersCheck: {
     'Api::V1::UsersController#index',
     'Api::V1::UsersController#create',
     'Api::V1::UsersController#members',
-    'Api::V1::UsersController#roles'
+    'Api::V1::UsersController#roles',
+    'Api::V1::BranchesController#create',
+    'Api::V1::BranchesController#index'
   ]
 }
 RemoveUnusedMethodsInHelpersCheck: { except_methods: [] }

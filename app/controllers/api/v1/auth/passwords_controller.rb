@@ -10,7 +10,7 @@ module Api
           user = User.find_by!(email: params[:email])
 
           user.generate_reset_password_token
-          UserMailer.password_reset_email(user).deliver_now
+          # UserMailer.password_reset_email(user).deliver_now
           render json: { token: user.reset_password_token }
         end
 

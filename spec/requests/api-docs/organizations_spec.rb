@@ -20,7 +20,13 @@ describe 'Organizations API' do
                      properties: {
                        id: { type: :integer },
                        name: { type: :string },
-                       country: { type: :string },
+                       country: {
+                         type: :object,
+                         properties: {
+                           code: { type: :string },
+                           name: { type: :string }
+                         }
+                       },
                        report_id: { type: :string }
                      }
                    }
@@ -62,7 +68,13 @@ describe 'Organizations API' do
                    properties: {
                      id: { type: :integer },
                      name: { type: :string },
-                     country: { type: :string },
+                     country: {
+                       type: :object,
+                       properties: {
+                         code: { type: :string },
+                         name: { type: :string }
+                       }
+                     },
                      report_id: { type: :string }
                    }
                  },
@@ -92,7 +104,13 @@ describe 'Organizations API' do
                    properties: {
                      id: { type: :integer },
                      name: { type: :string },
-                     country: { type: :string },
+                     country: {
+                       type: :object,
+                       properties: {
+                         code: { type: :string },
+                         name: { type: :string }
+                       }
+                     },
                      report_id: { type: :string }
                    }
                  },
@@ -132,7 +150,13 @@ describe 'Organizations API' do
                    properties: {
                      id: { type: :integer },
                      name: { type: :string },
-                     country: { type: :string },
+                     country: {
+                       type: :object,
+                       properties: {
+                         code: { type: :string },
+                         name: { type: :string }
+                       }
+                     },
                      report_id: { type: :string }
                    }
                  },
