@@ -70,6 +70,25 @@ RSpec.describe User do
     end
   end
 
+  describe 'callbacks' do
+    context 'when on: :create' do
+      it 'sets a random password if password is blank' do
+        user = build(:user, password: nil)
+        user.save
+
+        expect(user.password).not_to be_nil
+      end
+
+      it 'does not change the password if it is present' do
+        existing_password = 'Password123!'
+        user = build(:user, password: existing_password)
+        user.save
+
+        expect(user.password).to eq(existing_password)
+      end
+    end
+  end
+
   describe 'associations' do
     it { is_expected.to have_many(:user_organizations).dependent(:destroy) }
     it { is_expected.to have_many(:organizations).through(:user_organizations) }

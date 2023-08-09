@@ -9,6 +9,8 @@ class User < ApplicationRecord
   validates :first_name, :last_name, :email, :phone_number, :country, :role, presence: true
   validate :validate_branches_belongs_to_organizations
 
+  before_validation :set_random_password, on: :create
+
   PASSWORD_PATTERN = %r{\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-\=\[\]{}|\'"/\.,`<>:;?~])}.freeze
   validates :password,
             presence: true,
@@ -113,5 +115,9 @@ class User < ApplicationRecord
     return unless invalid_branches.any?
 
     errors.add(:branches, "Some branches don't belong to user's organizations")
+  end
+
+  def set_random_password
+    self.password = password.presence || "#{SecureRandom.base58(30)}!"
   end
 end
