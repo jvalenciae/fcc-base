@@ -80,6 +80,9 @@ gem 'rswag-ui'
 # Database Search
 gem 'pg_search'
 
+# Background Jobs
+gem 'sidekiq', '~> 6.5'
+
 group :development, :test do
   gem 'dotenv-rails', '~> 2.7.0'
   gem 'goldiloader'
