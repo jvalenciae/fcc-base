@@ -72,10 +72,30 @@ workflows:
             branches:
                 only:
                   - develop # deploy to staging environment
+      - aws-ecs/deploy-service-update:
+          name: update-service-sidekiq
+          context: fcc-simeon2-staging # create context in organization setting and replace <project_name> with his name
+          cluster-name: 'service-sidekiq' # Add these env-vars in context, ENV=staging and PROJECT=project_name_in_aws
+          container-image-name-updates: 'container=${ENV}-app-service-sidekiq,tag=app_service_be_${CIRCLE_SHA1:0:7}' # Add this env-var in context, ENV=staging
+          service-name: '${ENV}-app-service-sidekiq' # Add this env-var in context, ENV=staging
+          family: '${ENV}-app-service-sidekiq' # Add these env-vars in context, ENV=staging and PROJECT=project_name_in_aws
+          verify-revision-is-deployed: true
+          max-poll-attempts: 25
+          post-steps: # Create these envs-vars in project setting, SLACK_ACCESS_TOKEN and SLACK_DEFAULT_CHANNEL, https://github.com/CircleCI-Public/slack-orb/wiki/Setup
+            - slack/notify:
+                event: fail
+                template: basic_fail_1
+          requires:
+            - build-n-push-staging
+          filters:
+            branches:
+                only:
+                  - develop # deploy to staging environment
       - deploy-stg:
           context: fcc-simeon2-staging
           requires:
             - update-service
+            - update-service-sidekiq
           filters:
             branches:
               only:
