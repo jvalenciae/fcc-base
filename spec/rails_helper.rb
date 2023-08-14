@@ -66,4 +66,12 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
   config.include Request::JsonHelpers, type: :request
   config.include ApiHelper, type: :request
+
+  config.before do
+    allow(MailerService).to receive(:mail).and_return(202)
+    allow(UserMailer).to receive(:password_reset)
+      .and_return(instance_double(ActionMailer::MessageDelivery, deliver_later: true))
+    allow(UserMailer).to receive(:invitation)
+      .and_return(instance_double(ActionMailer::MessageDelivery, deliver_later: true))
+  end
 end

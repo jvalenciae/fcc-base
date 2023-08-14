@@ -10,6 +10,7 @@ class User < ApplicationRecord
   validate :validate_branches_belongs_to_organizations
 
   before_validation :set_random_password, on: :create
+  after_create :generate_custom_reset_password_token, if: :member?
 
   PASSWORD_PATTERN = %r{\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-\=\[\]{}|\'"/\.,`<>:;?~])}.freeze
   validates :password,
@@ -91,10 +92,10 @@ class User < ApplicationRecord
     MEMBER_ROLES.include?(role)
   end
 
-  def generate_reset_password_token
+  def generate_reset_password_token(expiration_duration: 0.days)
     token = Devise.token_generator.generate(User, :reset_password_token).last
     self.reset_password_token = token
-    self.reset_password_sent_at = Time.now.utc
+    self.reset_password_sent_at = expiration_duration.from_now.utc
     save!
   end
 
@@ -119,5 +120,9 @@ class User < ApplicationRecord
 
   def set_random_password
     self.password = password.presence || "#{SecureRandom.base58(30)}!"
+  end
+
+  def generate_custom_reset_password_token
+    generate_reset_password_token(expiration_duration: 7.days)
   end
 end

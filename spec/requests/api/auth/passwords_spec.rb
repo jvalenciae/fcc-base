@@ -13,16 +13,21 @@ RSpec.describe 'Passwords' do
         expect(user.reset_password_token).not_to be_nil
       end
 
-      # it 'sends a password reset email' do
-      #   expect do
-      #     post '/api/v1/auth/passwords', params: { email: user.email }
-      #   end.to change(ActionMailer::Base.deliveries, :count).by(1)
-      # end
-
-      it 'returns the reset password token' do
+      it 'sends a reset password email' do
         post '/api/v1/auth/passwords', params: { email: user.email }
         user.reload
-        expect(json_response['token']).to eq(user.reset_password_token)
+        expect(UserMailer).to have_received(:password_reset).with(user)
+      end
+
+      it 'returns a success response' do
+        post '/api/v1/auth/passwords', params: { email: user.email }
+        user.reload
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'returns a success message' do
+        post '/api/v1/auth/passwords', params: { email: user.email }
+        expect(json_response['message']).to eq('Reset password email sent')
       end
     end
 

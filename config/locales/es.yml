@@ -1,6 +1,7 @@
 es:
   mailer:
     user:
+      invitation: '¡Te han enviado una invitación!'
       password_reset: 'Configura tu contraseña'
   unauthorized:
       default: "Error"

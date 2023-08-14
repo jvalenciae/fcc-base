@@ -71,7 +71,7 @@ RSpec.describe User do
   end
 
   describe 'callbacks' do
-    context 'when on: :create' do
+    describe 'before_validation :set_random_password, on: :create' do
       it 'sets a random password if password is blank' do
         user = build(:user, password: nil)
         user.save
@@ -85,6 +85,30 @@ RSpec.describe User do
         user.save
 
         expect(user.password).to eq(existing_password)
+      end
+    end
+
+    describe 'after_create :generate_custom_reset_password_token' do
+      before do
+        allow(Devise.token_generator).to receive(:generate).and_return(%w[raw hashed])
+      end
+
+      context 'when user is a member' do
+        let(:member_user) { create(:user) }
+
+        it 'generates a reset password token with custom expiration' do
+          expect(member_user.reset_password_token).to eq('hashed')
+          expect(member_user.reset_password_sent_at).to be > Time.now.utc
+        end
+      end
+
+      context 'when user is not a member' do
+        let(:non_member_user) { create(:user, role: User::SUPER_ADMIN_ROLES.keys.first) }
+
+        it 'does not generate a reset password token' do
+          expect(non_member_user.reset_password_token).to be_nil
+          expect(non_member_user.reset_password_sent_at).to be_nil
+        end
       end
     end
   end

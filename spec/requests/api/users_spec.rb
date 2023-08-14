@@ -46,6 +46,12 @@ RSpec.describe 'Users' do
           'role' => 'trainer'
         )
       end
+
+      it 'sends an invitation email if the user is member' do
+        post '/api/v1/users', params: user_params, headers: authenticated_header(admin_user)
+        user = User.last
+        expect(UserMailer).to have_received(:invitation).with(user, admin_user)
+      end
     end
 
     context 'when the request is unauthorized' do

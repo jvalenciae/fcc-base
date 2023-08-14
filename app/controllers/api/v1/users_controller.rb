@@ -18,7 +18,10 @@ module Api
       def create
         @user = User.new(user_params)
         authorize!(:create, @user, message: I18n.t('unauthorized.create.user'))
-        render_response(data: @user, serializer: Users::UserSerializer) if @user.save!
+        return unless @user.save!
+
+        UserMailer.invitation(@user, current_user).deliver_later
+        render_response(data: @user, serializer: Users::UserSerializer)
       end
 
       def update

@@ -10,8 +10,11 @@ module Api
           user = User.find_by!(email: params[:email])
 
           user.generate_reset_password_token
-          # UserMailer.password_reset_email(user).deliver_now
-          render json: { token: user.reset_password_token }
+          UserMailer.password_reset(user).deliver_later
+          render json: {
+            status: :ok,
+            message: 'Reset password email sent'
+          }, status: :ok
         end
 
         def update

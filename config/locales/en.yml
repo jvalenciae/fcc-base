@@ -32,6 +32,7 @@
 en:
   mailer:
     user:
+      invitation: 'You have been sent an invitation!'
       password_reset: 'Set up your password'
   unauthorized:
     default: "Error"
