@@ -175,6 +175,17 @@ paths:
       - Branches
       security:
       - bearerAuth: []
+      parameters:
+      - name: page
+        in: query
+        description: Page number
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: How many records per page
+        schema:
+          type: integer
       responses:
         '200':
           description: OK
@@ -225,6 +236,15 @@ paths:
                                     type: string
                   meta:
                     type: object
+                    properties:
+                      total_pages:
+                        type: integer
+                      page_number:
+                        type: integer
+                      max_per_page:
+                        type: integer
+                      total_resources:
+                        type: integer
     post:
       summary: Create a new branch
       tags:
@@ -519,6 +539,17 @@ paths:
       - Organizations
       security:
       - bearerAuth: []
+      parameters:
+      - name: page
+        in: query
+        description: Page number
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: How many records per page
+        schema:
+          type: integer
       responses:
         '200':
           description: OK
@@ -549,6 +580,15 @@ paths:
                           type: string
                   meta:
                     type: object
+                    properties:
+                      total_pages:
+                        type: integer
+                      page_number:
+                        type: integer
+                      max_per_page:
+                        type: integer
+                      total_resources:
+                        type: integer
     post:
       summary: Create a new organization
       tags:
@@ -702,6 +742,17 @@ paths:
       - Users
       security:
       - bearerAuth: []
+      parameters:
+      - name: page
+        in: query
+        description: Page number
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: How many records per page
+        schema:
+          type: integer
       responses:
         '200':
           description: OK
@@ -778,6 +829,15 @@ paths:
                                       type: string
                   meta:
                     type: object
+                    properties:
+                      total_pages:
+                        type: integer
+                      page_number:
+                        type: integer
+                      max_per_page:
+                        type: integer
+                      total_resources:
+                        type: integer
     post:
       summary: Create user
       tags:
@@ -1152,6 +1212,16 @@ paths:
         required: false
         schema:
           type: string
+      - name: page
+        in: query
+        description: Page number
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: How many records per page
+        schema:
+          type: integer
       responses:
         '200':
           description: OK
@@ -1183,6 +1253,15 @@ paths:
                         type: integer
                   meta:
                     type: object
+                    properties:
+                      total_pages:
+                        type: integer
+                      page_number:
+                        type: integer
+                      max_per_page:
+                        type: integer
+                      total_resources:
+                        type: integer
   "/api/v1/users/roles":
     get:
       summary: Get a list of user roles

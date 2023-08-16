@@ -86,6 +86,9 @@ gem 'sidekiq', '~> 6.5'
 # Mailer Service
 gem 'sendgrid-ruby'
 
+# Pagination
+gem 'will_paginate', '~> 4.0'
+
 group :development, :test do
   gem 'dotenv-rails', '~> 2.7.0'
   gem 'goldiloader'

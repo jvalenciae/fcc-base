@@ -7,7 +7,8 @@ module Api
 
       def index
         @organizations = Organization.accessible_by(current_ability)
-        render_response(data: @organizations, serializer: OrganizationSerializer)
+        @organizations, meta = paginate_resources(@organizations)
+        render_response(data: @organizations, serializer: OrganizationSerializer, meta: meta)
       end
 
       def show

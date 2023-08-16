@@ -8,6 +8,9 @@ describe 'Branches API' do
       tags 'Branches'
       security [bearerAuth: []]
 
+      parameter name: :page, in: :query, type: :integer, description: 'Page number'
+      parameter name: :per_page, in: :query, type: :integer, description: 'How many records per page'
+
       produces 'application/json'
       response '200', 'OK' do
         schema type: :object,
@@ -50,7 +53,15 @@ describe 'Branches API' do
                      }
                    }
                  },
-                 meta: { type: :object }
+                 meta: {
+                   type: :object,
+                   properties: {
+                     total_pages: { type: :integer },
+                     page_number: { type: :integer },
+                     max_per_page: { type: :integer },
+                     total_resources: { type: :integer }
+                   }
+                 }
                }
         xit
       end

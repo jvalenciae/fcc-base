@@ -8,6 +8,9 @@ describe 'Users API' do
       tags 'Users'
       security [bearerAuth: []]
 
+      parameter name: :page, in: :query, type: :integer, description: 'Page number'
+      parameter name: :per_page, in: :query, type: :integer, description: 'How many records per page'
+
       produces 'application/json'
       response '200', 'OK' do
         schema type: :object,
@@ -72,7 +75,15 @@ describe 'Users API' do
                      }
                    }
                  },
-                 meta: { type: :object }
+                 meta: {
+                   type: :object,
+                   properties: {
+                     total_pages: { type: :integer },
+                     page_number: { type: :integer },
+                     max_per_page: { type: :integer },
+                     total_resources: { type: :integer }
+                   }
+                 }
                }
 
         xit
@@ -382,7 +393,6 @@ describe 'Users API' do
       tags 'Users'
       security [bearerAuth: []]
 
-      produces 'application/json'
       parameter name: 'branch_ids[]', in: :query, style: :form, explode: true, schema: {
         type: :array,
         items: { type: :integer }
@@ -390,7 +400,10 @@ describe 'Users API' do
       parameter name: :q, in: :query, type: :string,
                 description: 'A query string to search for members by first name, last name, or phone number',
                 required: false
+      parameter name: :page, in: :query, type: :integer, description: 'Page number'
+      parameter name: :per_page, in: :query, type: :integer, description: 'How many records per page'
 
+      produces 'application/json'
       response '200', 'OK' do
         schema type: :object,
                properties: {
@@ -408,7 +421,15 @@ describe 'Users API' do
                      students_in_change: { type: :integer }
                    }
                  },
-                 meta: { type: :object }
+                 meta: {
+                   type: :object,
+                   properties: {
+                     total_pages: { type: :integer },
+                     page_number: { type: :integer },
+                     max_per_page: { type: :integer },
+                     total_resources: { type: :integer }
+                   }
+                 }
                }
 
         xit

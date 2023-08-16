@@ -7,7 +7,7 @@ module Api
 
       def index
         @users = User.accessible_by(current_ability)
-        render_response(data: @users, serializer: Users::UserSerializer)
+        fetch_and_render_users(Users::UserSerializer)
       end
 
       def show
@@ -36,9 +36,8 @@ module Api
       end
 
       def members
-        @users = User.accessible_by(current_ability).by_role('member').by_branch_ids(params[:branch_ids])
-        @users = @users.search_by_q(params[:q]).with_pg_search_rank if params[:q].present?
-        render_response(data: @users, serializer: Users::MemberSerializer)
+        @users = User.accessible_by(current_ability).by_role('member')
+        fetch_and_render_users(Users::MemberSerializer)
       end
 
       def roles
@@ -64,6 +63,13 @@ module Api
           :first_name, :last_name, :email, :password, :phone_number, :country, :role,
           { organization_ids: [] }, { branch_ids: [] }
         )
+      end
+
+      def fetch_and_render_users(serializer)
+        @users = @users.by_branch_ids(params[:branch_ids]) if params[:branch_ids].present?
+        @users = @users.search_by_q(params[:q]).with_pg_search_rank if params[:q].present?
+        @users, meta = paginate_resources(@users)
+        render_response(data: @users, serializer: serializer, meta: meta)
       end
     end
   end

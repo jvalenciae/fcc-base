@@ -7,7 +7,8 @@ module Api
 
       def index
         @branches = Branch.accessible_by(current_ability).by_organization_ids(params[:organization_ids])
-        render_response(data: @branches, serializer: BranchSerializer)
+        @branches, meta = paginate_resources(@branches)
+        render_response(data: @branches, serializer: BranchSerializer, meta: meta)
       end
 
       def show
