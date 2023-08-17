@@ -5,6 +5,7 @@ module Users
     attributes :id, :email, :first_name, :last_name, :country, :role, :last_sign_in_at
 
     has_many :organizations
+    has_many :branches
 
     def organizations
       object.organizations.map do |organization|
@@ -13,13 +14,13 @@ module Users
           name: organization.name,
           country: organization.country,
           report_id: organization.report_id,
-          branches: branches(organization)
+          logo: organization.logo.url
         }
       end
     end
 
-    def branches(organization)
-      organization.branches.select { |branch| branch.user_ids.include?(object.id) }.map do |branch|
+    def branches
+      object.branches.map do |branch|
         {
           id: branch.id,
           name: branch.name,

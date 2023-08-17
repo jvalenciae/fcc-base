@@ -805,28 +805,28 @@ paths:
                                     type: string
                               report_id:
                                 type: string
-                              branches:
-                                type: array
-                                items:
-                                  type: object
-                                  properties:
-                                    id:
-                                      type: integer
-                                    name:
-                                      type: string
-                                    country:
-                                      type: object
-                                      properties:
-                                        code:
-                                          type: string
-                                        name:
-                                          type: string
-                                    city:
-                                      type: string
-                                    address:
-                                      type: string
-                                    phone_number:
-                                      type: string
+                        branches:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                              name:
+                                type: string
+                              country:
+                                type: object
+                                properties:
+                                  code:
+                                    type: string
+                                  name:
+                                    type: string
+                              city:
+                                type: string
+                              address:
+                                type: string
+                              phone_number:
+                                type: string
                   meta:
                     type: object
                     properties:
@@ -895,28 +895,28 @@ paths:
                                   type: string
                             report_id:
                               type: string
-                            branches:
-                              type: array
-                              items:
-                                type: object
-                                properties:
-                                  id:
-                                    type: integer
-                                  name:
-                                    type: string
-                                  country:
-                                    type: object
-                                    properties:
-                                      code:
-                                        type: string
-                                      name:
-                                        type: string
-                                  city:
-                                    type: string
-                                  address:
-                                    type: string
-                                  phone_number:
-                                    type: string
+                      branches:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            country:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                name:
+                                  type: string
+                            city:
+                              type: string
+                            address:
+                              type: string
+                            phone_number:
+                              type: string
                   meta:
                     type: object
       requestBody:
@@ -1024,28 +1024,28 @@ paths:
                                   type: string
                             report_id:
                               type: string
-                            branches:
-                              type: array
-                              items:
-                                type: object
-                                properties:
-                                  id:
-                                    type: integer
-                                  name:
-                                    type: string
-                                  country:
-                                    type: object
-                                    properties:
-                                      code:
-                                        type: string
-                                      name:
-                                        type: string
-                                  city:
-                                    type: string
-                                  address:
-                                    type: string
-                                  phone_number:
-                                    type: string
+                      branches:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            country:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                name:
+                                  type: string
+                            city:
+                              type: string
+                            address:
+                              type: string
+                            phone_number:
+                              type: string
                   meta:
                     type: object
     put:
@@ -1105,28 +1105,28 @@ paths:
                                   type: string
                             report_id:
                               type: string
-                            branches:
-                              type: array
-                              items:
-                                type: object
-                                properties:
-                                  id:
-                                    type: integer
-                                  name:
-                                    type: string
-                                  country:
-                                    type: object
-                                    properties:
-                                      code:
-                                        type: string
-                                      name:
-                                        type: string
-                                  city:
-                                    type: string
-                                  address:
-                                    type: string
-                                  phone_number:
-                                    type: string
+                      branches:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            country:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                name:
+                                  type: string
+                            city:
+                              type: string
+                            address:
+                              type: string
+                            phone_number:
+                              type: string
                   meta:
                     type: object
       requestBody:
