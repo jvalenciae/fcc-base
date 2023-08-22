@@ -36,7 +36,7 @@ module Api
 
       def branch_params
         params.require(:branch).permit(
-          :name, :country, :city, :address, :phone_number, { organization_ids: [] }
+          :name, :country, :department, :city, :address, :phone_number, { organization_ids: [] }
         )
       end
     end

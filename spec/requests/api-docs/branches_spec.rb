@@ -30,6 +30,13 @@ describe 'Branches API' do
                            name: { type: :string }
                          }
                        },
+                       department: {
+                         type: :object,
+                         properties: {
+                           code: { type: :string },
+                           name: { type: :string }
+                         }
+                       },
                        city: { type: :string },
                        address: { type: :string },
                        phone_number: { type: :string },
@@ -107,6 +114,13 @@ describe 'Branches API' do
                          name: { type: :string }
                        }
                      },
+                     department: {
+                       type: :object,
+                       properties: {
+                         code: { type: :string },
+                         name: { type: :string }
+                       }
+                     },
                      city: { type: :string },
                      address: { type: :string },
                      phone_number: { type: :string },
@@ -156,6 +170,13 @@ describe 'Branches API' do
                      id: { type: :integer },
                      name: { type: :string },
                      country: {
+                       type: :object,
+                       properties: {
+                         code: { type: :string },
+                         name: { type: :string }
+                       }
+                     },
+                     department: {
                        type: :object,
                        properties: {
                          code: { type: :string },
@@ -225,6 +246,13 @@ describe 'Branches API' do
                      id: { type: :integer },
                      name: { type: :string },
                      country: {
+                       type: :object,
+                       properties: {
+                         code: { type: :string },
+                         name: { type: :string }
+                       }
+                     },
+                     department: {
                        type: :object,
                        properties: {
                          code: { type: :string },

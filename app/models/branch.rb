@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Branch < ApplicationRecord
-  validates :name, :country, :city, :address, :phone_number, presence: true
+  validates :name, :country, :department, :city, :address, :phone_number, presence: true
 
   has_many :organization_branches, dependent: :destroy
   has_many :organizations, through: :organization_branches

@@ -29,6 +29,8 @@ Rails.application.routes.draw do
 
       resources :countries, only: %i[index]
 
+      resources :departments, only: %i[index]
+
       resources :cities, only: %i[index]
 
       resources :organizations, only: %i[index show create update]

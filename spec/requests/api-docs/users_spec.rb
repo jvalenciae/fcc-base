@@ -71,6 +71,13 @@ describe 'Users API' do
                                  name: { type: :string }
                                }
                              },
+                             department: {
+                               type: :object,
+                               properties: {
+                                 code: { type: :string },
+                                 name: { type: :string }
+                               }
+                             },
                              city: { type: :string },
                              address: { type: :string },
                              phone_number: { type: :string },
@@ -189,6 +196,13 @@ describe 'Users API' do
                                name: { type: :string }
                              }
                            },
+                           department: {
+                             type: :object,
+                             properties: {
+                               code: { type: :string },
+                               name: { type: :string }
+                             }
+                           },
                            city: { type: :string },
                            address: { type: :string },
                            phone_number: { type: :string },
@@ -269,6 +283,13 @@ describe 'Users API' do
                            id: { type: :integer },
                            name: { type: :string },
                            country: {
+                             type: :object,
+                             properties: {
+                               code: { type: :string },
+                               name: { type: :string }
+                             }
+                           },
+                           department: {
                              type: :object,
                              properties: {
                                code: { type: :string },
@@ -383,6 +404,13 @@ describe 'Users API' do
                            id: { type: :integer },
                            name: { type: :string },
                            country: {
+                             type: :object,
+                             properties: {
+                               code: { type: :string },
+                               name: { type: :string }
+                             }
+                           },
+                           department: {
                              type: :object,
                              properties: {
                                code: { type: :string },

@@ -19,14 +19,14 @@ RSpec.describe 'Branches' do
           [
             { 'id' => first_branch.id, 'name' => first_branch.name, 'city' => first_branch.city,
               'country' => { 'code' => 'CO', 'name' => 'Colombia' }, 'address' => first_branch.address,
-              'phone_number' => first_branch.phone_number,
+              'department' => { 'code' => 'ATL', 'name' => 'Atlántico' }, 'phone_number' => first_branch.phone_number,
               'organizations' => [{ 'id' => organization.id, 'name' => organization.name,
-                                    'country' => organization.country }] },
+                                    'country' => { 'code' => 'CO', 'name' => 'Colombia' } }] },
             { 'id' => second_branch.id, 'name' => second_branch.name, 'city' => second_branch.city,
               'country' => { 'code' => 'CO', 'name' => 'Colombia' }, 'address' => second_branch.address,
-              'phone_number' => second_branch.phone_number,
+              'department' => { 'code' => 'ATL', 'name' => 'Atlántico' }, 'phone_number' => second_branch.phone_number,
               'organizations' => [{ 'id' => organization.id, 'name' => organization.name,
-                                    'country' => organization.country }] }
+                                    'country' => { 'code' => 'CO', 'name' => 'Colombia' } }] }
           ]
         )
       end
@@ -77,6 +77,7 @@ RSpec.describe 'Branches' do
         branch: {
           name: 'Branch',
           country: 'CO',
+          department: 'ATL',
           city: 'Barranquilla',
           address: 'Addr',
           phone_number: '1234567890'
@@ -103,6 +104,7 @@ RSpec.describe 'Branches' do
         expect(json_response[:data]).to include(
           'name' => 'Branch',
           'country' => { 'code' => 'CO', 'name' => 'Colombia' },
+          'department' => { 'code' => 'ATL', 'name' => 'Atlántico' },
           'city' => 'Barranquilla',
           'address' => 'Addr',
           'phone_number' => '1234567890'

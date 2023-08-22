@@ -12,7 +12,7 @@ module Users
         {
           id: organization.id,
           name: organization.name,
-          country: organization.country,
+          country: country(organization),
           report_id: organization.report_id,
           logo: organization.logo.url,
           branches: organization_branches(organization)
@@ -29,7 +29,8 @@ module Users
         {
           id: branch.id,
           name: branch.name,
-          country: branch.country,
+          country: country(branch),
+          department: department(branch),
           city: branch.city,
           address: branch.address,
           phone_number: branch.phone_number,
@@ -38,11 +39,18 @@ module Users
       end
     end
 
+    def department(branch)
+      {
+        code: branch.department,
+        name: CS.states(branch.country.to_sym)[branch.department.to_sym]
+      }
+    end
+
     def branch_organizations(branch)
       branch.organizations.select { |organization| organization.user_ids.include?(object.id) }.map(&:id)
     end
 
-    def country
+    def country(object = @object)
       {
         code: object.country,
         name: CS.countries[object.country.to_sym]

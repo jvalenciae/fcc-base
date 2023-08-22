@@ -9,6 +9,7 @@ RSpec.describe Branch do
     it 'validates presence' do
       expect(branch).to validate_presence_of(:name)
       expect(branch).to validate_presence_of(:country)
+      expect(branch).to validate_presence_of(:department)
       expect(branch).to validate_presence_of(:city)
       expect(branch).to validate_presence_of(:address)
       expect(branch).to validate_presence_of(:phone_number)
