@@ -805,6 +805,12 @@ paths:
                                     type: string
                               report_id:
                                 type: string
+                              logo:
+                                type: string
+                              branches:
+                                type: array
+                                items:
+                                  type: integer
                         branches:
                           type: array
                           items:
@@ -827,6 +833,10 @@ paths:
                                 type: string
                               phone_number:
                                 type: string
+                              organizations:
+                                type: array
+                                items:
+                                  type: integer
                   meta:
                     type: object
                     properties:
@@ -895,6 +905,12 @@ paths:
                                   type: string
                             report_id:
                               type: string
+                            logo:
+                              type: string
+                            branches:
+                              type: array
+                              items:
+                                type: integer
                       branches:
                         type: array
                         items:
@@ -917,6 +933,10 @@ paths:
                               type: string
                             phone_number:
                               type: string
+                            organizations:
+                              type: array
+                              items:
+                                type: integer
                   meta:
                     type: object
       requestBody:
@@ -1024,6 +1044,12 @@ paths:
                                   type: string
                             report_id:
                               type: string
+                            logo:
+                              type: string
+                            branches:
+                              type: array
+                              items:
+                                type: integer
                       branches:
                         type: array
                         items:
@@ -1046,6 +1072,10 @@ paths:
                               type: string
                             phone_number:
                               type: string
+                            organizations:
+                              type: array
+                              items:
+                                type: integer
                   meta:
                     type: object
     put:
@@ -1105,6 +1135,12 @@ paths:
                                   type: string
                             report_id:
                               type: string
+                            logo:
+                              type: string
+                            branches:
+                              type: array
+                              items:
+                                type: integer
                       branches:
                         type: array
                         items:
@@ -1127,6 +1163,10 @@ paths:
                               type: string
                             phone_number:
                               type: string
+                            organizations:
+                              type: array
+                              items:
+                                type: integer
                   meta:
                     type: object
       requestBody:

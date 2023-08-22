@@ -14,9 +14,14 @@ module Users
           name: organization.name,
           country: organization.country,
           report_id: organization.report_id,
-          logo: organization.logo.url
+          logo: organization.logo.url,
+          branches: organization_branches(organization)
         }
       end
+    end
+
+    def organization_branches(organization)
+      organization.branches.select { |branch| branch.user_ids.include?(object.id) }.map(&:id)
     end
 
     def branches
@@ -27,9 +32,14 @@ module Users
           country: branch.country,
           city: branch.city,
           address: branch.address,
-          phone_number: branch.phone_number
+          phone_number: branch.phone_number,
+          organizations: branch_organizations(branch)
         }
       end
+    end
+
+    def branch_organizations(branch)
+      branch.organizations.select { |organization| organization.user_ids.include?(object.id) }.map(&:id)
     end
 
     def country

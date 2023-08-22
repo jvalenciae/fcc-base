@@ -48,7 +48,12 @@ describe 'Users API' do
                                  name: { type: :string }
                                }
                              },
-                             report_id: { type: :string }
+                             report_id: { type: :string },
+                             logo: { type: :string },
+                             branches: {
+                               type: :array,
+                               items: { type: :integer }
+                             }
                            }
                          }
                        },
@@ -68,7 +73,11 @@ describe 'Users API' do
                              },
                              city: { type: :string },
                              address: { type: :string },
-                             phone_number: { type: :string }
+                             phone_number: { type: :string },
+                             organizations: {
+                               type: :array,
+                               items: { type: :integer }
+                             }
                            }
                          }
                        }
@@ -157,7 +166,12 @@ describe 'Users API' do
                                name: { type: :string }
                              }
                            },
-                           report_id: { type: :string }
+                           report_id: { type: :string },
+                           logo: { type: :string },
+                           branches: {
+                             type: :array,
+                             items: { type: :integer }
+                           }
                          }
                        }
                      },
@@ -177,7 +191,11 @@ describe 'Users API' do
                            },
                            city: { type: :string },
                            address: { type: :string },
-                           phone_number: { type: :string }
+                           phone_number: { type: :string },
+                           organizations: {
+                             type: :array,
+                             items: { type: :integer }
+                           }
                          }
                        }
                      }
@@ -234,7 +252,12 @@ describe 'Users API' do
                                name: { type: :string }
                              }
                            },
-                           report_id: { type: :string }
+                           report_id: { type: :string },
+                           logo: { type: :string },
+                           branches: {
+                             type: :array,
+                             items: { type: :integer }
+                           }
                          }
                        }
                      },
@@ -254,7 +277,11 @@ describe 'Users API' do
                            },
                            city: { type: :string },
                            address: { type: :string },
-                           phone_number: { type: :string }
+                           phone_number: { type: :string },
+                           organizations: {
+                             type: :array,
+                             items: { type: :integer }
+                           }
                          }
                        }
                      }
@@ -339,7 +366,12 @@ describe 'Users API' do
                                name: { type: :string }
                              }
                            },
-                           report_id: { type: :string }
+                           report_id: { type: :string },
+                           logo: { type: :string },
+                           branches: {
+                             type: :array,
+                             items: { type: :integer }
+                           }
                          }
                        }
                      },
@@ -359,7 +391,11 @@ describe 'Users API' do
                            },
                            city: { type: :string },
                            address: { type: :string },
-                           phone_number: { type: :string }
+                           phone_number: { type: :string },
+                           organizations: {
+                             type: :array,
+                             items: { type: :integer }
+                           }
                          }
                        }
                      }
