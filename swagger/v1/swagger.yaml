@@ -176,6 +176,22 @@ paths:
       security:
       - bearerAuth: []
       parameters:
+      - name: organization_ids[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+        description: An array of organization IDs to filter branches by
+        required: false
+      - name: q
+        in: query
+        description: A query string to search for branches by name
+        required: false
+        schema:
+          type: string
       - name: page
         in: query
         description: Page number
@@ -596,6 +612,12 @@ paths:
       security:
       - bearerAuth: []
       parameters:
+      - name: q
+        in: query
+        description: A query string to search for organizations by name
+        required: false
+        schema:
+          type: string
       - name: page
         in: query
         description: Page number
@@ -799,6 +821,29 @@ paths:
       security:
       - bearerAuth: []
       parameters:
+      - name: branch_ids[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+        description: An array of branch IDs to filter users by
+        required: false
+      - name: role
+        in: query
+        description: A query string to filter users by role
+        required: false
+        schema:
+          type: string
+      - name: q
+        in: query
+        description: A query string to search users by first name, last name, or phone
+          number
+        required: false
+        schema:
+          type: string
       - name: page
         in: query
         description: Page number
@@ -1329,6 +1374,12 @@ paths:
             type: integer
         description: An array of branch IDs to filter members by
         required: false
+      - name: role
+        in: query
+        description: A query string to filter members by role
+        required: false
+        schema:
+          type: string
       - name: q
         in: query
         description: A query string to search for members by first name, last name,

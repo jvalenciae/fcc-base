@@ -8,6 +8,13 @@ describe 'Branches API' do
       tags 'Branches'
       security [bearerAuth: []]
 
+      parameter name: 'organization_ids[]', in: :query, style: :form, explode: true, schema: {
+        type: :array,
+        items: { type: :integer }
+      }, description: 'An array of organization IDs to filter branches by', required: false
+      parameter name: :q, in: :query, type: :string,
+                description: 'A query string to search for branches by name',
+                required: false
       parameter name: :page, in: :query, type: :integer, description: 'Page number'
       parameter name: :per_page, in: :query, type: :integer, description: 'How many records per page'
 

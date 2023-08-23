@@ -8,6 +8,9 @@ describe 'Organizations API' do
       tags 'Organizations'
       security [bearerAuth: []]
 
+      parameter name: :q, in: :query, type: :string,
+                description: 'A query string to search for organizations by name',
+                required: false
       parameter name: :page, in: :query, type: :integer, description: 'Page number'
       parameter name: :per_page, in: :query, type: :integer, description: 'How many records per page'
 

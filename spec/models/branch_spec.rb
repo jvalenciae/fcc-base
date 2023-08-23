@@ -36,5 +36,23 @@ RSpec.describe Branch do
         expect(described_class.by_organization_ids([org.id])).not_to include(branch)
       end
     end
+
+    describe '.search_by_q' do
+      # rubocop:disable RSpec/IndexedLet
+      let!(:branch1) { create(:branch, name: 'John') }
+      let!(:branch2) { create(:branch, name: 'Jane') }
+      let!(:branch3) { create(:branch, name: 'Alice Jane') }
+      # rubocop:enable RSpec/IndexedLet
+
+      it 'returns organizations matching the query' do
+        expect(described_class.search_by_q('John')).to eq([branch1])
+        expect(described_class.search_by_q('Jane')).to eq([branch2, branch3])
+        expect(described_class.search_by_q('Alice')).to eq([branch3])
+      end
+
+      it 'ignores accents in the search' do
+        expect(described_class.search_by_q('Álice')).to eq([branch3])
+      end
+    end
   end
 end

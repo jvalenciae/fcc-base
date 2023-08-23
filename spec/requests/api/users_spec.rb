@@ -100,7 +100,7 @@ RSpec.describe 'Users' do
       it 'returns a list of users' do
         get '/api/v1/users', headers: authenticated_header(super_admin)
         expect(response).to have_http_status(:success)
-        expect(json_response[:data].length).to eq(User.count)
+        expect(json_response[:data].length).to eq(User.count - 1) # Excluding current_user
       end
     end
 
@@ -112,15 +112,15 @@ RSpec.describe 'Users' do
       it 'returns users that are in the same organizations' do
         get '/api/v1/users', headers: authenticated_header(admin)
         expect(response).to have_http_status(:success)
-        expect(json_response[:data].length).to eq(2)
+        expect(json_response[:data].length).to eq(1)
       end
     end
 
     context 'when user is a member' do
-      it 'only returns itself' do
+      it 'does not return any users' do
         get '/api/v1/users', headers: authenticated_header(trainer)
         expect(response).to have_http_status(:success)
-        expect(json_response[:data].length).to eq(1)
+        expect(json_response[:data].length).to eq(0)
       end
     end
   end

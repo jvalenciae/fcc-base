@@ -10,4 +10,11 @@ class Organization < ApplicationRecord
 
   has_many :user_organizations, dependent: :destroy
   has_many :users, through: :user_organizations
+
+  include PgSearch::Model
+  pg_search_scope :search_by_q,
+                  against: %i[name],
+                  using: {
+                    tsearch: { prefix: true }
+                  }, ignoring: :accents
 end

@@ -7,6 +7,7 @@ module Api
 
       def index
         @branches = Branch.accessible_by(current_ability).by_organization_ids(params[:organization_ids])
+        @branches = @branches.search_by_q(params[:q]).with_pg_search_rank if params[:q].present?
         @branches, meta = paginate_resources(@branches)
         render_response(data: @branches, serializer: BranchSerializer, meta: meta)
       end

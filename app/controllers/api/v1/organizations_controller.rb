@@ -7,6 +7,7 @@ module Api
 
       def index
         @organizations = Organization.accessible_by(current_ability)
+        @organizations = @organizations.search_by_q(params[:q]).with_pg_search_rank if params[:q].present?
         @organizations, meta = paginate_resources(@organizations)
         render_response(data: @organizations, serializer: OrganizationSerializer, meta: meta)
       end

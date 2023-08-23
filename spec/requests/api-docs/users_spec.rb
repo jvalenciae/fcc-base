@@ -8,6 +8,16 @@ describe 'Users API' do
       tags 'Users'
       security [bearerAuth: []]
 
+      parameter name: 'branch_ids[]', in: :query, style: :form, explode: true, schema: {
+        type: :array,
+        items: { type: :integer }
+      }, description: 'An array of branch IDs to filter users by', required: false
+      parameter name: :role, in: :query, type: :string,
+                description: 'A query string to filter users by role',
+                required: false
+      parameter name: :q, in: :query, type: :string,
+                description: 'A query string to search users by first name, last name, or phone number',
+                required: false
       parameter name: :page, in: :query, type: :integer, description: 'Page number'
       parameter name: :per_page, in: :query, type: :integer, description: 'How many records per page'
 
@@ -461,6 +471,9 @@ describe 'Users API' do
         type: :array,
         items: { type: :integer }
       }, description: 'An array of branch IDs to filter members by', required: false
+      parameter name: :role, in: :query, type: :string,
+                description: 'A query string to filter members by role',
+                required: false
       parameter name: :q, in: :query, type: :string,
                 description: 'A query string to search for members by first name, last name, or phone number',
                 required: false
