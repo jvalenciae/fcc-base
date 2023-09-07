@@ -2,7 +2,7 @@
 
 module Users
   class UserSerializer < ActiveModel::Serializer
-    attributes :id, :email, :first_name, :last_name, :country, :role, :last_sign_in_at
+    attributes :id, :email, :first_name, :last_name, :country, :role, :type, :last_sign_in_at
 
     has_many :organizations
     has_many :branches
@@ -59,6 +59,16 @@ module Users
 
     def last_sign_in_at
       object.last_sign_in_at&.strftime('%Y-%m-%d: %H:%M %Z')
+    end
+
+    def type
+      if object.super_admin?
+        'super_admin'
+      elsif object.admin?
+        'admin'
+      else
+        'member'
+      end
     end
   end
 end
