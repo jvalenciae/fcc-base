@@ -37,18 +37,22 @@ en:
   unauthorized:
     default: "Error"
     create:
+      ally: "You are not authorized to create this ally."
       branch: "You are not authorized to create this branch."
       organization: "You are not authorized to create this organization."
       user: "You are not authorized to create this user."
     destroy:
+      ally: "You are not authorized to delete this ally."
       branch: "You are not authorized to delete this branch."
       organization: "You are not authorized to delete this organization."
       user: "You are not authorized to delete this user."
     read:
+      ally: "You are not authorized to access this ally."
       branch: "You are not authorized to access this branch."
       organization: "You are not authorized to access this organization."
       user: "You are not authorized to access this user."
     update:
+      ally: "You are not authorized to update this ally."
       branch: "You are not authorized to update this branch."
       organization: "You are not authorized to update this organization."
       user: "You are not authorized to update this user."

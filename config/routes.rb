@@ -35,6 +35,8 @@ Rails.application.routes.draw do
 
       resources :organizations, only: %i[index show create update]
 
+      resources :allies, only: %i[index show create update]
+
       resources :branches, only: %i[index show create update]
 
       resources :users, only: %i[index show create update destroy] do

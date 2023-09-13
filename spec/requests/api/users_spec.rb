@@ -14,15 +14,15 @@ RSpec.describe 'Users' do
           phone_number: '123456789',
           country: 'CO',
           role: 'trainer',
-          organization_ids: [organization.id],
+          organization_id: organization.id,
           branch_ids: [branch.id]
         }
       }
     end
     let(:organization) { create(:organization) }
-    let(:branch) { create(:branch, organizations: [organization]) }
+    let(:branch) { create(:branch, organization: organization) }
 
-    let!(:admin_user) { create(:user, :admin, organizations: [organization]) }
+    let!(:admin_user) { create(:user, :admin, organization: organization) }
 
     context 'when the request is valid' do
       it 'creates a new user' do
@@ -55,7 +55,7 @@ RSpec.describe 'Users' do
     end
 
     context 'when the request is unauthorized' do
-      let!(:unauthorized_user) { create(:user, role: 'trainer', organizations: [organization]) }
+      let!(:unauthorized_user) { create(:user, role: 'trainer', organization: organization) }
 
       it 'does not create a new user' do
         expect do
@@ -93,7 +93,7 @@ RSpec.describe 'Users' do
   describe 'GET #index' do
     let!(:super_admin) { create(:user, :super_admin) }
     let(:organization) { create(:organization) }
-    let!(:admin) { create(:user, :admin, organizations: [organization]) }
+    let!(:admin) { create(:user, :admin, organization: organization) }
     let!(:trainer) { create(:user) }
 
     context 'when user is super_admin' do
@@ -106,10 +106,10 @@ RSpec.describe 'Users' do
 
     context 'when user is an admin' do
       before do
-        create(:user, organizations: [organization])
+        create(:user, organization: organization)
       end
 
-      it 'returns users that are in the same organizations' do
+      it 'returns users that are in the same organization' do
         get '/api/v1/users', headers: authenticated_header(admin)
         expect(response).to have_http_status(:success)
         expect(json_response[:data].length).to eq(1)
@@ -196,14 +196,14 @@ RSpec.describe 'Users' do
 
   describe 'GET #members' do
     let(:org) { create(:organization) }
-    let(:first_branch) { create(:branch, organizations: [org]) }
-    let(:second_branch) { create(:branch, organizations: [org]) }
+    let(:first_branch) { create(:branch, organization: org) }
+    let(:second_branch) { create(:branch, organization: org) }
 
     let(:super_admin) { create(:user, :super_admin) }
-    let!(:user) { create(:user, branches: [first_branch], organizations: [org]) }
+    let!(:user) { create(:user, branches: [first_branch], organization: org) }
 
     before do
-      create(:user, branches: [second_branch], organizations: [org])
+      create(:user, branches: [second_branch], organization: org)
     end
 
     it 'returns a successful response with members filtered by branch_ids and q' do

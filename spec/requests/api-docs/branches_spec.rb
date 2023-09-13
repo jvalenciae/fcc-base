@@ -47,19 +47,16 @@ describe 'Branches API' do
                        city: { type: :string },
                        address: { type: :string },
                        phone_number: { type: :string },
-                       organizations: {
-                         type: :array,
-                         items: {
-                           type: :object,
-                           properties: {
-                             id: { type: :integer },
-                             name: { type: :string },
-                             country: {
-                               type: :object,
-                               properties: {
-                                 code: { type: :string },
-                                 name: { type: :string }
-                               }
+                       organization: {
+                         type: :object,
+                         properties: {
+                           id: { type: :integer },
+                           name: { type: :string },
+                           country: {
+                             type: :object,
+                             properties: {
+                               code: { type: :string },
+                               name: { type: :string }
                              }
                            }
                          }
@@ -98,9 +95,10 @@ describe 'Branches API' do
               city: { type: :string },
               address: { type: :string },
               phone_number: { type: :string },
-              organization_ids: { type: :array, items: { type: :integer } }
+              organization_id: { type: :integer },
+              ally_ids: { type: :array, items: { type: :integer } }
             },
-            required: %w[name country city address phone_number]
+            required: %w[name country city address phone_number organization_id]
           }
         }
       }
@@ -131,19 +129,16 @@ describe 'Branches API' do
                      city: { type: :string },
                      address: { type: :string },
                      phone_number: { type: :string },
-                     organizations: {
-                       type: :array,
-                       items: {
-                         type: :object,
-                         properties: {
-                           id: { type: :integer },
-                           name: { type: :string },
-                           country: {
-                             type: :object,
-                             properties: {
-                               code: { type: :string },
-                               name: { type: :string }
-                             }
+                     organization: {
+                       type: :object,
+                       properties: {
+                         id: { type: :integer },
+                         name: { type: :string },
+                         country: {
+                           type: :object,
+                           properties: {
+                             code: { type: :string },
+                             name: { type: :string }
                            }
                          }
                        }
@@ -193,19 +188,16 @@ describe 'Branches API' do
                      city: { type: :string },
                      address: { type: :string },
                      phone_number: { type: :string },
-                     organizations: {
-                       type: :array,
-                       items: {
-                         type: :object,
-                         properties: {
-                           id: { type: :integer },
-                           name: { type: :string },
-                           country: {
-                             type: :object,
-                             properties: {
-                               code: { type: :string },
-                               name: { type: :string }
-                             }
+                     organization: {
+                       type: :object,
+                       properties: {
+                         id: { type: :integer },
+                         name: { type: :string },
+                         country: {
+                           type: :object,
+                           properties: {
+                             code: { type: :string },
+                             name: { type: :string }
                            }
                          }
                        }
@@ -236,9 +228,10 @@ describe 'Branches API' do
               city: { type: :string },
               address: { type: :string },
               phone_number: { type: :string },
-              organization_ids: { type: :array, items: { type: :integer } }
+              organization_id: { type: :integer },
+              ally_ids: { type: :array, items: { type: :integer } }
             },
-            required: %w[name country city address phone_number]
+            required: %w[name country city address phone_number organization_id]
           }
         }
       }
@@ -269,19 +262,16 @@ describe 'Branches API' do
                      city: { type: :string },
                      address: { type: :string },
                      phone_number: { type: :string },
-                     organizations: {
-                       type: :array,
-                       items: {
-                         type: :object,
-                         properties: {
-                           id: { type: :integer },
-                           name: { type: :string },
-                           country: {
-                             type: :object,
-                             properties: {
-                               code: { type: :string },
-                               name: { type: :string }
-                             }
+                     organization: {
+                       type: :object,
+                       properties: {
+                         id: { type: :integer },
+                         name: { type: :string },
+                         country: {
+                           type: :object,
+                           properties: {
+                             code: { type: :string },
+                             name: { type: :string }
                            }
                          }
                        }

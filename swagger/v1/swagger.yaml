@@ -4,6 +4,211 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/v1/allies":
+    get:
+      summary: Retrieve list of allies
+      tags:
+      - Allies
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: page
+        in: query
+        description: Page number
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: How many records per page
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        organization:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            country:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                name:
+                                  type: string
+                            report_id:
+                              type: string
+                  meta:
+                    type: object
+                    properties:
+                      total_pages:
+                        type: integer
+                      page_number:
+                        type: integer
+                      max_per_page:
+                        type: integer
+                      total_resources:
+                        type: integer
+    post:
+      summary: Create a new ally
+      tags:
+      - Allies
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  organization:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      country:
+                        type: object
+                        properties:
+                          code:
+                            type: string
+                          name:
+                            type: string
+                      report_id:
+                        type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ally:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    organization_id:
+                      type: integer
+                  required:
+                  - name
+                  - organization_id
+  "/api/v1/allies/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: Ally ID
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Retrieve an ally by ID
+      tags:
+      - Allies
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  organization:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      country:
+                        type: object
+                        properties:
+                          code:
+                            type: string
+                          name:
+                            type: string
+                      report_id:
+                        type: string
+    put:
+      summary: Update an ally by ID
+      tags:
+      - Allies
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  organization:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      country:
+                        type: object
+                        properties:
+                          code:
+                            type: string
+                          name:
+                            type: string
+                      report_id:
+                        type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ally:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    organization_id:
+                      type: integer
   "/api/v1/auth/passwords":
     post:
       summary: Create password reset token
@@ -241,22 +446,20 @@ paths:
                           type: string
                         phone_number:
                           type: string
-                        organizations:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              id:
-                                type: integer
-                              name:
-                                type: string
-                              country:
-                                type: object
-                                properties:
-                                  code:
-                                    type: string
-                                  name:
-                                    type: string
+                        organization:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            country:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                name:
+                                  type: string
                   meta:
                     type: object
                     properties:
@@ -312,22 +515,20 @@ paths:
                         type: string
                       phone_number:
                         type: string
-                      organizations:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            id:
-                              type: integer
-                            name:
-                              type: string
-                            country:
-                              type: object
-                              properties:
-                                code:
-                                  type: string
-                                name:
-                                  type: string
+                      organization:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          country:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                              name:
+                                type: string
                   meta:
                     type: object
       requestBody:
@@ -349,7 +550,9 @@ paths:
                       type: string
                     phone_number:
                       type: string
-                    organization_ids:
+                    organization_id:
+                      type: integer
+                    ally_ids:
                       type: array
                       items:
                         type: integer
@@ -359,6 +562,7 @@ paths:
                   - city
                   - address
                   - phone_number
+                  - organization_id
   "/api/v1/branches/{id}":
     parameters:
     - name: id
@@ -410,22 +614,20 @@ paths:
                         type: string
                       phone_number:
                         type: string
-                      organizations:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            id:
-                              type: integer
-                            name:
-                              type: string
-                            country:
-                              type: object
-                              properties:
-                                code:
-                                  type: string
-                                name:
-                                  type: string
+                      organization:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          country:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                              name:
+                                type: string
                   meta:
                     type: object
     put:
@@ -472,22 +674,20 @@ paths:
                         type: string
                       phone_number:
                         type: string
-                      organizations:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            id:
-                              type: integer
-                            name:
-                              type: string
-                            country:
-                              type: object
-                              properties:
-                                code:
-                                  type: string
-                                name:
-                                  type: string
+                      organization:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          country:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                              name:
+                                type: string
                   meta:
                     type: object
       requestBody:
@@ -509,7 +709,9 @@ paths:
                       type: string
                     phone_number:
                       type: string
-                    organization_ids:
+                    organization_id:
+                      type: integer
+                    ally_ids:
                       type: array
                       items:
                         type: integer
@@ -519,6 +721,7 @@ paths:
                   - city
                   - address
                   - phone_number
+                  - organization_id
   "/api/v1/cities":
     get:
       summary: Retrieve list of cities
@@ -888,30 +1091,28 @@ paths:
                           type: string
                         last_sign_in_at:
                           type: string
-                        organizations:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              id:
+                        organization:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            country:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                name:
+                                  type: string
+                            report_id:
+                              type: string
+                            logo:
+                              type: string
+                            branches:
+                              type: array
+                              items:
                                 type: integer
-                              name:
-                                type: string
-                              country:
-                                type: object
-                                properties:
-                                  code:
-                                    type: string
-                                  name:
-                                    type: string
-                              report_id:
-                                type: string
-                              logo:
-                                type: string
-                              branches:
-                                type: array
-                                items:
-                                  type: integer
                         branches:
                           type: array
                           items:
@@ -941,10 +1142,8 @@ paths:
                                 type: string
                               phone_number:
                                 type: string
-                              organizations:
-                                type: array
-                                items:
-                                  type: integer
+                              organization_id:
+                                type: integer
                   meta:
                     type: object
                     properties:
@@ -995,30 +1194,28 @@ paths:
                         type: string
                       last_sign_in_at:
                         type: string
-                      organizations:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            id:
+                      organization:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          country:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                              name:
+                                type: string
+                          report_id:
+                            type: string
+                          logo:
+                            type: string
+                          branches:
+                            type: array
+                            items:
                               type: integer
-                            name:
-                              type: string
-                            country:
-                              type: object
-                              properties:
-                                code:
-                                  type: string
-                                name:
-                                  type: string
-                            report_id:
-                              type: string
-                            logo:
-                              type: string
-                            branches:
-                              type: array
-                              items:
-                                type: integer
                       branches:
                         type: array
                         items:
@@ -1048,10 +1245,8 @@ paths:
                               type: string
                             phone_number:
                               type: string
-                            organizations:
-                              type: array
-                              items:
-                                type: integer
+                            organization_id:
+                              type: integer
                   meta:
                     type: object
       requestBody:
@@ -1077,10 +1272,8 @@ paths:
                       type: string
                     role:
                       type: string
-                    organization_ids:
-                      type: array
-                      items:
-                        type: integer
+                    organization_id:
+                      type: integer
                     branch_ids:
                       type: array
                       items:
@@ -1093,6 +1286,7 @@ paths:
               - phone_number
               - country
               - role
+              - organization_id
   "/api/v1/users/{id}":
     parameters:
     - name: id
@@ -1141,30 +1335,28 @@ paths:
                         type: string
                       last_sign_in_at:
                         type: string
-                      organizations:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            id:
+                      organization:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          country:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                              name:
+                                type: string
+                          report_id:
+                            type: string
+                          logo:
+                            type: string
+                          branches:
+                            type: array
+                            items:
                               type: integer
-                            name:
-                              type: string
-                            country:
-                              type: object
-                              properties:
-                                code:
-                                  type: string
-                                name:
-                                  type: string
-                            report_id:
-                              type: string
-                            logo:
-                              type: string
-                            branches:
-                              type: array
-                              items:
-                                type: integer
                       branches:
                         type: array
                         items:
@@ -1194,10 +1386,8 @@ paths:
                               type: string
                             phone_number:
                               type: string
-                            organizations:
-                              type: array
-                              items:
-                                type: integer
+                            organization_id:
+                              type: integer
                   meta:
                     type: object
     put:
@@ -1239,30 +1429,28 @@ paths:
                         type: string
                       last_sign_in_at:
                         type: string
-                      organizations:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            id:
+                      organization:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          country:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                              name:
+                                type: string
+                          report_id:
+                            type: string
+                          logo:
+                            type: string
+                          branches:
+                            type: array
+                            items:
                               type: integer
-                            name:
-                              type: string
-                            country:
-                              type: object
-                              properties:
-                                code:
-                                  type: string
-                                name:
-                                  type: string
-                            report_id:
-                              type: string
-                            logo:
-                              type: string
-                            branches:
-                              type: array
-                              items:
-                                type: integer
                       branches:
                         type: array
                         items:
@@ -1292,10 +1480,8 @@ paths:
                               type: string
                             phone_number:
                               type: string
-                            organizations:
-                              type: array
-                              items:
-                                type: integer
+                            organization_id:
+                              type: integer
                   meta:
                     type: object
       requestBody:
@@ -1324,10 +1510,8 @@ paths:
                           type: string
                     role:
                       type: string
-                    organization_ids:
-                      type: array
-                      items:
-                        type: integer
+                    organization_id:
+                      type: integer
                     branch_ids:
                       type: array
                       items:
@@ -1340,6 +1524,7 @@ paths:
               - phone_number
               - country
               - role
+              - organization_id
     delete:
       summary: Delete user
       tags:

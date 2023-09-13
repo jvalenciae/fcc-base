@@ -9,6 +9,7 @@ FactoryBot.define do
     phone_number { Faker::Number.number(digits: 10) }
     country { 'CO' }
     role { 'trainer' }
+    organization
 
     trait :super_admin do
       role { User::SUPER_ADMIN_ROLES.keys.first }

@@ -7,7 +7,7 @@ class User < ApplicationRecord
          :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
 
   validates :first_name, :last_name, :email, :phone_number, :country, :role, presence: true
-  validate :validate_branches_belongs_to_organizations
+  validate :validate_branches_belongs_to_organization
 
   before_validation :set_random_password, on: :create
   after_create :generate_custom_reset_password_token, if: :member?
@@ -22,8 +22,7 @@ class User < ApplicationRecord
 
   validates :reset_password_token, uniqueness: true, allow_nil: true
 
-  has_many :user_organizations, dependent: :destroy
-  has_many :organizations, through: :user_organizations
+  belongs_to :organization
 
   has_many :user_branches, dependent: :destroy
   has_many :branches, through: :user_branches
@@ -71,7 +70,7 @@ class User < ApplicationRecord
   scope :by_organization_ids, lambda { |organization_ids|
     return all if organization_ids.blank?
 
-    joins(:organizations).where(organizations: { id: organization_ids }).distinct
+    where(organization_id: organization_ids)
   }
 
   scope :by_branch_ids, lambda { |branch_ids|
@@ -106,16 +105,12 @@ class User < ApplicationRecord
 
   private
 
-  def validate_branches_belongs_to_organizations
+  def validate_branches_belongs_to_organization
     return if branches.blank?
 
-    invalid_branches = branches.reject do |branch|
-      branch.organizations.any? { |organization| organizations.include?(organization) }
-    end
+    return if branches.all? { |branch| branch.organization == organization }
 
-    return unless invalid_branches.any?
-
-    errors.add(:branches, "Some branches don't belong to user's organizations")
+    errors.add(:branches, "Some branches don't belong to the user's organization")
   end
 
   def set_random_password

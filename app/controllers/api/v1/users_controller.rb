@@ -60,8 +60,8 @@ module Api
 
       def user_params
         params.require(:user).permit(
-          :first_name, :last_name, :email, :password, :phone_number, :country, :role,
-          { organization_ids: [] }, { branch_ids: [] }
+          :first_name, :last_name, :email, :password, :password_confirmation, :phone_number, :country, :role,
+          :organization_id, { branch_ids: [] }
         )
       end
 

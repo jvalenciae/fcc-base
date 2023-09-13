@@ -5,11 +5,9 @@ class Organization < ApplicationRecord
 
   has_one_attached :logo
 
-  has_many :organization_branches, dependent: :destroy
-  has_many :branches, through: :organization_branches
-
-  has_many :user_organizations, dependent: :destroy
-  has_many :users, through: :user_organizations
+  has_many :branches, dependent: nil
+  has_many :users, dependent: nil
+  has_many :allies, dependent: nil
 
   include PgSearch::Model
   pg_search_scope :search_by_q,

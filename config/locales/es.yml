@@ -6,18 +6,22 @@ es:
   unauthorized:
       default: "Error"
       create:
+        ally: "No estás autorizado para crear ese aliado."
         branch: "No estás autorizado para crear esa sede."
         organization: "No estás autorizado para crear esa organización."
         user: "No estás autorizado para crear ese usuario."
       destroy:
+        ally: "No estás autorizado para borrar ese aliado."
         branch: "No estás autorizado para borrar esa sede."
         organization: "No estás autorizado para borrar esa organización."
         user: "No estás autorizado para borrar ese usuario."
       read:
+        ally: "No estás autorizado para acceder ese aliado."
         branch: "No estás autorizado para acceder esa sede."
         organization: "No estás autorizado para acceder esa organización."
         user: "No estás autorizado para acceder ese usuario."
       update:
+        ally: "No estás autorizado para actualizar ese aliado."
         branch: "No estás autorizado para actualizar esa sede."
         organization: "No estás autorizado para actualizar esa organización."
         user: "No estás autorizado para actualizar ese usuario."

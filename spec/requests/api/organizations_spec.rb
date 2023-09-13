@@ -7,8 +7,8 @@ RSpec.describe 'Organizations' do
     let!(:super_admin) { create(:user, :super_admin) }
     let(:organization) { create(:organization) }
     let(:organization2) { create(:organization) }
-    let!(:admin) { create(:user, :admin, organizations: [organization, organization2]) }
-    let!(:trainer) { create(:user, organizations: [organization]) }
+    let!(:admin) { create(:user, :admin, organization: organization) }
+    let!(:trainer) { create(:user, organization: organization) }
 
     before do
       create_list(:organization, 5)
@@ -26,7 +26,7 @@ RSpec.describe 'Organizations' do
       it 'returns organizations that the admin has access to' do
         get '/api/v1/organizations', headers: authenticated_header(admin)
         expect(response).to have_http_status(:success)
-        expect(json_response[:data].length).to eq(2)
+        expect(json_response[:data].length).to eq(1)
       end
     end
 

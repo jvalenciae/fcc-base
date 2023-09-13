@@ -14,21 +14,60 @@ RSpec.describe Branch do
       expect(branch).to validate_presence_of(:address)
       expect(branch).to validate_presence_of(:phone_number)
     end
+
+    describe '#validate_allies_belongs_to_organization' do
+      let(:user) { create(:user) }
+      let(:organization) { create(:organization) }
+      let(:valid_ally) { create(:ally, organization: organization) }
+      let(:invalid_ally) { create(:ally) }
+
+      context 'when all allies belong to branch organization' do
+        before do
+          branch.organization = organization
+          branch.allies << valid_ally
+        end
+
+        it 'does not add errors' do
+          branch.valid?
+          expect(branch.errors[:allies]).to be_empty
+        end
+      end
+
+      context 'when some allies do not belong to branch organization' do
+        before do
+          branch.organization = organization
+          branch.allies << invalid_ally
+        end
+
+        it 'adds an error message' do
+          branch.valid?
+          expect(branch.errors[:allies]).to include("Some allies don't belong to the branch's organization")
+        end
+      end
+
+      context 'when branch has no allies' do
+        it 'does not add errors' do
+          branch.valid?
+          expect(branch.errors[:branches]).to be_empty
+        end
+      end
+    end
   end
 
   describe 'associations' do
     it 'validates associations' do
-      expect(branch).to have_many(:organization_branches).dependent(:destroy)
-      expect(branch).to have_many(:organizations).through(:organization_branches)
+      expect(branch).to belong_to(:organization)
       expect(branch).to have_many(:user_branches).dependent(:destroy)
       expect(branch).to have_many(:users).through(:user_branches)
+      expect(branch).to have_many(:ally_branches).dependent(:destroy)
+      expect(branch).to have_many(:allies).through(:ally_branches)
     end
   end
 
   describe 'scopes' do
     let!(:org) { create(:organization) }
-    let!(:branch) { create(:branch) }
-    let!(:org_branches) { create_list(:branch, 3, organizations: [org]) }
+    let!(:branch) { create(:branch, name: 'Some Random Name') }
+    let!(:org_branches) { create_list(:branch, 3, organization: org) }
 
     describe '::by_organizations' do
       it 'finds branches by given organizations' do

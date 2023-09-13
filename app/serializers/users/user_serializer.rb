@@ -2,22 +2,23 @@
 
 module Users
   class UserSerializer < ActiveModel::Serializer
+    include UserConcerns
+
     attributes :id, :email, :first_name, :last_name, :country, :role, :type, :last_sign_in_at
 
-    has_many :organizations
+    belongs_to :organization
     has_many :branches
 
-    def organizations
-      object.organizations.map do |organization|
-        {
-          id: organization.id,
-          name: organization.name,
-          country: country(organization),
-          report_id: organization.report_id,
-          logo: organization.logo.url,
-          branches: organization_branches(organization)
-        }
-      end
+    def organization
+      organization = object.organization
+      {
+        id: organization.id,
+        name: organization.name,
+        country: country(organization),
+        report_id: organization.report_id,
+        logo: organization.logo.url,
+        branches: organization_branches(organization)
+      }
     end
 
     def organization_branches(organization)
@@ -34,7 +35,7 @@ module Users
           city: branch.city,
           address: branch.address,
           phone_number: branch.phone_number,
-          organizations: branch_organizations(branch)
+          organization_id: branch.organization_id
         }
       end
     end
@@ -46,10 +47,6 @@ module Users
       }
     end
 
-    def branch_organizations(branch)
-      branch.organizations.select { |organization| organization.user_ids.include?(object.id) }.map(&:id)
-    end
-
     def country(object = @object)
       {
         code: object.country,
@@ -59,16 +56,6 @@ module Users
 
     def last_sign_in_at
       object.last_sign_in_at&.strftime('%Y-%m-%d: %H:%M %Z')
-    end
-
-    def type
-      if object.super_admin?
-        'super_admin'
-      elsif object.admin?
-        'admin'
-      else
-        'member'
-      end
     end
   end
 end

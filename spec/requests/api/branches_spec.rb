@@ -8,8 +8,8 @@ RSpec.describe 'Branches' do
       let(:user) { create(:user, :super_admin) }
       let(:organization) { create(:organization) }
 
-      let!(:first_branch) { create(:branch, organizations: [organization]) }
-      let!(:second_branch) { create(:branch, organizations: [organization]) }
+      let!(:first_branch) { create(:branch, organization: organization) }
+      let!(:second_branch) { create(:branch, organization: organization) }
 
       it 'returns a list of branches for the specified organization' do
         get '/api/v1/branches', params: { organization_ids: [organization.id] }, headers: authenticated_header(user)
@@ -20,13 +20,13 @@ RSpec.describe 'Branches' do
             { 'id' => first_branch.id, 'name' => first_branch.name, 'city' => first_branch.city,
               'country' => { 'code' => 'CO', 'name' => 'Colombia' }, 'address' => first_branch.address,
               'department' => { 'code' => 'ATL', 'name' => 'Atlántico' }, 'phone_number' => first_branch.phone_number,
-              'organizations' => [{ 'id' => organization.id, 'name' => organization.name,
-                                    'country' => { 'code' => 'CO', 'name' => 'Colombia' } }] },
+              'organization' => { 'id' => organization.id, 'name' => organization.name,
+                                  'country' => { 'code' => 'CO', 'name' => 'Colombia' } } },
             { 'id' => second_branch.id, 'name' => second_branch.name, 'city' => second_branch.city,
               'country' => { 'code' => 'CO', 'name' => 'Colombia' }, 'address' => second_branch.address,
               'department' => { 'code' => 'ATL', 'name' => 'Atlántico' }, 'phone_number' => second_branch.phone_number,
-              'organizations' => [{ 'id' => organization.id, 'name' => organization.name,
-                                    'country' => { 'code' => 'CO', 'name' => 'Colombia' } }] }
+              'organization' => { 'id' => organization.id, 'name' => organization.name,
+                                  'country' => { 'code' => 'CO', 'name' => 'Colombia' } } }
           ]
         )
       end
@@ -80,12 +80,14 @@ RSpec.describe 'Branches' do
           department: 'ATL',
           city: 'Barranquilla',
           address: 'Addr',
-          phone_number: '1234567890'
+          phone_number: '1234567890',
+          organization_id: organization.id
         }
       }
     end
 
     let!(:super_admin_user) { create(:user, :super_admin) }
+    let(:organization) { create(:organization) }
 
     context 'when the request is valid' do
       it 'creates a new branch' do

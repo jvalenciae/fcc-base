@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe OrganizationBranch do
+RSpec.describe AllyBranch do
   describe 'associations' do
-    it { is_expected.to belong_to(:organization) }
+    it { is_expected.to belong_to(:ally) }
     it { is_expected.to belong_to(:branch) }
   end
 end

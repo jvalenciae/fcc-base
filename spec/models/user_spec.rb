@@ -11,15 +11,15 @@ RSpec.describe User do
     it { is_expected.to validate_presence_of(:country) }
     it { is_expected.to validate_presence_of(:role) }
 
-    describe '#validate_branches_belongs_to_organizations' do
+    describe '#validate_branches_belongs_to_organization' do
       let(:user) { create(:user) }
       let(:organization) { create(:organization) }
-      let(:valid_branch) { create(:branch, organizations: [organization]) }
+      let(:valid_branch) { create(:branch, organization: organization) }
       let(:invalid_branch) { create(:branch) }
 
-      context 'when all branches belong to user organizations' do
+      context 'when all branches belong to user organization' do
         before do
-          user.organizations << organization
+          user.organization = organization
           user.branches << valid_branch
         end
 
@@ -31,13 +31,13 @@ RSpec.describe User do
 
       context 'when some branches do not belong to user organizations' do
         before do
-          user.organizations << organization
+          user.organization = organization
           user.branches << invalid_branch
         end
 
         it 'adds an error message' do
           user.valid?
-          expect(user.errors[:branches]).to include("Some branches don't belong to user's organizations")
+          expect(user.errors[:branches]).to include("Some branches don't belong to the user's organization")
         end
       end
 
@@ -114,8 +114,7 @@ RSpec.describe User do
   end
 
   describe 'associations' do
-    it { is_expected.to have_many(:user_organizations).dependent(:destroy) }
-    it { is_expected.to have_many(:organizations).through(:user_organizations) }
+    it { is_expected.to belong_to(:organization) }
     it { is_expected.to have_many(:user_branches).dependent(:destroy) }
     it { is_expected.to have_many(:branches).through(:user_branches) }
   end
@@ -191,15 +190,15 @@ RSpec.describe User do
       # rubocop:disable RSpec/IndexedLet
       let!(:organization1) { create(:organization) }
       let!(:organization2) { create(:organization) }
-      let!(:user1) { create(:user, organizations: [organization1]) }
-      let!(:user2) { create(:user, organizations: [organization2]) }
-      let!(:user3) { create(:user, organizations: [organization1, organization2]) }
+      let!(:user1) { create(:user, organization: organization1) }
+      let!(:user2) { create(:user, organization: organization2) }
+      let!(:user3) { create(:user, organization: organization1) }
       let!(:user4) { create(:user) }
       # rubocop:enable RSpec/IndexedLet
 
       it 'returns users belonging to the specified organizations' do
         expect(described_class.by_organization_ids([organization1.id])).to eq([user1, user3])
-        expect(described_class.by_organization_ids([organization2.id])).to eq([user2, user3])
+        expect(described_class.by_organization_ids([organization2.id])).to eq([user2])
         expect(described_class.by_organization_ids([organization1.id, organization2.id])).to eq([user1, user2, user3])
       end
 
@@ -212,11 +211,11 @@ RSpec.describe User do
     describe '.by_branch_ids' do
       # rubocop:disable RSpec/IndexedLet
       let!(:organization) { create(:organization) }
-      let!(:branch1) { create(:branch, organizations: [organization]) }
-      let!(:branch2) { create(:branch, organizations: [organization]) }
-      let!(:user1) { create(:user, branches: [branch1], organizations: [organization]) }
-      let!(:user2) { create(:user, branches: [branch2], organizations: [organization]) }
-      let!(:user3) { create(:user, branches: [branch1, branch2], organizations: [organization]) }
+      let!(:branch1) { create(:branch, organization: organization) }
+      let!(:branch2) { create(:branch, organization: organization) }
+      let!(:user1) { create(:user, branches: [branch1], organization: organization) }
+      let!(:user2) { create(:user, branches: [branch2], organization: organization) }
+      let!(:user3) { create(:user, branches: [branch1, branch2], organization: organization) }
       let!(:user4) { create(:user) }
       # rubocop:enable RSpec/IndexedLet
 

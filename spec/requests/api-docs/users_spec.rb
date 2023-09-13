@@ -44,26 +44,23 @@ describe 'Users API' do
                        },
                        role: { type: :string },
                        last_sign_in_at: { type: :string },
-                       organizations: {
-                         type: :array,
-                         items: {
-                           type: :object,
-                           properties: {
-                             id: { type: :integer },
-                             name: { type: :string },
-                             country: {
-                               type: :object,
-                               properties: {
-                                 code: { type: :string },
-                                 name: { type: :string }
-                               }
-                             },
-                             report_id: { type: :string },
-                             logo: { type: :string },
-                             branches: {
-                               type: :array,
-                               items: { type: :integer }
+                       organization: {
+                         type: :object,
+                         properties: {
+                           id: { type: :integer },
+                           name: { type: :string },
+                           country: {
+                             type: :object,
+                             properties: {
+                               code: { type: :string },
+                               name: { type: :string }
                              }
+                           },
+                           report_id: { type: :string },
+                           logo: { type: :string },
+                           branches: {
+                             type: :array,
+                             items: { type: :integer }
                            }
                          }
                        },
@@ -91,10 +88,7 @@ describe 'Users API' do
                              city: { type: :string },
                              address: { type: :string },
                              phone_number: { type: :string },
-                             organizations: {
-                               type: :array,
-                               items: { type: :integer }
-                             }
+                             organization_id: { type: :integer }
                            }
                          }
                        }
@@ -135,10 +129,7 @@ describe 'Users API' do
               phone_number: { type: :string },
               country: { type: :string },
               role: { type: :string },
-              organization_ids: {
-                type: :array,
-                items: { type: :integer }
-              },
+              organization_id: { type: :integer },
               branch_ids: {
                 type: :array,
                 items: { type: :integer }
@@ -146,7 +137,7 @@ describe 'Users API' do
             }
           }
         },
-        required: %w[first_name last_name email password phone_number country role]
+        required: %w[first_name last_name email password phone_number country role organization_id]
       }
 
       response '201', 'Created' do
@@ -169,26 +160,23 @@ describe 'Users API' do
                      },
                      role: { type: :string },
                      last_sign_in_at: { type: :string },
-                     organizations: {
-                       type: :array,
-                       items: {
-                         type: :object,
-                         properties: {
-                           id: { type: :integer },
-                           name: { type: :string },
-                           country: {
-                             type: :object,
-                             properties: {
-                               code: { type: :string },
-                               name: { type: :string }
-                             }
-                           },
-                           report_id: { type: :string },
-                           logo: { type: :string },
-                           branches: {
-                             type: :array,
-                             items: { type: :integer }
+                     organization: {
+                       type: :object,
+                       properties: {
+                         id: { type: :integer },
+                         name: { type: :string },
+                         country: {
+                           type: :object,
+                           properties: {
+                             code: { type: :string },
+                             name: { type: :string }
                            }
+                         },
+                         report_id: { type: :string },
+                         logo: { type: :string },
+                         branches: {
+                           type: :array,
+                           items: { type: :integer }
                          }
                        }
                      },
@@ -216,10 +204,7 @@ describe 'Users API' do
                            city: { type: :string },
                            address: { type: :string },
                            phone_number: { type: :string },
-                           organizations: {
-                             type: :array,
-                             items: { type: :integer }
-                           }
+                           organization_id: { type: :integer }
                          }
                        }
                      }
@@ -262,26 +247,23 @@ describe 'Users API' do
                      },
                      role: { type: :string },
                      last_sign_in_at: { type: :string },
-                     organizations: {
-                       type: :array,
-                       items: {
-                         type: :object,
-                         properties: {
-                           id: { type: :integer },
-                           name: { type: :string },
-                           country: {
-                             type: :object,
-                             properties: {
-                               code: { type: :string },
-                               name: { type: :string }
-                             }
-                           },
-                           report_id: { type: :string },
-                           logo: { type: :string },
-                           branches: {
-                             type: :array,
-                             items: { type: :integer }
+                     organization: {
+                       type: :object,
+                       properties: {
+                         id: { type: :integer },
+                         name: { type: :string },
+                         country: {
+                           type: :object,
+                           properties: {
+                             code: { type: :string },
+                             name: { type: :string }
                            }
+                         },
+                         report_id: { type: :string },
+                         logo: { type: :string },
+                         branches: {
+                           type: :array,
+                           items: { type: :integer }
                          }
                        }
                      },
@@ -309,10 +291,7 @@ describe 'Users API' do
                            city: { type: :string },
                            address: { type: :string },
                            phone_number: { type: :string },
-                           organizations: {
-                             type: :array,
-                             items: { type: :integer }
-                           }
+                           organization_id: { type: :integer }
                          }
                        }
                      }
@@ -349,10 +328,7 @@ describe 'Users API' do
                 }
               },
               role: { type: :string },
-              organization_ids: {
-                type: :array,
-                items: { type: :integer }
-              },
+              organization_id: { type: :integer },
               branch_ids: {
                 type: :array,
                 items: { type: :integer }
@@ -360,7 +336,7 @@ describe 'Users API' do
             }
           }
         },
-        required: %w[first_name last_name email password phone_number country role]
+        required: %w[first_name last_name email password phone_number country role organization_id]
       }
 
       response '200', 'OK' do
@@ -383,26 +359,23 @@ describe 'Users API' do
                      },
                      role: { type: :string },
                      last_sign_in_at: { type: :string },
-                     organizations: {
-                       type: :array,
-                       items: {
-                         type: :object,
-                         properties: {
-                           id: { type: :integer },
-                           name: { type: :string },
-                           country: {
-                             type: :object,
-                             properties: {
-                               code: { type: :string },
-                               name: { type: :string }
-                             }
-                           },
-                           report_id: { type: :string },
-                           logo: { type: :string },
-                           branches: {
-                             type: :array,
-                             items: { type: :integer }
+                     organization: {
+                       type: :object,
+                       properties: {
+                         id: { type: :integer },
+                         name: { type: :string },
+                         country: {
+                           type: :object,
+                           properties: {
+                             code: { type: :string },
+                             name: { type: :string }
                            }
+                         },
+                         report_id: { type: :string },
+                         logo: { type: :string },
+                         branches: {
+                           type: :array,
+                           items: { type: :integer }
                          }
                        }
                      },
@@ -430,10 +403,7 @@ describe 'Users API' do
                            city: { type: :string },
                            address: { type: :string },
                            phone_number: { type: :string },
-                           organizations: {
-                             type: :array,
-                             items: { type: :integer }
-                           }
+                           organization_id: { type: :integer }
                          }
                        }
                      }

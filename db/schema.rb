@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_22_203028) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_11_085026) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -43,6 +43,23 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_22_203028) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "allies", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "organization_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_allies_on_organization_id"
+  end
+
+  create_table "ally_branches", force: :cascade do |t|
+    t.bigint "ally_id", null: false
+    t.bigint "branch_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ally_id"], name: "index_ally_branches_on_ally_id"
+    t.index ["branch_id"], name: "index_ally_branches_on_branch_id"
+  end
+
   create_table "branches", force: :cascade do |t|
     t.string "name", null: false
     t.string "country", null: false
@@ -52,21 +69,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_22_203028) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "department", null: false
+    t.bigint "organization_id", null: false
+    t.index ["organization_id"], name: "index_branches_on_organization_id"
   end
 
   create_table "jwt_denylist", force: :cascade do |t|
     t.string "jti", null: false
     t.datetime "exp", null: false
     t.index ["jti"], name: "index_jwt_denylist_on_jti"
-  end
-
-  create_table "organization_branches", force: :cascade do |t|
-    t.bigint "organization_id", null: false
-    t.bigint "branch_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["branch_id"], name: "index_organization_branches_on_branch_id"
-    t.index ["organization_id"], name: "index_organization_branches_on_organization_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -84,15 +94,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_22_203028) do
     t.datetime "updated_at", null: false
     t.index ["branch_id"], name: "index_user_branches_on_branch_id"
     t.index ["user_id"], name: "index_user_branches_on_user_id"
-  end
-
-  create_table "user_organizations", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "organization_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["organization_id"], name: "index_user_organizations_on_organization_id"
-    t.index ["user_id"], name: "index_user_organizations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -113,16 +114,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_22_203028) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
+    t.bigint "organization_id", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["organization_id"], name: "index_users_on_organization_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "organization_branches", "branches"
-  add_foreign_key "organization_branches", "organizations"
+  add_foreign_key "allies", "organizations"
+  add_foreign_key "ally_branches", "allies"
+  add_foreign_key "ally_branches", "branches"
+  add_foreign_key "branches", "organizations"
   add_foreign_key "user_branches", "branches"
   add_foreign_key "user_branches", "users"
-  add_foreign_key "user_organizations", "organizations"
-  add_foreign_key "user_organizations", "users"
+  add_foreign_key "users", "organizations"
 end

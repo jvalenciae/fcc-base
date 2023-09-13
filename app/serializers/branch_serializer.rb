@@ -3,16 +3,15 @@
 class BranchSerializer < ActiveModel::Serializer
   attributes :id, :name, :country, :department, :city, :address, :phone_number
 
-  has_many :organizations
+  belongs_to :organization
 
-  def organizations
-    object.organizations.map do |organization|
-      {
-        id: organization.id,
-        name: organization.name,
-        country: country(organization)
-      }
-    end
+  def organization
+    organization = object.organization
+    {
+      id: organization.id,
+      name: organization.name,
+      country: country(organization)
+    }
   end
 
   def country(object = @object)

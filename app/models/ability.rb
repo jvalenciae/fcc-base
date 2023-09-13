@@ -43,21 +43,23 @@ class Ability
   def define_super_admin_abilities(_user)
     can :manage, User
     can :manage, Organization
+    can :manage, Ally
     can :manage, Branch
   end
 
   def define_admin_abilities(user)
-    can %i[create update destroy], User,
-        { user_organizations: { organization_id: user.organization_ids }, role: User::MEMBER_ROLES.keys }
-    can :read, User, { user_organizations: { organization_id: user.organization_ids } }
-    can :manage, Organization, { user_organizations: { organization_id: user.organization_ids } }
-    can :manage, Branch, { organization_branches: { organization_id: user.organization_ids } }
+    can %i[create update destroy], User, { organization_id: user.organization_id, role: User::MEMBER_ROLES.keys }
+    can :read, User, { organization_id: user.organization_id }
+    can :read, Organization, { id: user.organization_id }
+    can :manage, Ally, { organization_id: user.organization_id }
+    can :manage, Branch, { organization_id: user.organization_id }
   end
 
   def define_member_abilities(user)
-    can %i[read update], User, id: user.id
+    can %i[read update], User, { id: user.id, role: User::MEMBER_ROLES.keys }
     # can :create, [Participant, ParticipantGroup, User], user: user
-    can :read, Organization, { user_organizations: { organization_id: user.organization_ids } }
-    can :read, Branch, { user_branches: { branch_id: user.branch_ids } }
+    can :read, Organization, { id: user.organization_id }
+    can :read, Ally, { organization_id: user.organization_id }
+    can :read, Branch, { organization_id: user.organization_id }
   end
 end

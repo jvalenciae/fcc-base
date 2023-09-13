@@ -3,11 +3,15 @@
 class Branch < ApplicationRecord
   validates :name, :country, :department, :city, :address, :phone_number, presence: true
 
-  has_many :organization_branches, dependent: :destroy
-  has_many :organizations, through: :organization_branches
+  validate :validate_allies_belongs_to_organization
+
+  belongs_to :organization
 
   has_many :user_branches, dependent: :destroy
   has_many :users, through: :user_branches
+
+  has_many :ally_branches, dependent: :destroy
+  has_many :allies, through: :ally_branches
 
   include PgSearch::Model
   pg_search_scope :search_by_q,
@@ -19,6 +23,16 @@ class Branch < ApplicationRecord
   scope :by_organization_ids, lambda { |organization_ids|
     return all if organization_ids.blank?
 
-    joins(:organizations).where(organizations: { id: organization_ids }).distinct
+    where(organization_id: organization_ids)
   }
+
+  private
+
+  def validate_allies_belongs_to_organization
+    return if allies.blank?
+
+    return if allies.all? { |ally| ally.organization == organization }
+
+    errors.add(:allies, "Some allies don't belong to the branch's organization")
+  end
 end
