@@ -48,8 +48,10 @@ class Ability
   end
 
   def define_admin_abilities(user)
-    can %i[create update destroy], User, { organization_id: user.organization_id, role: User::MEMBER_ROLES.keys }
-    can :read, User, { organization_id: user.organization_id }
+    can :create, User, { organization_id: user.organization_id, role: User::MEMBER_ROLES.keys }
+    can %i[read update destroy], User, {
+      organization_id: user.organization_id, role: User::MEMBER_ROLES.keys + User::ADMIN_ROLES.keys
+    }
     can :read, Organization, { id: user.organization_id }
     can :manage, Ally, { organization_id: user.organization_id }
     can :manage, Branch, { organization_id: user.organization_id }

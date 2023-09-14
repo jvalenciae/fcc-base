@@ -10,7 +10,7 @@ class User < ApplicationRecord
   validate :validate_branches_belongs_to_organization
 
   before_validation :set_random_password, on: :create
-  after_create :generate_custom_reset_password_token, if: :member?
+  after_create :generate_custom_reset_password_token
 
   PASSWORD_PATTERN = %r{\A(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-\=\[\]{}|\'"/\.,`<>:;?~])}.freeze
   validates :password,
@@ -22,7 +22,7 @@ class User < ApplicationRecord
 
   validates :reset_password_token, uniqueness: true, allow_nil: true
 
-  belongs_to :organization
+  belongs_to :organization, optional: true
 
   has_many :user_branches, dependent: :destroy
   has_many :branches, through: :user_branches

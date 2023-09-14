@@ -30,6 +30,7 @@ RSpec.describe Ability do
   context 'when user is an admin' do
     let(:user) { create(:user, :admin, organization: organization) }
     let(:member_user) { create(:user, organization: organization) } # User in admin's organizations
+    let(:admin_user) { create(:user, :admin, organization: organization) } # Admin User in admin's organizations
     let(:user_in_other_organization) { create(:user) } # User not in admin's organizations
 
     # User permissions
@@ -37,6 +38,9 @@ RSpec.describe Ability do
     it { is_expected.to be_able_to(:update, member_user) }
     it { is_expected.to be_able_to(:destroy, member_user) }
     it { is_expected.to be_able_to(:read, member_user) }
+    it { is_expected.not_to be_able_to(:create, admin_user) }
+    it { is_expected.to be_able_to(:update, admin_user) }
+    it { is_expected.to be_able_to(:destroy, admin_user) }
     it { is_expected.not_to be_able_to(:create, user_in_other_organization) }
     it { is_expected.not_to be_able_to(:update, user_in_other_organization) }
     it { is_expected.not_to be_able_to(:destroy, user_in_other_organization) }

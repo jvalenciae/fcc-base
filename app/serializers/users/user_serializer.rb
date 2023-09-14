@@ -11,6 +11,8 @@ module Users
 
     def organization
       organization = object.organization
+      return unless organization
+
       {
         id: organization.id,
         name: organization.name,

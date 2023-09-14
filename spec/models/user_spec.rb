@@ -93,7 +93,7 @@ RSpec.describe User do
         allow(Devise.token_generator).to receive(:generate).and_return(%w[raw hashed])
       end
 
-      context 'when user is a member' do
+      context 'when user is a created' do
         let(:member_user) { create(:user) }
 
         it 'generates a reset password token with custom expiration' do
@@ -101,20 +101,11 @@ RSpec.describe User do
           expect(member_user.reset_password_sent_at).to be > Time.now.utc
         end
       end
-
-      context 'when user is not a member' do
-        let(:non_member_user) { create(:user, role: User::SUPER_ADMIN_ROLES.keys.first) }
-
-        it 'does not generate a reset password token' do
-          expect(non_member_user.reset_password_token).to be_nil
-          expect(non_member_user.reset_password_sent_at).to be_nil
-        end
-      end
     end
   end
 
   describe 'associations' do
-    it { is_expected.to belong_to(:organization) }
+    it { is_expected.to belong_to(:organization).optional(true) }
     it { is_expected.to have_many(:user_branches).dependent(:destroy) }
     it { is_expected.to have_many(:branches).through(:user_branches) }
   end
