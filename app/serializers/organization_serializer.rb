@@ -11,6 +11,6 @@ class OrganizationSerializer < ActiveModel::Serializer
   end
 
   def logo
-    object.logo.url
+    object.logo.url(expires_in: 1.week)
   end
 end
