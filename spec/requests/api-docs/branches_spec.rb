@@ -10,7 +10,7 @@ describe 'Branches API' do
 
       parameter name: 'organization_ids[]', in: :query, style: :form, explode: true, schema: {
         type: :array,
-        items: { type: :integer }
+        items: { type: :string }
       }, description: 'An array of organization IDs to filter branches by', required: false
       parameter name: :q, in: :query, type: :string,
                 description: 'A query string to search for branches by name',
@@ -28,7 +28,7 @@ describe 'Branches API' do
                    items: {
                      type: :object,
                      properties: {
-                       id: { type: :integer },
+                       id: { type: :string },
                        name: { type: :string },
                        country: {
                          type: :object,
@@ -50,7 +50,7 @@ describe 'Branches API' do
                        organization: {
                          type: :object,
                          properties: {
-                           id: { type: :integer },
+                           id: { type: :string },
                            name: { type: :string },
                            country: {
                              type: :object,
@@ -96,7 +96,7 @@ describe 'Branches API' do
               address: { type: :string },
               phone_number: { type: :string },
               organization_id: { type: :integer },
-              ally_ids: { type: :array, items: { type: :integer } }
+              ally_ids: { type: :array, items: { type: :string } }
             },
             required: %w[name country city address phone_number organization_id]
           }
@@ -110,7 +110,7 @@ describe 'Branches API' do
                  data: {
                    type: :object,
                    properties: {
-                     id: { type: :integer },
+                     id: { type: :string },
                      name: { type: :string },
                      country: {
                        type: :object,
@@ -132,7 +132,7 @@ describe 'Branches API' do
                      organization: {
                        type: :object,
                        properties: {
-                         id: { type: :integer },
+                         id: { type: :string },
                          name: { type: :string },
                          country: {
                            type: :object,
@@ -169,7 +169,7 @@ describe 'Branches API' do
                  data: {
                    type: :object,
                    properties: {
-                     id: { type: :integer },
+                     id: { type: :string },
                      name: { type: :string },
                      country: {
                        type: :object,
@@ -191,7 +191,7 @@ describe 'Branches API' do
                      organization: {
                        type: :object,
                        properties: {
-                         id: { type: :integer },
+                         id: { type: :string },
                          name: { type: :string },
                          country: {
                            type: :object,
@@ -229,7 +229,7 @@ describe 'Branches API' do
               address: { type: :string },
               phone_number: { type: :string },
               organization_id: { type: :integer },
-              ally_ids: { type: :array, items: { type: :integer } }
+              ally_ids: { type: :array, items: { type: :string } }
             },
             required: %w[name country city address phone_number organization_id]
           }
@@ -243,7 +243,7 @@ describe 'Branches API' do
                  data: {
                    type: :object,
                    properties: {
-                     id: { type: :integer },
+                     id: { type: :string },
                      name: { type: :string },
                      country: {
                        type: :object,
@@ -265,7 +265,7 @@ describe 'Branches API' do
                      organization: {
                        type: :object,
                        properties: {
-                         id: { type: :integer },
+                         id: { type: :string },
                          name: { type: :string },
                          country: {
                            type: :object,

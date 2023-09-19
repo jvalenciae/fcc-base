@@ -30,13 +30,13 @@ RSpec.describe Organization do
       # rubocop:enable RSpec/IndexedLet
 
       it 'returns organizations matching the query' do
-        expect(described_class.search_by_q('John')).to eq([organization1])
-        expect(described_class.search_by_q('Jane')).to eq([organization2, organization3])
-        expect(described_class.search_by_q('Alice')).to eq([organization3])
+        expect(described_class.search_by_q('John')).to contain_exactly(organization1)
+        expect(described_class.search_by_q('Jane')).to contain_exactly(organization2, organization3)
+        expect(described_class.search_by_q('Alice')).to contain_exactly(organization3)
       end
 
       it 'ignores accents in the search' do
-        expect(described_class.search_by_q('Álice')).to eq([organization3])
+        expect(described_class.search_by_q('Álice')).to contain_exactly(organization3)
       end
     end
   end

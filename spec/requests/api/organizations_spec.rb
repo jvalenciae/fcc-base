@@ -51,11 +51,12 @@ RSpec.describe 'Organizations' do
   describe 'GET #show' do
     let!(:super_admin) { create(:user, :super_admin) }
     let!(:user) { create(:user) }
-    let!(:organization) { create(:organization, id: 123) }
+    let!(:organization) { create(:organization) }
+    let!(:id) { organization.id }
 
     context 'when user have permissions' do
       it 'returns the details of an organization' do
-        get '/api/v1/organizations/123', headers: authenticated_header(super_admin)
+        get "/api/v1/organizations/#{id}", headers: authenticated_header(super_admin)
         expect(response).to have_http_status(:success)
         expect(json_response[:data][:id]).to eq(organization.id)
         expect(json_response[:data][:name]).to eq(organization.name)
@@ -64,7 +65,7 @@ RSpec.describe 'Organizations' do
 
     context 'when user does not have permissions' do
       it 'gives unauthorized' do
-        get '/api/v1/organizations/123', headers: authenticated_header(user)
+        get "/api/v1/organizations/#{id}", headers: authenticated_header(user)
         expect(response).to have_http_status(:unauthorized)
       end
     end
@@ -151,14 +152,15 @@ RSpec.describe 'Organizations' do
         }
       }
     end
+    let!(:id) { 'c15cc7ea-3203-47c0-bb59-a34dc5d22c0c' }
 
     before do
-      create(:organization, id: 123)
+      create(:organization, id: id)
     end
 
     context 'when user have permissions' do
       it 'updates the organization' do
-        put '/api/v1/organizations/123', params: organization_params, headers: authenticated_header(super_admin)
+        put "/api/v1/organizations/#{id}", params: organization_params, headers: authenticated_header(super_admin)
         expect(response).to have_http_status(:success)
         expect(json_response[:data][:name]).to eq(organization_params[:organization][:name])
       end
@@ -166,7 +168,7 @@ RSpec.describe 'Organizations' do
 
     context 'when user does not have permissions' do
       it 'gives unauthorized' do
-        put '/api/v1/organizations/123', params: organization_params, headers: authenticated_header(user)
+        put "/api/v1/organizations/#{id}", params: organization_params, headers: authenticated_header(user)
         expect(response).to have_http_status(:unauthorized)
       end
     end

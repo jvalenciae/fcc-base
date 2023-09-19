@@ -58,11 +58,12 @@ RSpec.describe 'Allies' do
   describe 'GET #show' do
     let!(:super_admin) { create(:user, :super_admin) }
     let!(:user) { create(:user) }
-    let!(:ally) { create(:ally, id: 123) }
+    let!(:ally) { create(:ally) }
+    let!(:id) { ally.id }
 
     context 'when user have permissions' do
       it 'returns the details of an ally' do
-        get '/api/v1/allies/123', headers: authenticated_header(super_admin)
+        get "/api/v1/allies/#{id}", headers: authenticated_header(super_admin)
         expect(response).to have_http_status(:success)
         expect(json_response[:data][:id]).to eq(ally.id)
         expect(json_response[:data][:name]).to eq(ally.name)
@@ -71,7 +72,7 @@ RSpec.describe 'Allies' do
 
     context 'when user does not have permissions' do
       it 'gives unauthorized' do
-        get '/api/v1/allies/123', headers: authenticated_header(user)
+        get "/api/v1/allies/#{id}", headers: authenticated_header(user)
         expect(response).to have_http_status(:unauthorized)
       end
     end
@@ -156,14 +157,15 @@ RSpec.describe 'Allies' do
         }
       }
     end
+    let!(:id) { 'c15cc7ea-3203-47c0-bb59-a34dc5d22c0c' }
 
     before do
-      create(:ally, id: 123)
+      create(:ally, id: id)
     end
 
     context 'when user have permissions' do
       it 'updates the ally' do
-        put '/api/v1/allies/123', params: ally_params, headers: authenticated_header(super_admin)
+        put "/api/v1/allies/#{id}", params: ally_params, headers: authenticated_header(super_admin)
         expect(response).to have_http_status(:success)
         expect(json_response[:data][:name]).to eq(ally_params[:ally][:name])
       end
@@ -171,7 +173,7 @@ RSpec.describe 'Allies' do
 
     context 'when user does not have permissions' do
       it 'gives unauthorized' do
-        put '/api/v1/allies/123', params: ally_params, headers: authenticated_header(user)
+        put "/api/v1/allies/#{id}", params: ally_params, headers: authenticated_header(user)
         expect(response).to have_http_status(:unauthorized)
       end
     end

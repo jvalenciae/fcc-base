@@ -67,7 +67,7 @@ RSpec.describe Branch do
   describe 'scopes' do
     let!(:org) { create(:organization) }
     let!(:branch) { create(:branch, name: 'Some Random Name') }
-    let!(:org_branches) { create_list(:branch, 3, organization: org) }
+    let!(:org_branches) { create_list(:branch, 3, name: 'Some Random Name', organization: org) }
 
     describe '::by_organizations' do
       it 'finds branches by given organizations' do
@@ -84,13 +84,13 @@ RSpec.describe Branch do
       # rubocop:enable RSpec/IndexedLet
 
       it 'returns organizations matching the query' do
-        expect(described_class.search_by_q('John')).to eq([branch1])
-        expect(described_class.search_by_q('Jane')).to eq([branch2, branch3])
-        expect(described_class.search_by_q('Alice')).to eq([branch3])
+        expect(described_class.search_by_q('John')).to contain_exactly(branch1)
+        expect(described_class.search_by_q('Jane')).to contain_exactly(branch2, branch3)
+        expect(described_class.search_by_q('Alice')).to contain_exactly(branch3)
       end
 
       it 'ignores accents in the search' do
-        expect(described_class.search_by_q('Álice')).to eq([branch3])
+        expect(described_class.search_by_q('Álice')).to contain_exactly(branch3)
       end
     end
   end

@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_14_001525) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_18_090559) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
   enable_extension "unaccent"
 
@@ -43,24 +44,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_001525) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "allies", force: :cascade do |t|
+  create_table "allies", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
-    t.bigint "organization_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "organization_id", null: false
+    t.index ["created_at"], name: "index_allies_on_created_at"
     t.index ["organization_id"], name: "index_allies_on_organization_id"
   end
 
   create_table "ally_branches", force: :cascade do |t|
-    t.bigint "ally_id", null: false
-    t.bigint "branch_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "ally_id", null: false
+    t.uuid "branch_id", null: false
     t.index ["ally_id"], name: "index_ally_branches_on_ally_id"
     t.index ["branch_id"], name: "index_ally_branches_on_branch_id"
   end
 
-  create_table "branches", force: :cascade do |t|
+  create_table "branches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.string "country", null: false
     t.string "city", null: false
@@ -69,7 +71,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_001525) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "department", null: false
-    t.bigint "organization_id", null: false
+    t.uuid "organization_id", null: false
+    t.index ["created_at"], name: "index_branches_on_created_at"
     t.index ["organization_id"], name: "index_branches_on_organization_id"
   end
 
@@ -79,24 +82,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_001525) do
     t.index ["jti"], name: "index_jwt_denylist_on_jti"
   end
 
-  create_table "organizations", force: :cascade do |t|
+  create_table "organizations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.string "country", null: false
     t.string "report_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_organizations_on_created_at"
   end
 
   create_table "user_branches", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "branch_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "user_id", null: false
+    t.uuid "branch_id", null: false
     t.index ["branch_id"], name: "index_user_branches_on_branch_id"
     t.index ["user_id"], name: "index_user_branches_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -114,7 +118,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_14_001525) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
-    t.bigint "organization_id"
+    t.uuid "organization_id"
+    t.index ["created_at"], name: "index_users_on_created_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organization_id"], name: "index_users_on_organization_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

@@ -52,11 +52,12 @@ RSpec.describe 'Branches' do
   describe 'GET #show' do
     let!(:super_admin) { create(:user, :super_admin) }
     let!(:user) { create(:user) }
-    let!(:branch) { create(:branch, id: 123) }
+    let!(:branch) { create(:branch) }
+    let!(:id) { branch.id }
 
     context 'when user have permissions' do
       it 'returns the details of a branch' do
-        get '/api/v1/branches/123', headers: authenticated_header(super_admin)
+        get "/api/v1/branches/#{id}", headers: authenticated_header(super_admin)
         expect(response).to have_http_status(:success)
         expect(json_response[:data][:id]).to eq(branch.id)
         expect(json_response[:data][:name]).to eq(branch.name)
@@ -65,7 +66,7 @@ RSpec.describe 'Branches' do
 
     context 'when user does not have permissions' do
       it 'gives unauthorized' do
-        get '/api/v1/branches/123', headers: authenticated_header(user)
+        get "/api/v1/branches/#{id}", headers: authenticated_header(user)
         expect(response).to have_http_status(:unauthorized)
       end
     end
@@ -160,14 +161,15 @@ RSpec.describe 'Branches' do
         }
       }
     end
+    let!(:id) { 'c15cc7ea-3203-47c0-bb59-a34dc5d22c0c' }
 
     before do
-      create(:branch, id: 123)
+      create(:branch, id: id)
     end
 
     context 'when user have permissions' do
       it 'updates the branch' do
-        put '/api/v1/branches/123', params: branch_params, headers: authenticated_header(super_admin)
+        put "/api/v1/branches/#{id}", params: branch_params, headers: authenticated_header(super_admin)
         expect(response).to have_http_status(:success)
         expect(json_response[:data][:name]).to eq(branch_params[:branch][:name])
       end
@@ -175,7 +177,7 @@ RSpec.describe 'Branches' do
 
     context 'when user does not have permissions' do
       it 'gives unauthorized' do
-        put '/api/v1/branches/123', params: branch_params, headers: authenticated_header(user)
+        put "/api/v1/branches/#{id}", params: branch_params, headers: authenticated_header(user)
         expect(response).to have_http_status(:unauthorized)
       end
     end

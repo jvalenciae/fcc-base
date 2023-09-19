@@ -10,7 +10,7 @@ describe 'Users API' do
 
       parameter name: 'branch_ids[]', in: :query, style: :form, explode: true, schema: {
         type: :array,
-        items: { type: :integer }
+        items: { type: :string }
       }, description: 'An array of branch IDs to filter users by', required: false
       parameter name: :role, in: :query, type: :string,
                 description: 'A query string to filter users by role',
@@ -31,7 +31,7 @@ describe 'Users API' do
                    items: {
                      type: :object,
                      properties: {
-                       id: { type: :integer },
+                       id: { type: :string },
                        email: { type: :string },
                        first_name: { type: :string },
                        last_name: { type: :string },
@@ -47,7 +47,7 @@ describe 'Users API' do
                        organization: {
                          type: :object,
                          properties: {
-                           id: { type: :integer },
+                           id: { type: :string },
                            name: { type: :string },
                            country: {
                              type: :object,
@@ -69,7 +69,7 @@ describe 'Users API' do
                          items: {
                            type: :object,
                            properties: {
-                             id: { type: :integer },
+                             id: { type: :string },
                              name: { type: :string },
                              country: {
                                type: :object,
@@ -132,7 +132,7 @@ describe 'Users API' do
               organization_id: { type: :integer },
               branch_ids: {
                 type: :array,
-                items: { type: :integer }
+                items: { type: :string }
               }
             }
           }
@@ -147,7 +147,7 @@ describe 'Users API' do
                  data: {
                    type: :object,
                    properties: {
-                     id: { type: :integer },
+                     id: { type: :string },
                      email: { type: :string },
                      first_name: { type: :string },
                      last_name: { type: :string },
@@ -163,7 +163,7 @@ describe 'Users API' do
                      organization: {
                        type: :object,
                        properties: {
-                         id: { type: :integer },
+                         id: { type: :string },
                          name: { type: :string },
                          country: {
                            type: :object,
@@ -185,7 +185,7 @@ describe 'Users API' do
                        items: {
                          type: :object,
                          properties: {
-                           id: { type: :integer },
+                           id: { type: :string },
                            name: { type: :string },
                            country: {
                              type: :object,
@@ -233,7 +233,7 @@ describe 'Users API' do
                  data: {
                    type: :object,
                    properties: {
-                     id: { type: :integer },
+                     id: { type: :string },
                      email: { type: :string },
                      first_name: { type: :string },
                      last_name: { type: :string },
@@ -250,7 +250,7 @@ describe 'Users API' do
                      organization: {
                        type: :object,
                        properties: {
-                         id: { type: :integer },
+                         id: { type: :string },
                          name: { type: :string },
                          country: {
                            type: :object,
@@ -272,7 +272,7 @@ describe 'Users API' do
                        items: {
                          type: :object,
                          properties: {
-                           id: { type: :integer },
+                           id: { type: :string },
                            name: { type: :string },
                            country: {
                              type: :object,
@@ -331,7 +331,7 @@ describe 'Users API' do
               organization_id: { type: :integer },
               branch_ids: {
                 type: :array,
-                items: { type: :integer }
+                items: { type: :string }
               }
             }
           }
@@ -346,7 +346,7 @@ describe 'Users API' do
                  data: {
                    type: :object,
                    properties: {
-                     id: { type: :integer },
+                     id: { type: :string },
                      email: { type: :string },
                      first_name: { type: :string },
                      last_name: { type: :string },
@@ -362,7 +362,7 @@ describe 'Users API' do
                      organization: {
                        type: :object,
                        properties: {
-                         id: { type: :integer },
+                         id: { type: :string },
                          name: { type: :string },
                          country: {
                            type: :object,
@@ -384,7 +384,7 @@ describe 'Users API' do
                        items: {
                          type: :object,
                          properties: {
-                           id: { type: :integer },
+                           id: { type: :string },
                            name: { type: :string },
                            country: {
                              type: :object,
@@ -439,7 +439,7 @@ describe 'Users API' do
 
       parameter name: 'branch_ids[]', in: :query, style: :form, explode: true, schema: {
         type: :array,
-        items: { type: :integer }
+        items: { type: :string }
       }, description: 'An array of branch IDs to filter members by', required: false
       parameter name: :role, in: :query, type: :string,
                 description: 'A query string to filter members by role',
@@ -458,7 +458,7 @@ describe 'Users API' do
                  data: {
                    type: :object,
                    properties: {
-                     id: { type: :integer },
+                     id: { type: :string },
                      email: { type: :string },
                      first_name: { type: :string },
                      last_name: { type: :string },

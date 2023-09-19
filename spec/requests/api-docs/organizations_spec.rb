@@ -24,7 +24,7 @@ describe 'Organizations API' do
                    items: {
                      type: :object,
                      properties: {
-                       id: { type: :integer },
+                       id: { type: :string },
                        name: { type: :string },
                        country: {
                          type: :object,
@@ -80,7 +80,7 @@ describe 'Organizations API' do
                  data: {
                    type: :object,
                    properties: {
-                     id: { type: :integer },
+                     id: { type: :string },
                      name: { type: :string },
                      country: {
                        type: :object,
@@ -116,7 +116,7 @@ describe 'Organizations API' do
                  data: {
                    type: :object,
                    properties: {
-                     id: { type: :integer },
+                     id: { type: :string },
                      name: { type: :string },
                      country: {
                        type: :object,
@@ -162,7 +162,7 @@ describe 'Organizations API' do
                  data: {
                    type: :object,
                    properties: {
-                     id: { type: :integer },
+                     id: { type: :string },
                      name: { type: :string },
                      country: {
                        type: :object,

@@ -21,12 +21,12 @@ describe 'Allies API' do
                    items: {
                      type: :object,
                      properties: {
-                       id: { type: :integer },
+                       id: { type: :string },
                        name: { type: :string },
                        organization: {
                          type: :object,
                          properties: {
-                           id: { type: :integer },
+                           id: { type: :string },
                            name: { type: :string },
                            country: {
                              type: :object,
@@ -79,12 +79,12 @@ describe 'Allies API' do
       response '200', 'OK' do
         schema type: :object,
                properties: {
-                 id: { type: :integer },
+                 id: { type: :string },
                  name: { type: :string },
                  organization: {
                    type: :object,
                    properties: {
-                     id: { type: :integer },
+                     id: { type: :string },
                      name: { type: :string },
                      country: {
                        type: :object,
@@ -115,12 +115,12 @@ describe 'Allies API' do
       response '200', 'OK' do
         schema type: :object,
                properties: {
-                 id: { type: :integer },
+                 id: { type: :string },
                  name: { type: :string },
                  organization: {
                    type: :object,
                    properties: {
-                     id: { type: :integer },
+                     id: { type: :string },
                      name: { type: :string },
                      country: {
                        type: :object,
@@ -160,12 +160,12 @@ describe 'Allies API' do
       response '200', 'OK' do
         schema type: :object,
                properties: {
-                 id: { type: :integer },
+                 id: { type: :string },
                  name: { type: :string },
                  organization: {
                    type: :object,
                    properties: {
-                     id: { type: :integer },
+                     id: { type: :string },
                      name: { type: :string },
                      country: {
                        type: :object,

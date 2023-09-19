@@ -126,12 +126,14 @@ RSpec.describe 'Users' do
   end
 
   describe 'GET #show' do
-    let!(:super_admin) { create(:user, :super_admin, id: 9999) }
-    let!(:user) { create(:user, id: 1234) }
+    let!(:super_admin) { create(:user, :super_admin) }
+    let!(:super_admin_id) { super_admin.id }
+    let!(:user) { create(:user) }
+    let!(:user_id) { user.id }
 
     context 'when user have permissions' do
       it 'returns the details of a user' do
-        get '/api/v1/users/1234', headers: authenticated_header(super_admin)
+        get "/api/v1/users/#{user_id}", headers: authenticated_header(super_admin)
         expect(response).to have_http_status(:success)
         expect(json_response[:data][:id]).to eq(user.id)
         expect(json_response[:data][:email]).to eq(user.email)
@@ -141,15 +143,17 @@ RSpec.describe 'Users' do
 
     context 'when user does not have permissions' do
       it 'gives unauthorized' do
-        get '/api/v1/users/9999', headers: authenticated_header(user)
+        get "/api/v1/users/#{super_admin_id}", headers: authenticated_header(user)
         expect(response).to have_http_status(:unauthorized)
       end
     end
   end
 
   describe 'PUT #update' do
-    let!(:super_admin) { create(:user, :super_admin, id: 9999) }
-    let!(:user) { create(:user, id: 1234) }
+    let!(:super_admin) { create(:user, :super_admin) }
+    let!(:super_admin_id) { super_admin.id }
+    let!(:user) { create(:user) }
+    let!(:user_id) { user.id }
     let(:user_params) do
       {
         user: {
@@ -160,7 +164,7 @@ RSpec.describe 'Users' do
 
     context 'when user have permissions' do
       it 'updates the user' do
-        put '/api/v1/users/1234', params: user_params, headers: authenticated_header(super_admin)
+        put "/api/v1/users/#{user_id}", params: user_params, headers: authenticated_header(super_admin)
         expect(response).to have_http_status(:success)
         expect(json_response[:data][:first_name]).to eq(user_params[:user][:first_name])
       end
@@ -168,19 +172,21 @@ RSpec.describe 'Users' do
 
     context 'when user does not have permissions' do
       it 'gives unauthorized' do
-        put '/api/v1/users/9999', params: user_params, headers: authenticated_header(user)
+        put "/api/v1/users/#{super_admin_id}", params: user_params, headers: authenticated_header(user)
         expect(response).to have_http_status(:unauthorized)
       end
     end
   end
 
   describe 'DELETE #destroy' do
-    let!(:super_admin) { create(:user, :super_admin, id: 9999) }
-    let!(:user) { create(:user, id: 1234) }
+    let!(:super_admin) { create(:user, :super_admin) }
+    let!(:super_admin_id) { super_admin.id }
+    let!(:user) { create(:user) }
+    let!(:user_id) { user.id }
 
     context 'when user have permissions' do
       it 'deletes the user' do
-        delete '/api/v1/users/1234', headers: authenticated_header(super_admin)
+        delete "/api/v1/users/#{user_id}", headers: authenticated_header(super_admin)
         expect(response).to have_http_status(:success)
         expect(json_response[:message]).to eq('User successfully deleted.')
       end
@@ -188,7 +194,7 @@ RSpec.describe 'Users' do
 
     context 'when user does not have permissions' do
       it 'gives unauthorized' do
-        delete '/api/v1/users/9999', headers: authenticated_header(user)
+        delete "/api/v1/users/#{super_admin_id}", headers: authenticated_header(user)
         expect(response).to have_http_status(:unauthorized)
       end
     end
