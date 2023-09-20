@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Ally < ApplicationRecord
+  self.implicit_order_column = 'created_at'
+
   validates :name, presence: true
 
   belongs_to :organization

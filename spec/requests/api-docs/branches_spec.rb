@@ -91,7 +91,7 @@ describe 'Branches API' do
             type: :object,
             properties: {
               name: { type: :string },
-              country: { type: :string },
+              country: { type: :string, example: 'CO' },
               city: { type: :string },
               address: { type: :string },
               phone_number: { type: :string },
@@ -224,7 +224,7 @@ describe 'Branches API' do
             type: :object,
             properties: {
               name: { type: :string },
-              country: { type: :string },
+              country: { type: :string, example: 'CO' },
               city: { type: :string },
               address: { type: :string },
               phone_number: { type: :string },

@@ -50,7 +50,13 @@ describe 'Sessions API' do
                          properties: {
                            id: { type: :integer },
                            name: { type: :string },
-                           country: { type: :string },
+                           country: {
+                             type: :object,
+                             properties: {
+                               code: { type: :string },
+                               name: { type: :string }
+                             }
+                           },
                            report_id: { type: :string },
                            branches: {
                              type: :array,
@@ -59,7 +65,13 @@ describe 'Sessions API' do
                                properties: {
                                  id: { type: :integer },
                                  name: { type: :string },
-                                 country: { type: :string },
+                                 country: {
+                                   type: :object,
+                                   properties: {
+                                     code: { type: :string },
+                                     name: { type: :string }
+                                   }
+                                 },
                                  city: { type: :string },
                                  address: { type: :string },
                                  phone_number: { type: :string }

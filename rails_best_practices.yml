@@ -32,7 +32,11 @@ RemoveUnusedMethodsInControllersCheck: {
     'Api::V1::BranchesController#create',
     'Api::V1::BranchesController#index',
     'Api::V1::AlliesController#index',
-    'Api::V1::AlliesController#create'
+    'Api::V1::AlliesController#create',
+    Api::V1::GroupsController#index,
+    Api::V1::GroupsController#create,
+    Api::V1::GroupsController#categories,
+    Api::V1::GroupsController#export
   ]
 }
 RemoveUnusedMethodsInHelpersCheck: { except_methods: [] }

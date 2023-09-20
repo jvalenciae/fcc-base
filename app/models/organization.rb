@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Organization < ApplicationRecord
+  self.implicit_order_column = 'created_at'
+
   validates :name, :country, :report_id, presence: true
 
   has_one_attached :logo

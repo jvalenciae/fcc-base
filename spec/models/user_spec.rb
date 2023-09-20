@@ -108,6 +108,7 @@ RSpec.describe User do
     it { is_expected.to belong_to(:organization).optional(true) }
     it { is_expected.to have_many(:user_branches).dependent(:destroy) }
     it { is_expected.to have_many(:branches).through(:user_branches) }
+    it { is_expected.to have_many(:groups).through(:branches) }
   end
 
   describe 'constants' do
@@ -220,6 +221,54 @@ RSpec.describe User do
       it 'returns all users when branch_ids is blank' do
         expect(described_class.by_branch_ids([])).to contain_exactly(user1, user2, user3, user4)
         expect(described_class.by_branch_ids(nil)).to contain_exactly(user1, user2, user3, user4)
+      end
+    end
+
+    describe '.by_categories' do
+      # rubocop:disable RSpec/IndexedLet
+      let!(:organization) { create(:organization) }
+      let!(:branch1) { create(:branch, organization: organization) }
+      let!(:branch2) { create(:branch, organization: organization) }
+      let!(:group1) { create(:group, branch: branch1, category: 'builders') }
+      let!(:group2) { create(:group, branch: branch2, category: 'explorers') }
+      let!(:user1) { create(:user, organization: organization, branches: [group1.branch]) }
+      let!(:user2) { create(:user, organization: organization, branches: [group2.branch]) }
+      # rubocop:enable RSpec/IndexedLet
+
+      it 'filters users by categories' do
+        users = described_class.by_categories([group1.category])
+
+        expect(users).to include(user1)
+        expect(users).not_to include(user2)
+      end
+
+      it 'returns all users when no categories are provided' do
+        users = described_class.by_categories(nil)
+
+        expect(users).to include(user1, user2)
+      end
+    end
+
+    describe '.by_departments' do
+      # rubocop:disable RSpec/IndexedLet
+      let!(:organization) { create(:organization) }
+      let!(:branch1) { create(:branch, organization: organization, department: 'ATL') }
+      let!(:branch2) { create(:branch, organization: organization, department: 'AMA') }
+      let!(:user1) { create(:user, organization: organization, branches: [branch1]) }
+      let!(:user2) { create(:user, organization: organization, branches: [branch2]) }
+      # rubocop:enable RSpec/IndexedLet
+
+      it 'filters users by departments' do
+        users = described_class.by_departments([branch1.department])
+
+        expect(users).to include(user1)
+        expect(users).not_to include(user2)
+      end
+
+      it 'returns all users when no departments are provided' do
+        users = described_class.by_departments(nil)
+
+        expect(users).to include(user1, user2)
       end
     end
   end

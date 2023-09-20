@@ -65,15 +65,11 @@ module Api
         )
       end
 
-      # rubocop:disable Metrics/AbcSize
       def fetch_and_render_users(serializer)
-        @users = @users.by_branch_ids(params[:branch_ids]) if params[:branch_ids].present?
-        @users = @users.by_role(params[:role]) if params[:role].present?
-        @users = @users.search_by_q(params[:q]).with_pg_search_rank if params[:q].present?
+        @users = UsersFilterService.call(@users, params)
         @users, meta = paginate_resources(@users)
         render_response(data: @users, serializer: serializer, meta: meta)
       end
-      # rubocop:enable Metrics/AbcSize
     end
   end
 end

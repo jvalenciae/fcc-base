@@ -39,21 +39,25 @@ en:
     create:
       ally: "You are not authorized to create this ally."
       branch: "You are not authorized to create this branch."
+      group: "You are not authorized to create this group."
       organization: "You are not authorized to create this organization."
       user: "You are not authorized to create this user."
     destroy:
       ally: "You are not authorized to delete this ally."
       branch: "You are not authorized to delete this branch."
+      group: "You are not authorized to delete this group."
       organization: "You are not authorized to delete this organization."
       user: "You are not authorized to delete this user."
     read:
       ally: "You are not authorized to access this ally."
       branch: "You are not authorized to access this branch."
+      group: "You are not authorized to access this group."
       organization: "You are not authorized to access this organization."
       user: "You are not authorized to access this user."
     update:
       ally: "You are not authorized to update this ally."
       branch: "You are not authorized to update this branch."
+      group: "You are not authorized to update this group."
       organization: "You are not authorized to update this organization."
       user: "You are not authorized to update this user."
   user:

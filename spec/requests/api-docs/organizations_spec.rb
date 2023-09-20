@@ -65,7 +65,7 @@ describe 'Organizations API' do
             type: :object,
             properties: {
               name: { type: :string },
-              country: { type: :string },
+              country: { type: :string, example: 'CO' },
               report_id: { type: :string }
             },
             required: %w[name country report_id]
@@ -148,7 +148,7 @@ describe 'Organizations API' do
             type: :object,
             properties: {
               name: { type: :string },
-              country: { type: :string },
+              country: { type: :string, example: 'CO' },
               report_id: { type: :string }
             }
           }

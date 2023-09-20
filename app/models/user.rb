@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  self.implicit_order_column = 'created_at'
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :trackable,
@@ -26,6 +28,7 @@ class User < ApplicationRecord
 
   has_many :user_branches, dependent: :destroy
   has_many :branches, through: :user_branches
+  has_many :groups, through: :branches
 
   SUPER_ADMIN_ROLES = {
     operative_director: 0
@@ -77,6 +80,18 @@ class User < ApplicationRecord
     return all if branch_ids.blank?
 
     joins(:branches).where(branches: { id: branch_ids }).distinct
+  }
+
+  scope :by_categories, lambda { |categories|
+    return all if categories.blank?
+
+    joins(:groups).where({ groups: { category: categories } }).distinct
+  }
+
+  scope :by_departments, lambda { |departments|
+    return all if departments.blank?
+
+    joins(:branches).where({ branches: { department: departments } }).distinct
   }
 
   def super_admin?

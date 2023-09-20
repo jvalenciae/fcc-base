@@ -314,7 +314,12 @@ paths:
                             name:
                               type: string
                             country:
-                              type: string
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                name:
+                                  type: string
                             report_id:
                               type: string
                             branches:
@@ -327,7 +332,12 @@ paths:
                                   name:
                                     type: string
                                   country:
-                                    type: string
+                                    type: object
+                                    properties:
+                                      code:
+                                        type: string
+                                      name:
+                                        type: string
                                   city:
                                     type: string
                                   address:
@@ -544,6 +554,7 @@ paths:
                       type: string
                     country:
                       type: string
+                      example: CO
                     city:
                       type: string
                     address:
@@ -703,6 +714,7 @@ paths:
                       type: string
                     country:
                       type: string
+                      example: CO
                     city:
                       type: string
                     address:
@@ -807,6 +819,337 @@ paths:
                           type: string
                   meta:
                     type: object
+  "/api/v1/groups":
+    get:
+      summary: Retrieve list of groups
+      tags:
+      - Groups
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: categories[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        description: An array of categories to filter groups by
+        required: false
+      - name: branch_ids[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        description: An array of branch IDs to filter groups by
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        category:
+                          type: string
+                        name:
+                          type: string
+                        branch:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+                            country:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                name:
+                                  type: string
+                            city:
+                              type: string
+                            address:
+                              type: string
+                            phone_number:
+                              type: string
+                  meta:
+                    type: object
+    post:
+      summary: Create a new group
+      tags:
+      - Groups
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      category:
+                        type: string
+                      name:
+                        type: string
+                      branch:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          name:
+                            type: string
+                          country:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                              name:
+                                type: string
+                          city:
+                            type: string
+                          address:
+                            type: string
+                          phone_number:
+                            type: string
+                  meta:
+                    type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                group:
+                  type: object
+                  properties:
+                    category:
+                      type: string
+                    name:
+                      type: string
+                    branch_id:
+                      type: string
+                  required:
+                  - category
+                  - name
+                  - branch_id
+  "/api/v1/groups/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: Group ID
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Retrieve a group by ID
+      tags:
+      - Groups
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      category:
+                        type: string
+                      name:
+                        type: string
+                      branch:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          name:
+                            type: string
+                          country:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                              name:
+                                type: string
+                          city:
+                            type: string
+                          address:
+                            type: string
+                          phone_number:
+                            type: string
+                  meta:
+                    type: object
+    put:
+      summary: Update a group by ID
+      tags:
+      - Groups
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      category:
+                        type: string
+                      name:
+                        type: string
+                      branch:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          name:
+                            type: string
+                          country:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                              name:
+                                type: string
+                          city:
+                            type: string
+                          address:
+                            type: string
+                          phone_number:
+                            type: string
+                  meta:
+                    type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                group:
+                  type: object
+                  properties:
+                    category:
+                      type: string
+                    name:
+                      type: string
+                    branch_id:
+                      type: string
+    delete:
+      summary: Delete group
+      tags:
+      - Groups
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  "/api/v1/groups/categories":
+    get:
+      summary: Get a list of group categories
+      tags:
+      - Groups
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: string
+                  meta:
+                    type: object
+  "/api/v1/groups/export":
+    get:
+      summary: Exports groups as CSV
+      tags:
+      - Groups
+      parameters:
+      - name: categories[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        description: An array of categories to filter groups by
+        required: false
+      - name: branch_ids[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        description: An array of branch IDs to filter groups by
+        required: false
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type: text/csv
+            Content-Disposition: attachment; filename=groups.csv
+          content:
+            text/csv:
+              schema:
+                type: string
   "/api/v1/organizations":
     get:
       summary: Retrieve list of organizations
@@ -918,6 +1261,7 @@ paths:
                       type: string
                     country:
                       type: string
+                      example: CO
                     report_id:
                       type: string
                   required:
@@ -1014,6 +1358,7 @@ paths:
                       type: string
                     country:
                       type: string
+                      example: CO
                     report_id:
                       type: string
   "/api/v1/users":
@@ -1270,6 +1615,7 @@ paths:
                       type: string
                     country:
                       type: string
+                      example: CO
                     role:
                       type: string
                     organization_id:

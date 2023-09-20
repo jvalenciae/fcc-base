@@ -87,6 +87,9 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Max: 15
 
+Metrics/AbcSize:
+  CountRepeatedAttributes: false
+
 # Rspec
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
@@ -99,3 +102,8 @@ RSpec/ExampleLength:
 
 RSpec/NestedGroups:
   Enabled: false
+
+# Lint
+Lint/MissingSuper:
+  Exclude:
+    - app/services/*

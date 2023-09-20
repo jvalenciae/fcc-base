@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_18_090559) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_19_172043) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -76,6 +76,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_18_090559) do
     t.index ["organization_id"], name: "index_branches_on_organization_id"
   end
 
+  create_table "groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.integer "category", null: false
+    t.uuid "branch_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name", default: "1", null: false
+    t.index ["branch_id"], name: "index_groups_on_branch_id"
+    t.index ["name", "category", "branch_id"], name: "index_groups_on_name_and_category_and_branch_id", unique: true
+  end
+
   create_table "jwt_denylist", force: :cascade do |t|
     t.string "jti", null: false
     t.datetime "exp", null: false
@@ -131,6 +141,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_18_090559) do
   add_foreign_key "ally_branches", "allies"
   add_foreign_key "ally_branches", "branches"
   add_foreign_key "branches", "organizations"
+  add_foreign_key "groups", "branches"
   add_foreign_key "user_branches", "branches"
   add_foreign_key "user_branches", "users"
   add_foreign_key "users", "organizations"

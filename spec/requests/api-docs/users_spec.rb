@@ -127,7 +127,7 @@ describe 'Users API' do
               email: { type: :string },
               password: { type: :string },
               phone_number: { type: :string },
-              country: { type: :string },
+              country: { type: :string, example: 'CO' },
               role: { type: :string },
               organization_id: { type: :integer },
               branch_ids: {

@@ -45,6 +45,13 @@ Rails.application.routes.draw do
           get 'roles', to: 'users#roles'
         end
       end
+
+      resources :groups, only: %i[index show create update destroy] do
+        collection do
+          get 'categories', to: 'groups#categories'
+          get 'export', to: 'groups#export'
+        end
+      end
     end
   end
 end

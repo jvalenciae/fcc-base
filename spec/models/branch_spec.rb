@@ -57,10 +57,11 @@ RSpec.describe Branch do
   describe 'associations' do
     it 'validates associations' do
       expect(branch).to belong_to(:organization)
-      expect(branch).to have_many(:user_branches).dependent(:destroy)
+      expect(branch).to have_many(:user_branches).dependent(nil)
       expect(branch).to have_many(:users).through(:user_branches)
       expect(branch).to have_many(:ally_branches).dependent(:destroy)
       expect(branch).to have_many(:allies).through(:ally_branches)
+      expect(branch).to have_many(:groups).dependent(nil)
     end
   end
 

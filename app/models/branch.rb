@@ -1,17 +1,21 @@
 # frozen_string_literal: true
 
 class Branch < ApplicationRecord
+  self.implicit_order_column = 'created_at'
+
   validates :name, :country, :department, :city, :address, :phone_number, presence: true
 
   validate :validate_allies_belongs_to_organization
 
   belongs_to :organization
 
-  has_many :user_branches, dependent: :destroy
+  has_many :user_branches, dependent: nil
   has_many :users, through: :user_branches
 
   has_many :ally_branches, dependent: :destroy
   has_many :allies, through: :ally_branches
+
+  has_many :groups, dependent: nil
 
   include PgSearch::Model
   pg_search_scope :search_by_q,
