@@ -46,6 +46,8 @@ class Ability
     can :manage, Ally
     can :manage, Branch
     can :manage, Group
+    can :manage, Student
+    can :manage, Supervisor
   end
 
   def define_admin_abilities(user)
@@ -57,6 +59,8 @@ class Ability
     can :manage, Ally, { organization_id: user.organization_id }
     can :manage, Branch, { organization_id: user.organization_id }
     can :manage, Group, { branch: { organization_id: user.organization_id } }
+    can :manage, Student, { branch: { organization_id: user.organization_id } }
+    can :manage, Supervisor, { student: { branch: { organization_id: user.organization_id } } }
   end
 
   def define_member_abilities(user)
@@ -66,5 +70,7 @@ class Ability
     can :read, Ally, { organization_id: user.organization_id }
     can :read, Branch, { organization_id: user.organization_id }
     can :manage, Group, { branch_id: user.branch_ids }
+    can :manage, Student, { branch_id: user.branch_ids }
+    can :manage, Supervisor, { student: { branch_id: user.branch_ids } }
   end
 end

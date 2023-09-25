@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_19_172043) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_19_184553) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -101,6 +101,59 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_19_172043) do
     t.index ["created_at"], name: "index_organizations_on_created_at"
   end
 
+  create_table "students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "id_number", null: false
+    t.string "name", null: false
+    t.string "birthplace", null: false
+    t.date "birthdate", null: false
+    t.integer "gender", null: false
+    t.integer "tshirt_size", null: false
+    t.integer "shorts_size", null: false
+    t.integer "socks_size", null: false
+    t.integer "shoe_size", null: false
+    t.string "favourite_colour", null: false
+    t.string "favourite_food", null: false
+    t.string "favourite_sport", null: false
+    t.string "favourite_place", null: false
+    t.string "feeling_when_playing_soccer", null: false
+    t.string "country", null: false
+    t.string "city", null: false
+    t.string "neighborhood", null: false
+    t.string "address", null: false
+    t.string "school", null: false
+    t.string "extracurricular_activities", null: false
+    t.integer "health_coverage", null: false
+    t.boolean "displaced", default: false, null: false
+    t.string "displacement_origin"
+    t.string "displacement_reason"
+    t.boolean "lives_with_reinserted_familiar", default: false, null: false
+    t.string "program"
+    t.boolean "beneficiary_of_another_foundation", default: false, null: false
+    t.integer "status", default: 0, null: false
+    t.date "withdrawal_date"
+    t.string "withdrawal_reason"
+    t.uuid "group_id", null: false
+    t.uuid "branch_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["branch_id"], name: "index_students_on_branch_id"
+    t.index ["group_id"], name: "index_students_on_group_id"
+  end
+
+  create_table "supervisors", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "id_number", null: false
+    t.string "name", null: false
+    t.string "email", null: false
+    t.date "birthdate", null: false
+    t.string "phone_number", null: false
+    t.string "profession", null: false
+    t.integer "relationship", null: false
+    t.uuid "student_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_supervisors_on_student_id"
+  end
+
   create_table "user_branches", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -142,6 +195,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_19_172043) do
   add_foreign_key "ally_branches", "branches"
   add_foreign_key "branches", "organizations"
   add_foreign_key "groups", "branches"
+  add_foreign_key "students", "branches"
+  add_foreign_key "students", "groups"
+  add_foreign_key "supervisors", "students"
   add_foreign_key "user_branches", "branches"
   add_foreign_key "user_branches", "users"
   add_foreign_key "users", "organizations"

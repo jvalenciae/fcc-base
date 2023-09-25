@@ -11,6 +11,8 @@ RSpec.describe Ability do
   let(:branch) { create(:branch, organization: organization) }
   let(:ally) { create(:ally, organization: organization) }
   let(:group) { create(:group, branch: branch) }
+  let(:student) { create(:student, group: group, branch: branch) }
+  let(:supervisor) { create(:supervisor, student: student) }
 
   context 'when user is a super admin' do
     let(:user) { create(:user, :super_admin) }
@@ -29,6 +31,12 @@ RSpec.describe Ability do
 
     # Group permissions
     it { is_expected.to be_able_to(:manage, Group) }
+
+    # Student permissions
+    it { is_expected.to be_able_to(:manage, Student) }
+
+    # Supervisor permissions
+    it { is_expected.to be_able_to(:manage, Supervisor) }
   end
 
   context 'when user is an admin' do
@@ -60,6 +68,12 @@ RSpec.describe Ability do
 
     # Group permissions
     it { is_expected.to be_able_to(:manage, group) }
+
+    # Student permissions
+    it { is_expected.to be_able_to(:manage, student) }
+
+    # Supervisor permissions
+    it { is_expected.to be_able_to(:manage, supervisor) }
   end
 
   context 'when user is a member' do
@@ -84,5 +98,11 @@ RSpec.describe Ability do
 
     # Group permissions
     it { is_expected.to be_able_to(:manage, group) }
+
+    # Student permissions
+    it { is_expected.to be_able_to(:manage, student) }
+
+    # Supervisor permissions
+    it { is_expected.to be_able_to(:manage, supervisor) }
   end
 end

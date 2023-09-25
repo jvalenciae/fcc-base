@@ -10,6 +10,8 @@ class Group < ApplicationRecord
 
   belongs_to :branch
 
+  has_many :students, dependent: nil
+
   CATEGORIES = {
     creators: 0,
     explorers: 1,

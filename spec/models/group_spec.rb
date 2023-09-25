@@ -12,6 +12,7 @@ RSpec.describe Group do
 
   describe 'associations' do
     it { is_expected.to belong_to(:branch) }
+    it { is_expected.to have_many(:students).dependent(nil) }
   end
 
   describe 'constants' do
