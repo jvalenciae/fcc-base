@@ -37,7 +37,7 @@ module Api
 
       def organization_params
         params.require(:organization).permit(
-          :name, :country, :logo, :report_id
+          :name, :country, :logo, :report_id, { user_ids: [] }
         )
       end
     end

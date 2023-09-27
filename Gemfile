@@ -92,6 +92,9 @@ gem 'will_paginate', '~> 4.0'
 # S3 Buckets
 gem 'aws-sdk-s3'
 
+# SoftDelete
+gem 'paranoia'
+
 group :development, :test do
   gem 'dotenv-rails', '~> 2.7.0'
   gem 'goldiloader'

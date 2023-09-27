@@ -3,6 +3,8 @@
 class Supervisor < ApplicationRecord
   self.implicit_order_column = 'created_at'
 
+  acts_as_paranoid
+
   validates :id_number, :name, :email, :birthdate, :phone_number, :profession, :relationship, presence: true
 
   belongs_to :student

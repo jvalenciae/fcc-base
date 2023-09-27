@@ -2,11 +2,11 @@
 
 FactoryBot.define do
   factory :student do
-    id_number { Faker::Number.unique.number(digits: 10) }
+    id_number { Faker::Number.unique.number(digits: 10).to_s }
     name { Faker::Name.name }
     birthplace { 'CO' }
     birthdate { Faker::Date.between(from: '2005-01-01', to: '2015-12-31') }
-    gender { rand(0..1) }
+    gender { Student::GENDERS.keys.sample }
     tshirt_size { rand(10..30) }
     shorts_size { rand(10..30) }
     socks_size { rand(10..30) }
@@ -22,11 +22,11 @@ FactoryBot.define do
     address { 'Address' }
     school { 'school' }
     extracurricular_activities { 'activities' }
-    health_coverage { 'health' }
+    health_coverage { Student::HEALTH_COVERAGES.keys.sample }
     displaced { false }
     beneficiary_of_another_foundation { false }
-    status { 0 }
-    branch
+    status { Student::STATUSES.keys.sample }
     group
+    branch { group.branch }
   end
 end

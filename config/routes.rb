@@ -52,6 +52,8 @@ Rails.application.routes.draw do
           get 'export', to: 'groups#export'
         end
       end
+
+      resources :students, only: %i[index show create update destroy]
     end
   end
 end
