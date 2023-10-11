@@ -48,6 +48,8 @@ class Ability
     can :manage, Group
     can :manage, Student
     can :manage, Supervisor
+    can :manage, GroupAttendance
+    can :manage, StudentAttendance
   end
 
   def define_admin_abilities(user)
@@ -61,16 +63,19 @@ class Ability
     can :manage, Group, { branch: { organization_id: user.organization_id } }
     can :manage, Student, { branch: { organization_id: user.organization_id } }
     can :manage, Supervisor, { student: { branch: { organization_id: user.organization_id } } }
+    can :manage, GroupAttendance, { group: { branch: { organization_id: user.organization_id } } }
+    can :manage, StudentAttendance, { student: { branch: { organization_id: user.organization_id } } }
   end
 
   def define_member_abilities(user)
     can %i[read update], User, { id: user.id, role: User::MEMBER_ROLES.keys }
-    # can :create, [Participant, ParticipantGroup, User], user: user
     can :read, Organization, { id: user.organization_id }
     can :read, Ally, { organization_id: user.organization_id }
     can :read, Branch, { organization_id: user.organization_id }
     can :manage, Group, { branch_id: user.branch_ids }
     can :manage, Student, { branch_id: user.branch_ids }
     can :manage, Supervisor, { student: { branch_id: user.branch_ids } }
+    can :manage, GroupAttendance, { group: { branch_id: user.branch_ids } }
+    can :manage, StudentAttendance, { student: { branch_id: user.branch_ids } }
   end
 end

@@ -76,6 +76,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_09_165802) do
     t.index ["organization_id"], name: "index_branches_on_organization_id"
   end
 
+  create_table "group_attendances", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.date "date", null: false
+    t.uuid "group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_group_attendances_on_group_id"
+  end
+
   create_table "groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.integer "category", null: false
     t.uuid "branch_id", null: false
@@ -99,6 +107,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_09_165802) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["created_at"], name: "index_organizations_on_created_at"
+  end
+
+  create_table "student_attendances", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.date "date"
+    t.boolean "present", default: true, null: false
+    t.uuid "group_attendance_id", null: false
+    t.uuid "student_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_student_attendances_on_deleted_at"
+    t.index ["group_attendance_id"], name: "index_student_attendances_on_group_attendance_id"
+    t.index ["student_id"], name: "index_student_attendances_on_student_id"
   end
 
   create_table "students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -198,7 +219,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_09_165802) do
   add_foreign_key "ally_branches", "allies"
   add_foreign_key "ally_branches", "branches"
   add_foreign_key "branches", "organizations"
+  add_foreign_key "group_attendances", "groups"
   add_foreign_key "groups", "branches"
+  add_foreign_key "student_attendances", "group_attendances"
+  add_foreign_key "student_attendances", "students"
   add_foreign_key "students", "branches"
   add_foreign_key "students", "groups"
   add_foreign_key "supervisors", "students"

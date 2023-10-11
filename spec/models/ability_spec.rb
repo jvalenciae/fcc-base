@@ -13,6 +13,8 @@ RSpec.describe Ability do
   let(:group) { create(:group, branch: branch) }
   let(:student) { create(:student, group: group, branch: branch) }
   let(:supervisor) { create(:supervisor, student: student) }
+  let(:group_attendance) { create(:group_attendance, group: group) }
+  let(:student_attendance) { create(:student_attendance, group_attendance: group_attendance, student: student) }
 
   context 'when user is a super admin' do
     let(:user) { create(:user, :super_admin) }
@@ -37,6 +39,12 @@ RSpec.describe Ability do
 
     # Supervisor permissions
     it { is_expected.to be_able_to(:manage, Supervisor) }
+
+    # GroupAttendance permissions
+    it { is_expected.to be_able_to(:manage, GroupAttendance) }
+
+    # StudentAttendance permissions
+    it { is_expected.to be_able_to(:manage, StudentAttendance) }
   end
 
   context 'when user is an admin' do
@@ -74,6 +82,12 @@ RSpec.describe Ability do
 
     # Supervisor permissions
     it { is_expected.to be_able_to(:manage, supervisor) }
+
+    # GroupAttendance permissions
+    it { is_expected.to be_able_to(:manage, group_attendance) }
+
+    # StudentAttendance permissions
+    it { is_expected.to be_able_to(:manage, student_attendance) }
   end
 
   context 'when user is a member' do
@@ -104,5 +118,11 @@ RSpec.describe Ability do
 
     # Supervisor permissions
     it { is_expected.to be_able_to(:manage, supervisor) }
+
+    # GroupAttendance permissions
+    it { is_expected.to be_able_to(:manage, group_attendance) }
+
+    # StudentAttendance permissions
+    it { is_expected.to be_able_to(:manage, student_attendance) }
   end
 end

@@ -38,7 +38,10 @@ RemoveUnusedMethodsInControllersCheck: {
     Api::V1::GroupsController#categories,
     Api::V1::GroupsController#export,
     Api::V1::OrganizationsController#index,
-    Api::V1::OrganizationsController#create
+    Api::V1::OrganizationsController#create,
+    Api::V1::AttendancesController#index,
+    Api::V1::AttendancesController#create,
+    Api::V1::AttendancesController#update
   ]
 }
 RemoveUnusedMethodsInHelpersCheck: { except_methods: [] }

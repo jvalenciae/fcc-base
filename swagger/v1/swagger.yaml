@@ -209,6 +209,300 @@ paths:
                       type: string
                     organization_id:
                       type: integer
+  "/api/v1/attendances":
+    get:
+      summary: Retrieve list of attendances
+      tags:
+      - Attendances
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: branch_ids[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        description: An array of branch IDs to filter attendances by
+        required: false
+      - name: group_ids[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        description: An array of group IDs to filter attendances by
+        required: false
+      - name: date
+        in: query
+        description: 'Date: YYYY-MM-DD'
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: Page number
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: How many records per page
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        date:
+                          type: string
+                        group:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            category:
+                              type: string
+                            name:
+                              type: string
+                        student_attendances:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              date:
+                                type: string
+                              present:
+                                type: boolean
+                              student:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                  name:
+                                    type: string
+                  meta:
+                    type: object
+                    properties:
+                      total_pages:
+                        type: integer
+                      page_number:
+                        type: integer
+                      max_per_page:
+                        type: integer
+                      total_resources:
+                        type: integer
+    post:
+      summary: Create a new attendance
+      tags:
+      - Attendances
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  date:
+                    type: string
+                  group:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      category:
+                        type: string
+                      name:
+                        type: string
+                  student_attendances:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        date:
+                          type: string
+                        present:
+                          type: boolean
+                        student:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                group_attendance:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                    group_id:
+                      type: string
+                    attendances:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          student_id:
+                            type: string
+                          present:
+                            type: boolean
+                  required:
+                  - date
+                  - group_id
+                  - attendances
+  "/api/v1/attendances/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: Attendance ID
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Retrieve an attendance by ID
+      tags:
+      - Attendances
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  date:
+                    type: string
+                  group:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      category:
+                        type: string
+                      name:
+                        type: string
+                  student_attendances:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        date:
+                          type: string
+                        present:
+                          type: boolean
+                        student:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+    put:
+      summary: Update an attendance by ID
+      tags:
+      - Attendances
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  date:
+                    type: string
+                  group:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      category:
+                        type: string
+                      name:
+                        type: string
+                  student_attendances:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        date:
+                          type: string
+                        present:
+                          type: boolean
+                        student:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                group_attendance:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                    attendances:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          student_id:
+                            type: string
+                          present:
+                            type: boolean
+                  required:
+                  - date
+                  - attendances
   "/api/v1/auth/passwords":
     post:
       summary: Create password reset token

@@ -52,6 +52,7 @@ RSpec.describe Student do
     it { is_expected.to belong_to(:group) }
     it { is_expected.to belong_to(:branch) }
     it { is_expected.to have_many(:supervisors).dependent(nil) }
+    it { is_expected.to have_many(:student_attendances).dependent(:destroy) }
   end
 
   describe 'callbacks' do

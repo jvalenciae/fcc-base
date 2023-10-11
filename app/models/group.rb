@@ -11,6 +11,7 @@ class Group < ApplicationRecord
   belongs_to :branch
 
   has_many :students, dependent: nil
+  has_many :group_attendances, dependent: nil
 
   CATEGORIES = {
     creators: 0,

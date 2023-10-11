@@ -54,6 +54,8 @@ Rails.application.routes.draw do
       end
 
       resources :students, only: %i[index show create update destroy]
+
+      resources :attendances, only: %i[index show create update]
     end
   end
 end

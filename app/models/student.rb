@@ -15,6 +15,7 @@ class Student < ApplicationRecord
   belongs_to :branch
   has_many :supervisors, dependent: nil
   accepts_nested_attributes_for :supervisors
+  has_many :student_attendances, dependent: :destroy
 
   before_create :set_default_status
 
