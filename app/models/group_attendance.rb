@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class GroupAttendance < ApplicationRecord
+  self.implicit_order_column = 'created_at'
+
   validates :date, presence: true
 
   belongs_to :group

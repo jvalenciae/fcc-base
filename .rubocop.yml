@@ -84,6 +84,9 @@ Metrics/BlockLength:
     - spec/**/*_spec.rb
     - config/routes.rb
 
+Metrics/ClassLength:
+  CountAsOne: ['array', 'hash', 'method_call']
+
 Metrics/MethodLength:
   Max: 15
 

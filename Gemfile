@@ -101,6 +101,8 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'pry-rails', '~> 0.3.9'
+
+  gem 'byebug'
   # indented print of Ruby and Rails Objs and Arrays by using `ap something
   gem 'awesome_print', '~> 1.9', '>= 1.9.2', require: 'ap'
 

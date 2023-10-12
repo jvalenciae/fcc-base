@@ -312,6 +312,38 @@ RSpec.describe User do
     end
   end
 
+  describe '#branches_in_charge' do
+    let(:user) { create(:user) }
+
+    it 'returns the count of branches the user is in charge of' do
+      user.branches << create_list(:branch, 3, organization: user.organization)
+
+      expect(user.branches_in_charge).to eq(3)
+    end
+
+    it 'returns 0 when the user is not in charge of any branches' do
+      expect(user.branches_in_charge).to eq(0)
+    end
+  end
+
+  describe '#students_in_charge' do
+    let(:user) { create(:user) }
+    let(:branch) { create(:branch, organization: user.organization) }
+    let(:group) { create(:group, branch: branch) }
+
+    it 'returns the count of students the user is in charge of' do
+      user.branches << branch
+      create_list(:student, 5, group: group)
+      create(:student, group: create(:group)) # This student is not in any of the user's branches
+
+      expect(user.students_in_charge).to eq(5)
+    end
+
+    it 'returns 0 when the user is not in charge of any students' do
+      expect(user.students_in_charge).to eq(0)
+    end
+  end
+
   describe '#generate_reset_password_token' do
     let(:user) { create(:user) }
 

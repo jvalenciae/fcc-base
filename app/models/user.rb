@@ -106,6 +106,14 @@ class User < ApplicationRecord
     MEMBER_ROLES.include?(role)
   end
 
+  def branches_in_charge
+    branches.count
+  end
+
+  def students_in_charge
+    branches.map(&:groups).flatten.map(&:students).flatten.count
+  end
+
   def generate_reset_password_token(expiration_duration: 0.days)
     token = Devise.token_generator.generate(User, :reset_password_token).last
     self.reset_password_token = token
