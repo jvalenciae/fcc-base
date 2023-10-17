@@ -464,8 +464,8 @@ describe 'Users API' do
                      last_name: { type: :string },
                      phone_number: { type: :string },
                      role: { type: :string },
-                     groups_in_charge: { type: :integer },
-                     students_in_change: { type: :integer }
+                     branches_in_charge: { type: :integer },
+                     students_in_charge: { type: :integer }
                    }
                  },
                  meta: {

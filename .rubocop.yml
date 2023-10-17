@@ -83,6 +83,7 @@ Metrics/BlockLength:
   Exclude:
     - spec/**/*_spec.rb
     - config/routes.rb
+    - lib/tasks/*
 
 Metrics/ClassLength:
   CountAsOne: ['array', 'hash', 'method_call']

@@ -10,5 +10,11 @@ class StudentAttendance < ApplicationRecord
   belongs_to :group_attendance
   belongs_to :student
 
-  delegate :date, to: :group_attendance
+  before_save :assign_date
+
+  private
+
+  def assign_date
+    self.date = group_attendance.date unless date
+  end
 end
