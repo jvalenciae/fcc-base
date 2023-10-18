@@ -60,6 +60,11 @@ en:
       group: "You are not authorized to update this group."
       organization: "You are not authorized to update this organization."
       user: "You are not authorized to update this user."
+  categories:
+    builders: 'Builders'
+    creators: 'Creators'
+    explorers: 'Explorers'
+    promoters: 'Promoters'
   user:
     errors:
       weak_password: 'must include at least one lowercase letter, one uppercase letter, one digit, and one special character'

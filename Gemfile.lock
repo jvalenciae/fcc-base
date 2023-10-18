@@ -294,6 +294,9 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
+    rails-i18n (7.0.8)
+      i18n (>= 0.7, < 2)
+      railties (>= 6.0.0, < 8)
     rails_best_practices (1.23.2)
       activesupport
       code_analyzer (~> 0.5.5)
@@ -515,6 +518,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 7.0.6)
   rails-healthcheck (~> 1.4.0)
+  rails-i18n (~> 7.0.0)
   rails_best_practices (~> 1.23, >= 1.23.1)
   redis (~> 4.0)
   reek (~> 6.1, >= 6.1.1)

@@ -1405,7 +1405,14 @@ paths:
                   data:
                     type: array
                     items:
-                      type: string
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: builders
+                        label:
+                          type: string
+                          example: Builders
                   meta:
                     type: object
   "/api/v1/groups/export":

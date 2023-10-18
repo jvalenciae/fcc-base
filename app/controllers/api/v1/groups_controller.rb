@@ -35,7 +35,7 @@ module Api
 
       def categories
         @categories = Group::CATEGORIES.keys
-        render_response(data: @categories)
+        render_response(data: @categories, serializer: CategorySerializer)
       end
 
       def export

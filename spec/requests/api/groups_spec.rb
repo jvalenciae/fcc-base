@@ -203,7 +203,7 @@ RSpec.describe 'Groups' do
       get '/api/v1/groups/categories', headers: authenticated_header(super_admin)
 
       expect(response).to have_http_status(:ok)
-      expect(json_response[:data]).to eq(Group::CATEGORIES.keys)
+      expect(json_response[:data].count).to eq(Group::CATEGORIES.count)
     end
   end
 

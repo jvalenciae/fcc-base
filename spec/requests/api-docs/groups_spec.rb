@@ -243,7 +243,13 @@ describe 'Groups API' do
                  status: { type: :string },
                  data: {
                    type: :array,
-                   items: { type: :string }
+                   items: {
+                     type: :object,
+                     properties: {
+                       id: { type: :string, example: 'builders' },
+                       label: { type: :string, example: 'Builders' }
+                     }
+                   }
                  },
                  meta: { type: :object }
                }

@@ -29,6 +29,11 @@ es:
         group: "No estás autorizado para actualizar ese grupo."
         organization: "No estás autorizado para actualizar esa organización."
         user: "No estás autorizado para actualizar ese usuario."
+  categories:
+    builders: 'Constructores'
+    creators: 'Creadores'
+    explorers: 'Exploradores'
+    promoters: 'Promotores'
   user:
     errors:
       weak_password: 'debe contener por lo menos una letra minúscula, una mayúscula, un número y un carácter especial'

@@ -95,6 +95,9 @@ gem 'aws-sdk-s3'
 # SoftDelete
 gem 'paranoia'
 
+# Multi-Language
+gem 'rails-i18n', '~> 7.0.0'
+
 group :development, :test do
   gem 'dotenv-rails', '~> 2.7.0'
   gem 'goldiloader'
