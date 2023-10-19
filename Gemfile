@@ -109,8 +109,6 @@ group :development, :test do
   # indented print of Ruby and Rails Objs and Arrays by using `ap something
   gem 'awesome_print', '~> 1.9', '>= 1.9.2', require: 'ap'
 
-  gem 'factory_bot_rails', '~> 6.2'
-  gem 'faker', '~> 2.0'
   gem 'rspec', '~> 3.11'
   gem 'rspec-rails', '~> 5.1', '>= 5.1.2'
   # Rspec DSL that generates Swagger files directly from your rspecs
@@ -121,6 +119,11 @@ group :development, :test do
   gem 'rubocop-performance', '~> 1.14', '>= 1.14.3', require: false
   gem 'rubocop-rails', '~> 2.15', '>= 2.15.2', require: false
   gem 'rubocop-rspec', '~> 2.12', '>= 2.12.1', require: false
+end
+
+group :development, :test, :staging do
+  gem 'factory_bot_rails', '~> 6.2'
+  gem 'faker', '~> 2.0'
 end
 
 group :development do

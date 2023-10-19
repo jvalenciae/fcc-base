@@ -1,4 +1,15 @@
 es:
+  auth:
+    passwords:
+      password_changed_successfully: 'Contraseña cambiada con éxito'
+      reset_password_email_sent: 'Correo electrónico para restablecer contraseña enviado'
+    sessions:
+      logged_in_successfully: 'Inicio de sesión exitoso'
+      logged_out_successfully: 'Cerró sesión exitosamente'
+      no_active_session: 'No se pudo encontrar una sesión activa'
+  branch:
+    errors:
+      allies_belongs_to_organization: 'Algunos aliados no pertenecen a la organización de la sede'
   mailer:
     user:
       invitation: '¡Te han enviado una invitación!'
@@ -34,6 +45,23 @@ es:
     creators: 'Creadores'
     explorers: 'Exploradores'
     promoters: 'Promotores'
+  errors:
+    message:
+      general: 'Se ha producido un error'
+      active_model_forbidden_attributes: 'Atributos prohibidos en el registro'
+      active_record_not_unique: 'Ya existe un registro'
+      active_record_statement_invalid: 'Declaración no válida en el campo'
+      has_expired: 'ha expirado'
+      not_present: 'no está presente'
+      parameter_missing: 'Parámetro faltante'
+  group:
+    successful_delete: 'Group borrado exitosamente'
   user:
     errors:
+      branches_belongs_to_organization: 'Algunas sedes no pertenecen a la organización del usuario'
       weak_password: 'debe contener por lo menos una letra minúscula, una mayúscula, un número y un carácter especial'
+      successful_delete: 'Usuario borrado exitosamente'
+  student:
+    errors:
+      group_belongs_to_branch: 'El grupo no pertenece a la sede'
+    successful_delete: 'Estudiante borrado exitosamente'

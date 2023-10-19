@@ -3,7 +3,7 @@
 module ErrorResponses
   private
 
-  def render_error_response(err, message = 'An error has occurred', status_code = :bad_request, type = 'error',
+  def render_error_response(err, message = I18n.t('errors.message.general'), status_code = :bad_request, type = 'error',
                             errors = [])
     logger.error(message)
     Sentry.capture_exception(err)
@@ -25,15 +25,18 @@ module ErrorResponses
   end
 
   def handle_active_record_statement_invalid_error(err)
-    render_error_response(err, 'Invalid statement in field', :unprocessable_entity, 'invalid_statement_error')
+    render_error_response(err, I18n.t('errors.message.active_record_statement_invalid'),
+                          :unprocessable_entity, 'invalid_statement_error')
   end
 
   def handle_active_model_forbidden_attributes_error(err)
-    render_error_response(err, 'Forbidden attributes in record', :unprocessable_entity, 'forbidden_attribute_error')
+    render_error_response(err, I18n.t('errors.message.active_model_forbidden_attributes'),
+                          :unprocessable_entity, 'forbidden_attribute_error')
   end
 
   def handle_action_controller_parameter_missing_error(err)
-    render_error_response(err, "Missing parameter #{err&.param}", :bad_request, 'parameter_missing_error')
+    render_error_response(err, "#{I18n.t('errors.message.parameter_missing')} #{err&.param}",
+                          :bad_request, 'parameter_missing_error')
   end
 
   def handle_action_controller_routing_error(err)
@@ -41,7 +44,7 @@ module ErrorResponses
   end
 
   def handle_active_record_not_unique_error(err)
-    render_error_response(err, 'A record already exists', :bad_request, 'not_unique_error')
+    render_error_response(err, I18n.t('errors.message.active_record_not_unique'), :bad_request, 'not_unique_error')
   end
 
   def render_record_not_valid_error(err)

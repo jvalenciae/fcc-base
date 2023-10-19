@@ -37,6 +37,6 @@ class Branch < ApplicationRecord
 
     return if allies.all? { |ally| ally.organization == organization }
 
-    errors.add(:allies, "Some allies don't belong to the branch's organization")
+    errors.add(:allies, I18n.t('branch.errors.allies_belongs_to_organization'))
   end
 end

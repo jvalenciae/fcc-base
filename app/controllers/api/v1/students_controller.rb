@@ -31,7 +31,7 @@ module Api
 
       def destroy
         authorize!(:destroy, @student, message: I18n.t('unauthorized.destroy.student'))
-        render json: { message: 'Student successfully deleted.' }, status: :ok if @student.destroy!
+        render json: { message: I18n.t('student.successful_delete') }, status: :ok if @student.destroy!
       end
 
       private

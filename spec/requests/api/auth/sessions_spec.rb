@@ -53,7 +53,7 @@ RSpec.describe 'Sessions' do
       end
 
       it 'returns a success message in the response' do
-        expect(json_response[:message]).to eq('Logged out successfully.')
+        expect(json_response[:message]).to eq('Logged out successfully')
       end
     end
 
@@ -67,7 +67,7 @@ RSpec.describe 'Sessions' do
       end
 
       it 'returns an error message in the response' do
-        expect(json_response[:message]).to eq("Couldn't find an active session.")
+        expect(json_response[:message]).to eq("Couldn't find an active session")
       end
     end
   end

@@ -188,7 +188,7 @@ RSpec.describe 'Users' do
       it 'deletes the user' do
         delete "/api/v1/users/#{user_id}", headers: authenticated_header(super_admin)
         expect(response).to have_http_status(:success)
-        expect(json_response[:message]).to eq('User successfully deleted.')
+        expect(json_response[:message]).to eq('User successfully deleted')
       end
     end
 

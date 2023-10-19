@@ -122,6 +122,6 @@ class Student < ApplicationRecord
     return if group.blank?
     return if group.branch == branch
 
-    errors.add(:group, 'Group does not belong to the branch')
+    errors.add(:group, I18n.t('student.errors.group_belongs_to_branch'))
   end
 end

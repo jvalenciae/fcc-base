@@ -32,7 +32,7 @@ module Api
 
       def destroy
         authorize!(:destroy, @user, message: I18n.t('unauthorized.destroy.user'))
-        render json: { message: 'User successfully deleted.' }, status: :ok if @user.destroy!
+        render json: { message: I18n.t('user.successful_delete') }, status: :ok if @user.destroy!
       end
 
       def members

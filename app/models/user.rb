@@ -122,8 +122,8 @@ class User < ApplicationRecord
   end
 
   def validate_reset_password_token
-    errors.add(:reset_password_token, 'not present') if reset_password_token.blank?
-    errors.add(:reset_password_token, 'has expired') unless reset_password_period_valid?
+    errors.add(:reset_password_token, I18n.t('errors.message.not_present')) if reset_password_token.blank?
+    errors.add(:reset_password_token, I18n.t('errors.message.has_expired')) unless reset_password_period_valid?
   end
 
   private
@@ -133,7 +133,7 @@ class User < ApplicationRecord
 
     return if branches.all? { |branch| branch.organization == organization }
 
-    errors.add(:branches, "Some branches don't belong to the user's organization")
+    errors.add(:branches, I18n.t('user.errors.branches_belongs_to_organization'))
   end
 
   def set_random_password

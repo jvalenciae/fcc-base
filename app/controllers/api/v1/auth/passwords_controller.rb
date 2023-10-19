@@ -13,7 +13,7 @@ module Api
           UserMailer.password_reset(user).deliver_later
           render json: {
             status: :ok,
-            message: 'Reset password email sent'
+            message: I18n.t('auth.passwords.reset_password_email_sent')
           }, status: :ok
         end
 
@@ -25,7 +25,7 @@ module Api
 
           render json: {
             status: :ok,
-            message: 'Password changed successfully'
+            message: I18n.t('auth.passwords.password_changed_successfully')
           }, status: :ok
         end
       end

@@ -30,7 +30,7 @@ module Api
 
       def destroy
         authorize!(:destroy, @group, message: I18n.t('unauthorized.destroy.group'))
-        render json: { message: 'Group successfully deleted.' }, status: :ok if @group.destroy!
+        render json: { message: I18n.t('group.successful_delete') }, status: :ok if @group.destroy!
       end
 
       def categories

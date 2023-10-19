@@ -13,7 +13,7 @@ module Api
         def respond_with(current_user, _opts = {})
           render json: {
             status: :ok,
-            message: 'Logged in successfully.',
+            message: I18n.t('auth.sessions.logged_in_successfully'),
             data: { user: Users::UserSerializer.new(current_user) }
           }, status: :ok
         end
@@ -27,12 +27,12 @@ module Api
           if current_user
             render json: {
               status: :ok,
-              message: 'Logged out successfully.'
+              message: I18n.t('auth.sessions.logged_out_successfully')
             }, status: :ok
           else
             render json: {
               status: :unauthorized,
-              message: "Couldn't find an active session."
+              message: I18n.t('auth.sessions.no_active_session')
             }, status: :unauthorized
           end
         end

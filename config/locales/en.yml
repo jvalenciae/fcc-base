@@ -30,6 +30,17 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  auth:
+    passwords:
+      password_changed_successfully: 'Password changed successfully'
+      reset_password_email_sent: 'Reset password email sent'
+    sessions:
+      logged_in_successfully: 'Logged in successfully'
+      logged_out_successfully: 'Logged out successfully'
+      no_active_session: "Couldn't find an active session"
+  branch:
+    errors:
+      allies_belongs_to_organization: "Some allies don't belong to the branch's organization"
   mailer:
     user:
       invitation: 'You have been sent an invitation!'
@@ -65,6 +76,23 @@ en:
     creators: 'Creators'
     explorers: 'Explorers'
     promoters: 'Promoters'
+  errors:
+    message:
+      general: 'An error has occurred'
+      active_model_forbidden_attributes: 'Forbidden attributes in record'
+      active_record_not_unique: 'A record already exists'
+      active_record_statement_invalid: 'Invalid statement in field'
+      has_expired: 'has expired'
+      not_present: 'not present'
+      parameter_missing: 'Missing parameter'
+  group:
+    successful_delete: 'Group successfully deleted'
   user:
     errors:
+      branches_belongs_to_organization: "Some branches don't belong to the user's organization"
       weak_password: 'must include at least one lowercase letter, one uppercase letter, one digit, and one special character'
+    successful_delete: 'User successfully deleted'
+  student:
+    errors:
+      group_belongs_to_branch: 'Group does not belong to the branch'
+    successful_delete: 'Student successfully deleted'

@@ -194,7 +194,7 @@ RSpec.describe 'Students' do
       it 'soft deletes the student' do
         delete "/api/v1/students/#{id}", headers: authenticated_header(super_admin)
         expect(response).to have_http_status(:success)
-        expect(json_response[:message]).to eq('Student successfully deleted.')
+        expect(json_response[:message]).to eq('Student successfully deleted')
         expect { Student.find(1234) }.to raise_error(ActiveRecord::RecordNotFound)
         expect(Student.with_deleted.find(id)).to eq(student)
       end

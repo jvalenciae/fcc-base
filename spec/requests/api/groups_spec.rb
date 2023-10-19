@@ -184,7 +184,7 @@ RSpec.describe 'Groups' do
       it 'deletes the group' do
         delete "/api/v1/groups/#{id}", headers: authenticated_header(super_admin)
         expect(response).to have_http_status(:success)
-        expect(json_response[:message]).to eq('Group successfully deleted.')
+        expect(json_response[:message]).to eq('Group successfully deleted')
       end
     end
 
