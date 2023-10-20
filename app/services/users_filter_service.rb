@@ -19,7 +19,7 @@ class UsersFilterService < ApplicationService
     users = users.by_role(params[:role]) if params[:role].present?
     users = users.by_branch_ids(params[:branch_ids]) if params[:branch_ids].present?
     users = users.by_categories(params[:categories]) if params[:categories].present?
-    users = users.by_departments(params[:departments]) if params[:departments].present?
+    users = users.by_departments(params[:departments], params[:country]) if params[:departments].present?
     users = users.search_by_q(params[:q]).with_pg_search_rank if params[:q].present?
     users
   end

@@ -88,10 +88,11 @@ class User < ApplicationRecord
     joins(:groups).where({ groups: { category: categories } }).distinct
   }
 
-  scope :by_departments, lambda { |departments|
+  scope :by_departments, lambda { |departments, country|
     return all if departments.blank?
+    return all if country.blank?
 
-    joins(:branches).where({ branches: { department: departments } }).distinct
+    joins(:branches).where({ branches: { department: departments, country: country } }).distinct
   }
 
   def super_admin?

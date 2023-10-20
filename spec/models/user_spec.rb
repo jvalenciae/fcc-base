@@ -259,14 +259,14 @@ RSpec.describe User do
       # rubocop:enable RSpec/IndexedLet
 
       it 'filters users by departments' do
-        users = described_class.by_departments([branch1.department])
+        users = described_class.by_departments([branch1.department], branch1.country)
 
         expect(users).to include(user1)
         expect(users).not_to include(user2)
       end
 
       it 'returns all users when no departments are provided' do
-        users = described_class.by_departments(nil)
+        users = described_class.by_departments(nil, nil)
 
         expect(users).to include(user1, user2)
       end
