@@ -1420,6 +1420,8 @@ paths:
       summary: Exports groups as CSV
       tags:
       - Groups
+      security:
+      - bearerAuth: []
       parameters:
       - name: categories[]
         in: query
@@ -2264,6 +2266,129 @@ paths:
                 properties:
                   message:
                     type: string
+  "/api/v1/students/export":
+    get:
+      summary: Exports students as CSV
+      tags:
+      - Students
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: branch_ids[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        description: An array of branches IDs to filter students by
+        required: false
+      - name: categories[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        description: An array of categories to filter students by
+        required: false
+      - name: group_ids[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        description: An array of groups IDs to filter students by
+        required: false
+      - name: statuses[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        description: An array of statuses to filter students by
+        required: false
+      - name: tshirt_sizes[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+        description: An array of tshirt_sizes to filter students by
+        required: false
+      - name: shorts_sizes[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+        description: An array of shorts_sizes to filter students by
+        required: false
+      - name: socks_sizes[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+        description: An array of socks_sizes to filter students by
+        required: false
+      - name: shoe_sizes[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+        description: An array of shoe_sizes to filter students by
+        required: false
+      - name: health_coverages[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        description: An array of health_coverages to filter students by
+        required: false
+      - name: beneficiary_of_another_foundation
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: displaced
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: lives_with_reinserted_familiar
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type: text/csv
+            Content-Disposition: attachment; filename=students.csv
+          content:
+            text/csv:
+              schema:
+                type: string
   "/api/v1/users":
     get:
       summary: List users

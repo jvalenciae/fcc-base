@@ -11,10 +11,10 @@ class GroupsExportService < ApplicationService
 
   def call
     CSV.generate do |csv|
-      csv << %w[ID Category BranchID BranchName]
+      csv << Group.take.attributes.keys
 
       groups.each do |group|
-        csv << [group.id, group.category, group.branch.id, group.branch.name]
+        csv << group.attributes.values
       end
     end
   end

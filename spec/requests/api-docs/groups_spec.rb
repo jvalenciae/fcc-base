@@ -262,7 +262,7 @@ describe 'Groups API' do
   path '/api/v1/groups/export' do
     get 'Exports groups as CSV' do
       tags 'Groups'
-      produces 'text/csv'
+      security [bearerAuth: []]
 
       parameter name: 'categories[]', in: :query, style: :form, explode: true, schema: {
         type: :array,
@@ -273,6 +273,7 @@ describe 'Groups API' do
         items: { type: :string }
       }, description: 'An array of branch IDs to filter groups by', required: false
 
+      produces 'text/csv'
       response '200', 'OK' do
         schema type: :string
         header 'Content-Type', 'text/csv'

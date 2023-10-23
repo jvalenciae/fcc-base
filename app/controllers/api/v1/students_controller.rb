@@ -4,10 +4,9 @@ module Api
   module V1
     class StudentsController < ApiController
       before_action :set_student, only: %i[show update destroy]
+      before_action :set_students, only: %i[index export]
 
       def index
-        @students = Student.accessible_by(current_ability)
-        @students = StudentsFilterService.call(@students, params)
         @students, meta = paginate_resources(@students)
         render_response(data: @students, serializer: StudentSerializer, meta: meta)
       end
@@ -34,10 +33,27 @@ module Api
         render json: { message: I18n.t('student.successful_delete') }, status: :ok if @student.destroy!
       end
 
+      def export
+        respond_to do |format|
+          format.csv do
+            response.headers['Content-Type'] = 'text/csv'
+            response.headers['Content-Disposition'] = 'attachment; filename=students.csv'
+            csv_data = StudentsExportService.call(@students)
+
+            render plain: csv_data
+          end
+        end
+      end
+
       private
 
       def set_student
         @student = Student.find(params[:id])
+      end
+
+      def set_students
+        @students = Student.accessible_by(current_ability)
+        @students = StudentsFilterService.call(@students, params)
       end
 
       def student_params

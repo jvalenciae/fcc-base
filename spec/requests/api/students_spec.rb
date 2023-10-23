@@ -207,4 +207,20 @@ RSpec.describe 'Students' do
       end
     end
   end
+
+  describe 'GET #export' do
+    let!(:super_admin) { create(:user, :super_admin) }
+
+    it 'exports students as CSV' do
+      get '/api/v1/students/export.csv', headers: authenticated_header(super_admin)
+
+      expect(response).to have_http_status(:ok)
+      expect(response.headers['Content-Type']).to eq('text/csv')
+      expect(response.headers['Content-Disposition']).to eq('attachment; filename=students.csv')
+
+      csv_data = response.body
+      expected_csv = StudentsExportService.call(Student.all)
+      expect(csv_data).to eq(expected_csv)
+    end
+  end
 end

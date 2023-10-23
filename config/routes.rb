@@ -53,7 +53,11 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :students, only: %i[index show create update destroy]
+      resources :students, only: %i[index show create update destroy] do
+        collection do
+          get 'export', to: 'students#export'
+        end
+      end
 
       resources :attendances, only: %i[index show create update]
     end

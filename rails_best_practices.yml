@@ -43,7 +43,8 @@ RemoveUnusedMethodsInControllersCheck: {
     Api::V1::AttendancesController#create,
     Api::V1::AttendancesController#update,
     Api::V1::Auth::PasswordsController#create,
-    Api::V1::Auth::PasswordsController#update
+    Api::V1::Auth::PasswordsController#update,
+    Api::V1::StudentsController#create
   ]
 }
 RemoveUnusedMethodsInHelpersCheck: { except_methods: [] }

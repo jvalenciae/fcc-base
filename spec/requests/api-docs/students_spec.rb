@@ -399,5 +399,70 @@ describe 'Students API' do
         xit
       end
     end
+
+    path '/api/v1/students/export' do
+      get 'Exports students as CSV' do
+        tags 'Students'
+        security [bearerAuth: []]
+
+        parameter name: 'branch_ids[]', in: :query, style: :form, explode: true, schema: {
+          type: :array,
+          items: { type: :string }
+        }, description: 'An array of branches IDs to filter students by', required: false
+
+        parameter name: 'categories[]', in: :query, style: :form, explode: true, schema: {
+          type: :array,
+          items: { type: :string }
+        }, description: 'An array of categories to filter students by', required: false
+
+        parameter name: 'group_ids[]', in: :query, style: :form, explode: true, schema: {
+          type: :array,
+          items: { type: :string }
+        }, description: 'An array of groups IDs to filter students by', required: false
+
+        parameter name: 'statuses[]', in: :query, style: :form, explode: true, schema: {
+          type: :array,
+          items: { type: :string }
+        }, description: 'An array of statuses to filter students by', required: false
+
+        parameter name: 'tshirt_sizes[]', in: :query, style: :form, explode: true, schema: {
+          type: :array,
+          items: { type: :integer }
+        }, description: 'An array of tshirt_sizes to filter students by', required: false
+
+        parameter name: 'shorts_sizes[]', in: :query, style: :form, explode: true, schema: {
+          type: :array,
+          items: { type: :integer }
+        }, description: 'An array of shorts_sizes to filter students by', required: false
+
+        parameter name: 'socks_sizes[]', in: :query, style: :form, explode: true, schema: {
+          type: :array,
+          items: { type: :integer }
+        }, description: 'An array of socks_sizes to filter students by', required: false
+
+        parameter name: 'shoe_sizes[]', in: :query, style: :form, explode: true, schema: {
+          type: :array,
+          items: { type: :integer }
+        }, description: 'An array of shoe_sizes to filter students by', required: false
+
+        parameter name: 'health_coverages[]', in: :query, style: :form, explode: true, schema: {
+          type: :array,
+          items: { type: :string }
+        }, description: 'An array of health_coverages to filter students by', required: false
+
+        parameter name: :beneficiary_of_another_foundation, in: :query, type: :boolean, required: false
+        parameter name: :displaced, in: :query, type: :boolean, required: false
+        parameter name: :lives_with_reinserted_familiar, in: :query, type: :boolean, required: false
+
+        produces 'text/csv'
+        response '200', 'OK' do
+          schema type: :string
+          header 'Content-Type', 'text/csv'
+          header 'Content-Disposition', 'attachment; filename=students.csv'
+
+          xit
+        end
+      end
+    end
   end
 end
