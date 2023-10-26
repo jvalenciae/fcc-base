@@ -16,6 +16,9 @@ describe 'Groups API' do
         type: :array,
         items: { type: :string }
       }, description: 'An array of branch IDs to filter groups by', required: false
+      parameter name: :q, in: :query, type: :string,
+                description: 'A query string to search groups by name, cateogry, or branch.name',
+                required: false
 
       produces 'application/json'
       response '200', 'OK' do
@@ -272,6 +275,9 @@ describe 'Groups API' do
         type: :array,
         items: { type: :string }
       }, description: 'An array of branch IDs to filter groups by', required: false
+      parameter name: :q, in: :query, type: :string,
+                description: 'A query string to search groups by name, cateogry, or branch.name',
+                required: false
 
       produces 'text/csv'
       response '200', 'OK' do

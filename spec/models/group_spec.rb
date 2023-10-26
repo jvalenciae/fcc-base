@@ -32,6 +32,57 @@ RSpec.describe Group do
   end
 
   describe 'scopes' do
+    describe '.search_by_q' do
+      # rubocop:disable RSpec/IndexedLet
+      let!(:branch1) { create(:branch, name: 'Branch One') }
+      let!(:branch2) { create(:branch, name: 'Branch Two') }
+
+      let!(:group1) { create(:group, name: '1', category: Group::CATEGORIES.keys.first, branch: branch1) }
+      let!(:group2) { create(:group, name: '2', category: Group::CATEGORIES.keys.first, branch: branch2) }
+      # rubocop:enable RSpec/IndexedLet
+
+      it 'searches by name' do
+        results = described_class.search_by_q('2')
+
+        expect(results).to include(group2)
+        expect(results).not_to include(group1)
+      end
+
+      it 'searches by branch name' do
+        results = described_class.search_by_q('one')
+
+        expect(results).to include(group1)
+        expect(results).not_to include(group2)
+      end
+    end
+
+    describe '.search_by_category' do
+      # rubocop:disable RSpec/IndexedLet
+      let!(:group1) { create(:group, name: '1', category: Group::CATEGORIES.keys.first) }
+      let!(:group2) { create(:group, name: '2', category: Group::CATEGORIES.keys.last) }
+      # rubocop:enable RSpec/IndexedLet
+
+      it 'filters records by category' do
+        results = described_class.search_by_category(Group::CATEGORIES.keys.first)
+
+        expect(results).to include(group1)
+        expect(results).not_to include(group2)
+      end
+
+      it 'handles partial matches' do
+        results = described_class.search_by_category(Group::CATEGORIES.keys.last[1..3])
+
+        expect(results).to include(group2)
+        expect(results).not_to include(group1)
+      end
+
+      it 'returns all records when category is blank' do
+        results = described_class.search_by_category(nil)
+
+        expect(results).to include(group1, group2)
+      end
+    end
+
     describe '.by_branch_ids' do
       # rubocop:disable RSpec/IndexedLet
       let!(:branch1) { create(:branch) }

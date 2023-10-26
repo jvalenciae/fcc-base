@@ -57,11 +57,8 @@ module Api
       end
 
       def set_groups
-        # rubocop:disable Naming/MemoizedInstanceVariableName
         @groups ||= Group.accessible_by(current_ability)
-                         .by_categories(params[:categories])
-                         .by_branch_ids(params[:branch_ids])
-        # rubocop:enable Naming/MemoizedInstanceVariableName
+        @groups = GroupsFilterService.call(@groups, params)
       end
 
       def group_params

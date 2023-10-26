@@ -22,6 +22,23 @@ class Group < ApplicationRecord
 
   enum category: CATEGORIES
 
+  include PgSearch::Model
+  pg_search_scope :search_by_q,
+                  against: %i[name],
+                  associated_against: {
+                    branch: [:name]
+                  },
+                  using: {
+                    tsearch: { prefix: true }
+                  }, ignoring: :accents
+
+  scope :search_by_category, lambda { |category|
+    return all if category.blank?
+
+    categories = CATEGORIES.keys.select { |cate| cate.include?(category) }
+    categories.present? ? by_categories(categories) : none
+  }
+
   scope :by_branch_ids, lambda { |branch_ids|
     return all if branch_ids.blank?
 

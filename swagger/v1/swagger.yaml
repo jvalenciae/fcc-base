@@ -1141,6 +1141,12 @@ paths:
             type: string
         description: An array of branch IDs to filter groups by
         required: false
+      - name: q
+        in: query
+        description: A query string to search groups by name, cateogry, or branch.name
+        required: false
+        schema:
+          type: string
       responses:
         '200':
           description: OK
@@ -1443,6 +1449,12 @@ paths:
             type: string
         description: An array of branch IDs to filter groups by
         required: false
+      - name: q
+        in: query
+        description: A query string to search groups by name, cateogry, or branch.name
+        required: false
+        schema:
+          type: string
       responses:
         '200':
           description: OK
