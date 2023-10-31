@@ -62,5 +62,9 @@ staging:
   <<: *default_settings
   app_name: 'fcc_simeon2_api (Staging)'
 
+uat:
+  <<: *default_settings
+  app_name: 'fcc_simeon2_api (UAT)'
+
 production:
   <<: *default_settings

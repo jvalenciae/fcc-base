@@ -46,6 +46,14 @@ RSpec.configure do |config|
               default: 'staging-api.simeonfcc.com'
             }
           }
+        },
+        {
+          url: 'https://{uatHost}',
+          variables: {
+            uatHost: {
+              default: 'uat-api.simeonfcc.com'
+            }
+          }
         }
       ]
     }

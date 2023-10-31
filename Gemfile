@@ -121,7 +121,7 @@ group :development, :test do
   gem 'rubocop-rspec', '~> 2.12', '>= 2.12.1', require: false
 end
 
-group :development, :test, :staging do
+group :development, :test, :staging, :uat do
   gem 'factory_bot_rails', '~> 6.2'
   gem 'faker', '~> 2.0'
 end

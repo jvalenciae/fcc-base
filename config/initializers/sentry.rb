@@ -3,7 +3,7 @@
 # rubocop:disable Metrics/BlockLength
 Sentry.init do |config|
   config.dsn = ENV['SENTRY_DSN'] if ENV['SENTRY_DSN'].present?
-  config.enabled_environments = %w[production staging]
+  config.enabled_environments = %w[production staging uat]
   config.excluded_exceptions = Sentry::Configuration::IGNORE_DEFAULT - ['ActiveRecord::RecordNotFound']
   config.breadcrumbs_logger = [:active_support_logger]
   config.background_worker_threads = 0
