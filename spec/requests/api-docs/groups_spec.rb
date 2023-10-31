@@ -33,6 +33,13 @@ describe 'Groups API' do
                        id: { type: :string },
                        category: { type: :string },
                        name: { type: :string },
+                       organization: {
+                         type: :object,
+                         properties: {
+                           id: { type: :string },
+                           name: { type: :string }
+                         }
+                       },
                        branch: {
                          type: :object,
                          properties: {
@@ -90,6 +97,13 @@ describe 'Groups API' do
                      id: { type: :string },
                      category: { type: :string },
                      name: { type: :string },
+                     organization: {
+                       type: :object,
+                       properties: {
+                         id: { type: :string },
+                         name: { type: :string }
+                       }
+                     },
                      branch: {
                        type: :object,
                        properties: {
@@ -136,6 +150,13 @@ describe 'Groups API' do
                      id: { type: :string },
                      category: { type: :string },
                      name: { type: :string },
+                     organization: {
+                       type: :object,
+                       properties: {
+                         id: { type: :string },
+                         name: { type: :string }
+                       }
+                     },
                      branch: {
                        type: :object,
                        properties: {
@@ -192,6 +213,13 @@ describe 'Groups API' do
                      id: { type: :string },
                      category: { type: :string },
                      name: { type: :string },
+                     organization: {
+                       type: :object,
+                       properties: {
+                         id: { type: :string },
+                         name: { type: :string }
+                       }
+                     },
                      branch: {
                        type: :object,
                        properties: {
