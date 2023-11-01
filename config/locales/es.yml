@@ -21,24 +21,28 @@ es:
         branch: "No estás autorizado para crear esa sede."
         group: "No estás autorizado para crear ese grupo."
         organization: "No estás autorizado para crear esa organización."
+        report: "No estás autorizado para crear ese reporte."
         user: "No estás autorizado para crear ese usuario."
       destroy:
         ally: "No estás autorizado para borrar ese aliado."
         branch: "No estás autorizado para borrar esa sede."
         group: "No estás autorizado para borrar ese grupo."
         organization: "No estás autorizado para borrar esa organización."
+        report: "No estás autorizado para borrar ese reporte."
         user: "No estás autorizado para borrar ese usuario."
       read:
         ally: "No estás autorizado para acceder ese aliado."
         branch: "No estás autorizado para acceder esa sede."
         group: "No estás autorizado para acceder ese grupo."
         organization: "No estás autorizado para acceder esa organización."
+        report: "No estás autorizado para acceder ese reporte."
         user: "No estás autorizado para acceder ese usuario."
       update:
         ally: "No estás autorizado para actualizar ese aliado."
         branch: "No estás autorizado para actualizar esa sede."
         group: "No estás autorizado para actualizar ese grupo."
         organization: "No estás autorizado para actualizar esa organización."
+        report: "No estás autorizado para actualizar ese reporte."
         user: "No estás autorizado para actualizar ese usuario."
   categories:
     builders: 'Constructores'
@@ -56,6 +60,8 @@ es:
       parameter_missing: 'Parámetro faltante'
   group:
     successful_delete: 'Group borrado exitosamente'
+  report:
+    successful_delete: 'Reporte borrado exitosamente'
   user:
     errors:
       branches_belongs_to_organization: 'Algunas sedes no pertenecen a la organización del usuario'

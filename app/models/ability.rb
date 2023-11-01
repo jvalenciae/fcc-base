@@ -50,6 +50,7 @@ class Ability
     can :manage, Supervisor
     can :manage, GroupAttendance
     can :manage, StudentAttendance
+    can :manage, Report
   end
 
   def define_admin_abilities(user)
@@ -65,6 +66,7 @@ class Ability
     can :manage, Supervisor, { student: { branch: { organization_id: user.organization_id } } }
     can :manage, GroupAttendance, { group: { branch: { organization_id: user.organization_id } } }
     can :manage, StudentAttendance, { student: { branch: { organization_id: user.organization_id } } }
+    can :read, Report, { organization_id: user.organization_id }
   end
 
   def define_member_abilities(user)
@@ -77,5 +79,6 @@ class Ability
     can :manage, Supervisor, { student: { branch_id: user.branch_ids } }
     can :manage, GroupAttendance, { group: { branch_id: user.branch_ids } }
     can :manage, StudentAttendance, { student: { branch_id: user.branch_ids } }
+    can :read, Report, { organization_id: user.organization_id }
   end
 end

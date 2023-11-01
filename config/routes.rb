@@ -60,6 +60,8 @@ Rails.application.routes.draw do
       end
 
       resources :attendances, only: %i[index show create update]
+
+      resources :reports, only: %i[index show create update destroy]
     end
   end
 end

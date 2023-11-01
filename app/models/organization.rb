@@ -10,6 +10,7 @@ class Organization < ApplicationRecord
   has_many :branches, dependent: nil
   has_many :users, dependent: nil
   has_many :allies, dependent: nil
+  has_many :reports, dependent: nil
 
   include PgSearch::Model
   pg_search_scope :search_by_q,

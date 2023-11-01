@@ -18,6 +18,7 @@ RSpec.describe Organization do
       expect(organization).to have_many(:branches).dependent(nil)
       expect(organization).to have_many(:users).dependent(nil)
       expect(organization).to have_many(:allies).dependent(nil)
+      expect(organization).to have_many(:reports).dependent(nil)
     end
   end
 

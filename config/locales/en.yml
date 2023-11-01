@@ -52,24 +52,28 @@ en:
       branch: "You are not authorized to create this branch."
       group: "You are not authorized to create this group."
       organization: "You are not authorized to create this organization."
+      report: "You are not authorized to create this report."
       user: "You are not authorized to create this user."
     destroy:
       ally: "You are not authorized to delete this ally."
       branch: "You are not authorized to delete this branch."
       group: "You are not authorized to delete this group."
       organization: "You are not authorized to delete this organization."
+      report: "You are not authorized to delete this report."
       user: "You are not authorized to delete this user."
     read:
       ally: "You are not authorized to access this ally."
       branch: "You are not authorized to access this branch."
       group: "You are not authorized to access this group."
       organization: "You are not authorized to access this organization."
+      report: "You are not authorized to access this report."
       user: "You are not authorized to access this user."
     update:
       ally: "You are not authorized to update this ally."
       branch: "You are not authorized to update this branch."
       group: "You are not authorized to update this group."
       organization: "You are not authorized to update this organization."
+      report: "You are not authorized to update this report."
       user: "You are not authorized to update this user."
   categories:
     builders: 'Builders'
@@ -87,6 +91,8 @@ en:
       parameter_missing: 'Missing parameter'
   group:
     successful_delete: 'Group successfully deleted'
+  report:
+    successful_delete: 'Report successfully deleted'
   user:
     errors:
       branches_belongs_to_organization: "Some branches don't belong to the user's organization"
