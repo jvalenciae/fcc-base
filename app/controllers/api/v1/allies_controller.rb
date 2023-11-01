@@ -7,6 +7,7 @@ module Api
 
       def index
         @allies = Ally.accessible_by(current_ability)
+        @allies = @allies.search_by_q(params[:q]).with_pg_search_rank if params[:q].present?
         @allies, meta = paginate_resources(@allies)
         render_response(data: @allies, serializer: AllySerializer, meta: meta)
       end
