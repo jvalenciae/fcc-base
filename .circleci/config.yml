@@ -16,6 +16,7 @@ workflows:
               ignore:
                 - main # deploy to production environment
                 - develop # deploy to staging environment
+                - uat # deploy to uat environment
       - checking-rubocop:
           requires:
             - check-build
@@ -39,9 +40,9 @@ workflows:
           name: build-n-push-staging
           context: fcc-simeon2-staging # create context in organization setting and replace <project_name> with his name
           registry-id: AWS_ECR_REGISTRY_ID # Add this env-var in context, AWS_ECR_REGISTRY_ID=ID_ECR_AWS
-          repo: '${PROJECT}-${ENV}' # Add these env-vars in context, ENV=staging and PROJECT=project_name_in_aws
+          repo: '${PROJECT}-staging' # Add these env-vars in context, ENV=staging and PROJECT=project_name_in_aws
           tag: 'app_service_be_${CIRCLE_SHA1:0:7},app_service_be_latest' # Add this env-var in context, ENV=staging
-          extra-build-args: '--build-arg RAILS_MASTER_KEY=${RAILS_MASTER_KEY} --build-arg RAILS_ENV=${ENV} --build-arg BUNDLER_VERSION_VAR="$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1 | sed "s/ //g")"' # Add ROLLBAR_ACCESS_TOKEN in env-vars project setting and ENV in context, ENV=staging
+          extra-build-args: '--build-arg RAILS_MASTER_KEY=${RAILS_MASTER_KEY} --build-arg RAILS_ENV=staging --build-arg BUNDLER_VERSION_VAR="$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1 | sed "s/ //g")"' # Add ROLLBAR_ACCESS_TOKEN in env-vars project setting and ENV in context, ENV=staging
           post-steps: # Create these envs-vars in project setting, SLACK_ACCESS_TOKEN and SLACK_DEFAULT_CHANNEL, https://github.com/CircleCI-Public/slack-orb/wiki/Setup
             - slack/notify:
                 event: fail
@@ -57,9 +58,9 @@ workflows:
           name: update-service
           context: fcc-simeon2-staging # create context in organization setting and replace <project_name> with his name
           cluster-name: 'service-BE' # Add these env-vars in context, ENV=staging and PROJECT=project_name_in_aws
-          container-image-name-updates: 'container=${ENV}-app-service-be,tag=app_service_be_${CIRCLE_SHA1:0:7}' # Add this env-var in context, ENV=staging
-          service-name: '${ENV}-app-service-be' # Add this env-var in context, ENV=staging
-          family: '${ENV}-app-service-be' # Add these env-vars in context, ENV=staging and PROJECT=project_name_in_aws
+          container-image-name-updates: 'container=staging-app-service-be,tag=app_service_be_${CIRCLE_SHA1:0:7}' # Add this env-var in context, ENV=staging
+          service-name: 'staging-app-service-be' # Add this env-var in context, ENV=staging
+          family: 'staging-app-service-be' # Add these env-vars in context, ENV=staging and PROJECT=project_name_in_aws
           verify-revision-is-deployed: true
           max-poll-attempts: 25
           post-steps: # Create these envs-vars in project setting, SLACK_ACCESS_TOKEN and SLACK_DEFAULT_CHANNEL, https://github.com/CircleCI-Public/slack-orb/wiki/Setup
@@ -76,9 +77,9 @@ workflows:
           name: update-service-sidekiq
           context: fcc-simeon2-staging # create context in organization setting and replace <project_name> with his name
           cluster-name: 'service-sidekiq' # Add these env-vars in context, ENV=staging and PROJECT=project_name_in_aws
-          container-image-name-updates: 'container=${ENV}-app-service-sidekiq,tag=app_service_be_${CIRCLE_SHA1:0:7}' # Add this env-var in context, ENV=staging
-          service-name: '${ENV}-app-service-sidekiq' # Add this env-var in context, ENV=staging
-          family: '${ENV}-app-service-sidekiq' # Add these env-vars in context, ENV=staging and PROJECT=project_name_in_aws
+          container-image-name-updates: 'container=staging-app-service-sidekiq,tag=app_service_be_${CIRCLE_SHA1:0:7}' # Add this env-var in context, ENV=staging
+          service-name: 'staging-app-service-sidekiq' # Add this env-var in context, ENV=staging
+          family: 'staging-app-service-sidekiq' # Add these env-vars in context, ENV=staging and PROJECT=project_name_in_aws
           verify-revision-is-deployed: true
           max-poll-attempts: 25
           post-steps: # Create these envs-vars in project setting, SLACK_ACCESS_TOKEN and SLACK_DEFAULT_CHANNEL, https://github.com/CircleCI-Public/slack-orb/wiki/Setup
@@ -100,6 +101,84 @@ workflows:
             branches:
               only:
                 - develop # deploy to staging environment
+  build-and-deploy-uat:
+    jobs:
+      - check-build:
+          filters:
+            branches:
+                only:
+                  - uat # deploy to uat environment
+      - checking-rubocop:
+          requires:
+            - check-build
+      - checking-test:
+          requires:
+            - check-build
+      - aws-ecr/build-and-push-image:
+          name: build-n-push-uat
+          context: fcc-simeon2-uat # create context in organization setting and replace <project_name> with his name
+          registry-id: AWS_ECR_REGISTRY_ID # Add this env-var in context, AWS_ECR_REGISTRY_ID=ID_ECR_AWS
+          repo: '${PROJECT}-uat' # Add these env-vars in context, ENV=uat and PROJECT=project_name_in_aws
+          tag: 'app_service_be_${CIRCLE_SHA1:0:7},app_service_be_latest' # Add this env-var in context, ENV=uat
+          extra-build-args: '--build-arg RAILS_MASTER_KEY=${RAILS_MASTER_KEY} --build-arg RAILS_ENV=uat --build-arg BUNDLER_VERSION_VAR="$(grep -A 1 "BUNDLED WITH" Gemfile.lock | tail -n 1 | sed "s/ //g")"' # Add ROLLBAR_ACCESS_TOKEN in env-vars project setting and ENV in context, ENV=staging
+          post-steps: # Create these envs-vars in project setting, SLACK_ACCESS_TOKEN and SLACK_DEFAULT_CHANNEL, https://github.com/CircleCI-Public/slack-orb/wiki/Setup
+            - slack/notify:
+                event: fail
+                template: basic_fail_1
+          requires:
+            - checking-test
+            - checking-rubocop
+          filters:
+            branches:
+                only:
+                  - uat # deploy to uat environment
+      - aws-ecs/deploy-service-update:
+          name: update-service
+          context: fcc-simeon2-uat # create context in organization setting and replace <project_name> with his name
+          cluster-name: 'service-BE' # Add these env-vars in context, ENV=uat and PROJECT=project_name_in_aws
+          container-image-name-updates: 'container=uat-app-service-be,tag=app_service_be_${CIRCLE_SHA1:0:7}' # Add this env-var in context, ENV=uat
+          service-name: 'uat-app-service-be' # Add this env-var in context, ENV=uat
+          family: 'uat-app-service-be' # Add these env-vars in context, ENV=uat and PROJECT=project_name_in_aws
+          verify-revision-is-deployed: true
+          max-poll-attempts: 25
+          post-steps: # Create these envs-vars in project setting, SLACK_ACCESS_TOKEN and SLACK_DEFAULT_CHANNEL, https://github.com/CircleCI-Public/slack-orb/wiki/Setup
+            - slack/notify:
+                event: fail
+                template: basic_fail_1
+          requires:
+            - build-n-push-uat
+          filters:
+            branches:
+                only:
+                  - uat # deploy to uat environment
+      - aws-ecs/deploy-service-update:
+          name: update-service-sidekiq
+          context: fcc-simeon2-uat # create context in organization setting and replace <project_name> with his name
+          cluster-name: 'service-sidekiq' # Add these env-vars in context, ENV=uat and PROJECT=project_name_in_aws
+          container-image-name-updates: 'container=uat-app-service-sidekiq,tag=app_service_be_${CIRCLE_SHA1:0:7}' # Add this env-var in context, ENV=uat
+          service-name: 'uat-app-service-sidekiq' # Add this env-var in context, ENV=uat
+          family: 'uat-app-service-sidekiq' # Add these env-vars in context, ENV=uat and PROJECT=project_name_in_aws
+          verify-revision-is-deployed: true
+          max-poll-attempts: 25
+          post-steps: # Create these envs-vars in project setting, SLACK_ACCESS_TOKEN and SLACK_DEFAULT_CHANNEL, https://github.com/CircleCI-Public/slack-orb/wiki/Setup
+            - slack/notify:
+                event: fail
+                template: basic_fail_1
+          requires:
+            - build-n-push-uat
+          filters:
+            branches:
+                only:
+                  - uat # deploy to uat environment
+      - deploy-uat:
+          context: fcc-simeon2-uat
+          requires:
+            - update-service
+            - update-service-sidekiq
+          filters:
+            branches:
+              only:
+                - uat # deploy to uat environment
 jobs:
   check-build:
     docker:
@@ -183,6 +262,26 @@ jobs:
           launch-type: EC2
           task-definition: 'staging-app-service-be' # Add these env-vars in context, ENV=production and PROJECT=project_name_in_aws
           overrides: "{\"containerOverrides\":[{\"name\":\"staging-app-service-be\",\"command\":[\"rails\",\"db:migrate\"]}]}"
+      - slack/notify: # Create these envs-vars in project setting, SLACK_ACCESS_TOKEN and SLACK_DEFAULT_CHANNEL, https://github.com/CircleCI-Public/slack-orb/wiki/Setup
+          event: fail
+          template: basic_fail_1
+      - slack/notify:
+          event: pass
+          template: basic_success_1
+  deploy-uat:
+    docker:
+      - image: 'cimg/python:3.9.1'
+    steps:
+      - aws-cli/setup:
+          aws-access-key-id: AWS_ACCESS_KEY_ID # Add this env-var in project setting, this key need access to ECS, ECR, S3
+          aws-region: AWS_DEFAULT_REGION # Add this env-var in project setting, us-east-1 or us-east-2...
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY # Add this env-var in project setting, this key need access to ECS, ECR, S3
+      - aws-ecs/run-task:
+          awsvpc: false
+          cluster: 'service-BE' # Add these env-vars in context, ENV=production and PROJECT=project_name_in_aws
+          launch-type: EC2
+          task-definition: 'uat-app-service-be' # Add these env-vars in context, ENV=production and PROJECT=project_name_in_aws
+          overrides: "{\"containerOverrides\":[{\"name\":\"uat-app-service-be\",\"command\":[\"rails\",\"db:migrate\"]}]}"
       - slack/notify: # Create these envs-vars in project setting, SLACK_ACCESS_TOKEN and SLACK_DEFAULT_CHANNEL, https://github.com/CircleCI-Public/slack-orb/wiki/Setup
           event: fail
           template: basic_fail_1
