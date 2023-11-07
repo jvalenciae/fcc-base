@@ -16,4 +16,10 @@ class Ally < ApplicationRecord
                   using: {
                     tsearch: { prefix: true }
                   }, ignoring: :accents
+
+  scope :by_organization_ids, lambda { |organization_ids|
+    return all if organization_ids.blank?
+
+    where(organization_id: organization_ids)
+  }
 end

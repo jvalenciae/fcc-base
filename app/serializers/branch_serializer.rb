@@ -4,6 +4,7 @@ class BranchSerializer < ActiveModel::Serializer
   attributes :id, :name, :country, :department, :city, :address, :phone_number
 
   belongs_to :organization
+  has_many :allies
 
   def organization
     organization = object.organization

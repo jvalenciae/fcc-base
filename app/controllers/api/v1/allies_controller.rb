@@ -6,7 +6,7 @@ module Api
       before_action :set_ally, only: %i[show update]
 
       def index
-        @allies = Ally.accessible_by(current_ability)
+        @allies = Ally.accessible_by(current_ability).by_organization_ids(params[:organization_ids])
         @allies = @allies.search_by_q(params[:q]).with_pg_search_rank if params[:q].present?
         @allies, meta = paginate_resources(@allies)
         render_response(data: @allies, serializer: AllySerializer, meta: meta)

@@ -21,12 +21,14 @@ RSpec.describe 'Branches' do
               'country' => { 'code' => 'CO', 'name' => 'Colombia' }, 'address' => first_branch.address,
               'department' => { 'code' => 'ATL', 'name' => 'Atlántico' }, 'phone_number' => first_branch.phone_number,
               'organization' => { 'id' => organization.id, 'name' => organization.name,
-                                  'country' => { 'code' => 'CO', 'name' => 'Colombia' } } },
+                                  'country' => { 'code' => 'CO', 'name' => 'Colombia' } },
+              'allies' => [] },
             { 'id' => second_branch.id, 'name' => second_branch.name, 'city' => second_branch.city,
               'country' => { 'code' => 'CO', 'name' => 'Colombia' }, 'address' => second_branch.address,
               'department' => { 'code' => 'ATL', 'name' => 'Atlántico' }, 'phone_number' => second_branch.phone_number,
               'organization' => { 'id' => organization.id, 'name' => organization.name,
-                                  'country' => { 'code' => 'CO', 'name' => 'Colombia' } } }
+                                  'country' => { 'code' => 'CO', 'name' => 'Colombia' } },
+              'allies' => [] }
           ]
         )
       end

@@ -60,6 +60,16 @@ describe 'Branches API' do
                              }
                            }
                          }
+                       },
+                       allies: {
+                         type: :array,
+                         items: {
+                           type: :object,
+                           properties: {
+                             id: { type: :string },
+                             name: { type: :string }
+                           }
+                         }
                        }
                      }
                    }
@@ -142,6 +152,16 @@ describe 'Branches API' do
                            }
                          }
                        }
+                     },
+                     allies: {
+                       type: :array,
+                       items: {
+                         type: :object,
+                         properties: {
+                           id: { type: :string },
+                           name: { type: :string }
+                         }
+                       }
                      }
                    }
                  },
@@ -199,6 +219,16 @@ describe 'Branches API' do
                              code: { type: :string },
                              name: { type: :string }
                            }
+                         }
+                       }
+                     },
+                     allies: {
+                       type: :array,
+                       items: {
+                         type: :object,
+                         properties: {
+                           id: { type: :string },
+                           name: { type: :string }
                          }
                        }
                      }
@@ -273,6 +303,16 @@ describe 'Branches API' do
                              code: { type: :string },
                              name: { type: :string }
                            }
+                         }
+                       }
+                     },
+                     allies: {
+                       type: :array,
+                       items: {
+                         type: :object,
+                         properties: {
+                           id: { type: :string },
+                           name: { type: :string }
                          }
                        }
                      }

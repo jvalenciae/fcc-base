@@ -8,6 +8,13 @@ describe 'Allies API' do
       tags 'Allies'
       security [bearerAuth: []]
 
+      parameter name: 'organization_ids[]', in: :query, style: :form, explode: true, schema: {
+        type: :array,
+        items: { type: :string }
+      }, description: 'An array of organization IDs to filter allies by', required: false
+      parameter name: :q, in: :query, type: :string,
+                description: 'A query string to search for allies by name',
+                required: false
       parameter name: :page, in: :query, type: :integer, description: 'Page number'
       parameter name: :per_page, in: :query, type: :integer, description: 'How many records per page'
 
