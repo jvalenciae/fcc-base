@@ -70,4 +70,7 @@ es:
   student:
     errors:
       group_belongs_to_branch: 'El grupo no pertenece a la sede'
+    import:
+      missing_file: 'No archivo encontrado'
+      started: 'Carga de estudiantes iniciando...'
     successful_delete: 'Estudiante borrado exitosamente'

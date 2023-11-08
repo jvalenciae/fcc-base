@@ -7,7 +7,8 @@ class Student < ApplicationRecord
 
   validates :id_number, :name, :birthplace, :birthdate, :gender, :tshirt_size, :shorts_size, :socks_size, :shoe_size,
             :favourite_colour, :favourite_food, :favourite_sport, :favourite_place, :feeling_when_playing_soccer, :city,
-            :country, :neighborhood, :address, :school, :extracurricular_activities, :health_coverage, presence: true
+            :country, :neighborhood, :address, :school, :health_coverage, :id_type, :study_day, :grade, :department,
+            :height, :weight, presence: true
 
   validate :validate_group_belongs_to_branch
 

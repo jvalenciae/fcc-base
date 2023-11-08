@@ -56,6 +56,7 @@ Rails.application.routes.draw do
       resources :students, only: %i[index show create update destroy] do
         collection do
           get 'export', to: 'students#export'
+          post 'import', to: 'students#import'
         end
       end
 

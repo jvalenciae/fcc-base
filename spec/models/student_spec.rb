@@ -23,8 +23,13 @@ RSpec.describe Student do
     it { is_expected.to validate_presence_of(:neighborhood) }
     it { is_expected.to validate_presence_of(:address) }
     it { is_expected.to validate_presence_of(:school) }
-    it { is_expected.to validate_presence_of(:extracurricular_activities) }
     it { is_expected.to validate_presence_of(:health_coverage) }
+    it { is_expected.to validate_presence_of(:id_type) }
+    it { is_expected.to validate_presence_of(:study_day) }
+    it { is_expected.to validate_presence_of(:grade) }
+    it { is_expected.to validate_presence_of(:department) }
+    it { is_expected.to validate_presence_of(:height) }
+    it { is_expected.to validate_presence_of(:weight) }
 
     describe '#validate_group_belongs_to_branch' do
       it 'is valid when group belongs to the same branch' do

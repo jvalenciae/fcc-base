@@ -164,6 +164,7 @@ group :test do
   # Fake (In-memory) driver for redis-rb
   # gem 'fakeredis', '~> 0.5.0'
   gem 'database_cleaner', '~> 1.7'
+  gem 'fakeredis'
   gem 'shoulda-callback-matchers', '~> 1.1', '>= 1.1.4'
   gem 'shoulda-matchers', '~> 5.1'
   gem 'simplecov', '~> 0.21.2'
@@ -172,4 +173,6 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'webdrivers'
+
+  gem 'webmock'
 end

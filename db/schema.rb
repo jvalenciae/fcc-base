@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_23_221807) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_07_154048) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -152,7 +152,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_221807) do
     t.string "neighborhood", null: false
     t.string "address", null: false
     t.string "school", null: false
-    t.string "extracurricular_activities", null: false
+    t.string "extracurricular_activities"
     t.integer "health_coverage", null: false
     t.boolean "displaced", default: false, null: false
     t.string "displacement_origin"
@@ -168,6 +168,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_221807) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.string "id_type", default: "Registro civil", null: false
+    t.string "study_day", default: "Mañana", null: false
+    t.string "grade", default: " ", null: false
+    t.string "eps"
+    t.boolean "lives_with_parent", default: false, null: false
+    t.string "department", default: " ", null: false
+    t.string "height", default: " ", null: false
+    t.string "weight", default: " ", null: false
     t.index ["branch_id"], name: "index_students_on_branch_id"
     t.index ["deleted_at"], name: "index_students_on_deleted_at"
     t.index ["group_id"], name: "index_students_on_group_id"
@@ -187,6 +195,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_23_221807) do
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_supervisors_on_deleted_at"
     t.index ["student_id"], name: "index_supervisors_on_student_id"
+  end
+
+  create_table "uploaded_files", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_branches", force: :cascade do |t|

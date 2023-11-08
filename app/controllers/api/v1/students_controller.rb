@@ -8,24 +8,24 @@ module Api
 
       def index
         @students, meta = paginate_resources(@students)
-        render_response(data: @students, serializer: StudentSerializer, meta: meta)
+        render_response(data: @students, serializer: Students::SmallSerializer, meta: meta)
       end
 
       def show
         authorize!(:read, @student, message: I18n.t('unauthorized.read.student'))
-        render_response(data: @student, serializer: StudentSerializer)
+        render_response(data: @student, serializer: Students::BigSerializer)
       end
 
       def create
         @student = Student.new(student_params)
         authorize!(:create, @student, message: I18n.t('unauthorized.create.student'))
-        render_response(data: @student, serializer: StudentSerializer) if @student.save!
+        render_response(data: @student, serializer: Students::BigSerializer) if @student.save!
       end
 
       def update
         @student.assign_attributes(student_params)
         authorize!(:update, @student, message: I18n.t('unauthorized.update.student'))
-        render_response(data: @student, serializer: StudentSerializer) if @student.save!
+        render_response(data: @student, serializer: Students::BigSerializer) if @student.save!
       end
 
       def destroy
@@ -43,6 +43,20 @@ module Api
             render plain: csv_data
           end
         end
+      end
+
+      def import
+        if params[:file].blank?
+          render json: { message: I18n.t('student.import.missing_file') },
+                 status: :bad_request and return
+        end
+
+        uploaded_file = UploadedFile.new
+        uploaded_file.file.attach(params[:file])
+        uploaded_file.save!
+
+        StudentsImportJob.perform_async(uploaded_file.file.url)
+        render json: { message: I18n.t('student.import.started') }, status: :ok
       end
 
       private
@@ -63,6 +77,7 @@ module Api
           :country, :city, :neighborhood, :address, :school, :extracurricular_activities, :health_coverage, :displaced,
           :desplacement_origin, :desplacement_reason, :lives_with_reinserted_familiar, :program,
           :beneficiary_of_another_foundation, :status, :withdrawal_date, :withdrawal_reason, :group_id, :branch_id,
+          :grade, :department, :height, :weight, :id_type, :study_day, :eps, :lives_with_parent,
           supervisors_attributes: %i[id_number name email birthdate phone_number profession relationship]
         )
       end

@@ -127,11 +127,15 @@ describe 'Students API' do
           student: {
             type: :object,
             properties: {
+              id_type: { type: :string },
               id_number: { type: :string },
               name: { type: :string },
               birthplace: { type: :string },
               birthdate: { type: :string, format: :date, example: 'DD-MM-YYYY' },
               gender: { type: :string },
+              grade: { type: :string },
+              height: { type: :string },
+              weight: { type: :string },
               tshirt_size: { type: :integer },
               shorts_size: { type: :integer },
               socks_size: { type: :integer },
@@ -142,16 +146,20 @@ describe 'Students API' do
               favourite_sport: { type: :string },
               feeling_when_playing_soccer: { type: :string },
               country: { type: :string, example: 'CO' },
+              department: { type: :string },
               city: { type: :string },
               neighborhood: { type: :string },
               address: { type: :string },
               school: { type: :string },
+              study_day: { type: :string },
               extracurricular_activities: { type: :string },
               health_coverage: { type: :string },
+              eps: { type: :string },
               displaced: { type: :boolean },
               desplacement_origin: { type: :string },
               desplacement_reason: { type: :string },
               lives_with_reinserted_familiar: { type: :boolean },
+              lives_with_parent: { type: :boolean },
               program: { type: :string },
               beneficiary_of_another_foundation: { type: :boolean },
               status: { type: :string },
@@ -160,21 +168,25 @@ describe 'Students API' do
               group_id: { type: :string },
               branch_id: { type: :string },
               supervisors_attributes: {
-                type: :object,
-                properties: {
-                  id_number: { type: :string },
-                  name: { type: :string },
-                  email: { type: :string },
-                  birthdate: { type: :string, format: :date, example: 'DD-MM-YYYY' },
-                  phone_number: { type: :string },
-                  profession: { type: :string },
-                  relationship: { type: :string }
+                type: :array,
+                items: {
+                  type: :object,
+                  properties: {
+                    id_number: { type: :string },
+                    name: { type: :string },
+                    email: { type: :string },
+                    birthdate: { type: :string, format: :date, example: 'DD-MM-YYYY' },
+                    phone_number: { type: :string },
+                    profession: { type: :string },
+                    relationship: { type: :string }
+                  }
                 }
               }
             },
             required: %w[id_number name birthplace birthdate gender tshirt_size shorts_size socks_size shoe_size
                          favourite_colour favourite_food favourite_sport favourite_place feeling_when_playing_soccer
-                         city country neighborhood address school extracurricular_activities health_coverage]
+                         city country neighborhood address school extracurricular_activities health_coverage grade
+                         height weight department]
           }
         }
       }
@@ -187,10 +199,50 @@ describe 'Students API' do
                    type: :object,
                    properties: {
                      id: { type: :string },
+                     id_type: { type: :string },
                      id_number: { type: :string },
                      name: { type: :string },
+                     birthplace: { type: :string },
+                     birthdate: { type: :string, format: :date, example: 'DD-MM-YYYY' },
                      gender: { type: :string },
                      status: { type: :string },
+                     height: { type: :string },
+                     weight: { type: :string },
+                     grade: { type: :string },
+                     tshirt_size: { type: :integer },
+                     shorts_size: { type: :integer },
+                     socks_size: { type: :integer },
+                     shoe_size: { type: :integer },
+                     favourite_colour: { type: :string },
+                     favourite_food: { type: :string },
+                     favourite_place: { type: :string },
+                     favourite_sport: { type: :string },
+                     feeling_when_playing_soccer: { type: :string },
+                     country: {
+                       type: :object,
+                       properties: {
+                         code: { type: :string },
+                         name: { type: :string }
+                       }
+                     },
+                     department: { type: :string },
+                     city: { type: :string },
+                     neighborhood: { type: :string },
+                     address: { type: :string },
+                     school: { type: :string },
+                     study_day: { type: :string },
+                     extracurricular_activities: { type: :string },
+                     health_coverage: { type: :string },
+                     eps: { type: :string },
+                     displaced: { type: :boolean },
+                     desplacement_origin: { type: :string },
+                     desplacement_reason: { type: :string },
+                     lives_with_reinserted_familiar: { type: :boolean },
+                     lives_with_parent: { type: :boolean },
+                     program: { type: :string },
+                     beneficiary_of_another_foundation: { type: :boolean },
+                     withdrawal_date: { type: :string, format: :date, example: 'DD-MM-YYYY' },
+                     withdrawal_reason: { type: :string },
                      branch: {
                        type: :object,
                        properties: {
@@ -242,10 +294,50 @@ describe 'Students API' do
                    type: :object,
                    properties: {
                      id: { type: :string },
+                     id_type: { type: :string },
                      id_number: { type: :string },
                      name: { type: :string },
+                     birthplace: { type: :string },
+                     birthdate: { type: :string, format: :date, example: 'DD-MM-YYYY' },
                      gender: { type: :string },
                      status: { type: :string },
+                     height: { type: :string },
+                     weight: { type: :string },
+                     grade: { type: :string },
+                     tshirt_size: { type: :integer },
+                     shorts_size: { type: :integer },
+                     socks_size: { type: :integer },
+                     shoe_size: { type: :integer },
+                     favourite_colour: { type: :string },
+                     favourite_food: { type: :string },
+                     favourite_place: { type: :string },
+                     favourite_sport: { type: :string },
+                     feeling_when_playing_soccer: { type: :string },
+                     country: {
+                       type: :object,
+                       properties: {
+                         code: { type: :string },
+                         name: { type: :string }
+                       }
+                     },
+                     department: { type: :string },
+                     city: { type: :string },
+                     neighborhood: { type: :string },
+                     address: { type: :string },
+                     school: { type: :string },
+                     study_day: { type: :string },
+                     extracurricular_activities: { type: :string },
+                     health_coverage: { type: :string },
+                     eps: { type: :string },
+                     displaced: { type: :boolean },
+                     desplacement_origin: { type: :string },
+                     desplacement_reason: { type: :string },
+                     lives_with_reinserted_familiar: { type: :boolean },
+                     lives_with_parent: { type: :boolean },
+                     program: { type: :string },
+                     beneficiary_of_another_foundation: { type: :boolean },
+                     withdrawal_date: { type: :string, format: :date, example: 'DD-MM-YYYY' },
+                     withdrawal_reason: { type: :string },
                      branch: {
                        type: :object,
                        properties: {
@@ -291,11 +383,15 @@ describe 'Students API' do
           student: {
             type: :object,
             properties: {
+              id_type: { type: :string },
               id_number: { type: :string },
               name: { type: :string },
               birthplace: { type: :string },
               birthdate: { type: :string, format: :date, example: 'DD-MM-YYYY' },
               gender: { type: :string },
+              grade: { type: :string },
+              height: { type: :string },
+              weight: { type: :string },
               tshirt_size: { type: :integer },
               shorts_size: { type: :integer },
               socks_size: { type: :integer },
@@ -306,16 +402,20 @@ describe 'Students API' do
               favourite_sport: { type: :string },
               feeling_when_playing_soccer: { type: :string },
               country: { type: :string, example: 'CO' },
+              department: { type: :string },
               city: { type: :string },
               neighborhood: { type: :string },
               address: { type: :string },
               school: { type: :string },
+              study_day: { type: :string },
               extracurricular_activities: { type: :string },
               health_coverage: { type: :string },
+              eps: { type: :string },
               displaced: { type: :boolean },
               desplacement_origin: { type: :string },
               desplacement_reason: { type: :string },
               lives_with_reinserted_familiar: { type: :boolean },
+              lives_with_parent: { type: :boolean },
               program: { type: :string },
               beneficiary_of_another_foundation: { type: :boolean },
               status: { type: :string },
@@ -324,15 +424,18 @@ describe 'Students API' do
               group_id: { type: :string },
               branch_id: { type: :string },
               supervisors_attributes: {
-                type: :object,
-                properties: {
-                  id_number: { type: :string },
-                  name: { type: :string },
-                  email: { type: :string },
-                  birthdate: { type: :string, format: :date, example: 'DD-MM-YYYY' },
-                  phone_number: { type: :string },
-                  profession: { type: :string },
-                  relationship: { type: :string }
+                type: :array,
+                items: {
+                  type: :object,
+                  properties: {
+                    id_number: { type: :string },
+                    name: { type: :string },
+                    email: { type: :string },
+                    birthdate: { type: :string, format: :date, example: 'DD-MM-YYYY' },
+                    phone_number: { type: :string },
+                    profession: { type: :string },
+                    relationship: { type: :string }
+                  }
                 }
               }
             }
@@ -348,10 +451,50 @@ describe 'Students API' do
                    type: :object,
                    properties: {
                      id: { type: :string },
+                     id_type: { type: :string },
                      id_number: { type: :string },
                      name: { type: :string },
+                     birthplace: { type: :string },
+                     birthdate: { type: :string, format: :date, example: 'DD-MM-YYYY' },
                      gender: { type: :string },
                      status: { type: :string },
+                     height: { type: :string },
+                     weight: { type: :string },
+                     grade: { type: :string },
+                     tshirt_size: { type: :integer },
+                     shorts_size: { type: :integer },
+                     socks_size: { type: :integer },
+                     shoe_size: { type: :integer },
+                     favourite_colour: { type: :string },
+                     favourite_food: { type: :string },
+                     favourite_place: { type: :string },
+                     favourite_sport: { type: :string },
+                     feeling_when_playing_soccer: { type: :string },
+                     country: {
+                       type: :object,
+                       properties: {
+                         code: { type: :string },
+                         name: { type: :string }
+                       }
+                     },
+                     department: { type: :string },
+                     city: { type: :string },
+                     neighborhood: { type: :string },
+                     address: { type: :string },
+                     school: { type: :string },
+                     study_day: { type: :string },
+                     extracurricular_activities: { type: :string },
+                     health_coverage: { type: :string },
+                     eps: { type: :string },
+                     displaced: { type: :boolean },
+                     desplacement_origin: { type: :string },
+                     desplacement_reason: { type: :string },
+                     lives_with_reinserted_familiar: { type: :boolean },
+                     lives_with_parent: { type: :boolean },
+                     program: { type: :string },
+                     beneficiary_of_another_foundation: { type: :boolean },
+                     withdrawal_date: { type: :string, format: :date, example: 'DD-MM-YYYY' },
+                     withdrawal_reason: { type: :string },
                      branch: {
                        type: :object,
                        properties: {

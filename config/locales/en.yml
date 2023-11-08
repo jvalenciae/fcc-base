@@ -101,4 +101,7 @@ en:
   student:
     errors:
       group_belongs_to_branch: 'Group does not belong to the branch'
+    import:
+      missing_file: 'No file found'
+      started: 'Import started...'
     successful_delete: 'Student successfully deleted'
