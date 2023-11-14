@@ -15,7 +15,7 @@ RSpec.describe 'Cities' do
           allow(CS).to receive(:cities).with('NY', country_code.to_sym).and_return(['New York City'])
           allow(CS).to receive(:cities).with('CA', country_code.to_sym).and_return(['Los Angeles', 'San Francisco'])
 
-          get '/api/v1/cities', params: { country_code: country_code }, headers: authenticated_header(user)
+          get '/api/v1/cities', params: { countries: [country_code] }, headers: authenticated_header(user)
 
           expect(response).to have_http_status(:success)
           expect(json_response[:data]).to eq(['New York City', 'Los Angeles', 'San Francisco'])

@@ -8,10 +8,12 @@ describe 'Cities API' do
       tags 'Cities'
       security [bearerAuth: []]
 
-      produces 'application/json'
-      parameter name: :country_code, in: :query, type: :string,
-                description: 'Country code (ISO 3166-1 alpha-2) to filter cities by country'
+      parameter name: 'countries[]', in: :query, style: :form, explode: true, schema: {
+        type: :array,
+        items: { type: :string }
+      }, description: 'An array of country codes to filter cities by', required: true
 
+      produces 'application/json'
       response '200', 'OK' do
         schema type: :object,
                properties: {

@@ -1108,11 +1108,16 @@ paths:
       security:
       - bearerAuth: []
       parameters:
-      - name: country_code
+      - name: countries[]
         in: query
-        description: Country code (ISO 3166-1 alpha-2) to filter cities by country
+        style: form
+        explode: true
         schema:
-          type: string
+          type: array
+          items:
+            type: string
+        description: An array of country codes to filter cities by
+        required: true
       responses:
         '200':
           description: OK
@@ -1164,6 +1169,17 @@ paths:
       - Departments
       security:
       - bearerAuth: []
+      parameters:
+      - name: countries[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        description: An array of country codes to filter departments by
+        required: true
       responses:
         '200':
           description: OK

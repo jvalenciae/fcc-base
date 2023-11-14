@@ -10,7 +10,7 @@ RSpec.describe 'Departments' do
       it 'returns a list of departments' do
         allow(CS).to receive(:states).and_return({ 'CA' => 'California', 'TX' => 'Texas' })
 
-        get '/api/v1/departments', params: { country_code: 'US' }, headers: authenticated_header(user)
+        get '/api/v1/departments', params: { countries: ['US'] }, headers: authenticated_header(user)
 
         expect(response).to have_http_status(:success)
         expect(json_response[:data]).to eq([

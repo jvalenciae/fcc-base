@@ -4,10 +4,14 @@ module Api
   module V1
     class CitiesController < ApiController
       def index
-        country_code = params[:country_code]&.to_sym
-        cities = CS.states(country_code).keys.flat_map { |state| CS.cities(state, country_code) }
+        countries = params[:countries].present? ? params[:countries].map(&:to_sym) : []
 
-        render_response(data: cities)
+        cities = []
+        countries.each do |country_code|
+          cities << CS.states(country_code).keys.flat_map { |state| CS.cities(state, country_code) }
+        end
+
+        render_response(data: cities.flatten)
       end
     end
   end
