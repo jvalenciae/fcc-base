@@ -20,6 +20,13 @@ class Student < ApplicationRecord
 
   before_create :set_default_status
 
+  include PgSearch::Model
+  pg_search_scope :search_by_q,
+                  against: %i[id_number name],
+                  using: {
+                    tsearch: { prefix: true }
+                  }, ignoring: :accents
+
   GENDERS = {
     male: 0,
     female: 1

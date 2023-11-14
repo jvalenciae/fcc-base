@@ -711,6 +711,26 @@ paths:
             type: string
         description: An array of organization IDs to filter branches by
         required: false
+      - name: departments[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        description: An array of departments to filter branches by
+        required: false
+      - name: countries[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        description: An array of countries to filter branches by
+        required: false
       - name: q
         in: query
         description: A query string to search for branches by name
@@ -3074,6 +3094,16 @@ paths:
           items:
             type: string
         description: An array of departments to filter users by
+        required: false
+      - name: countries[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        description: An array of countries to filter users by
         required: false
       - name: role
         in: query

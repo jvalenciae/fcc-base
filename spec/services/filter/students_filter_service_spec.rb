@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe StudentsFilterService do
+RSpec.describe Filter::StudentsFilterService do
   # rubocop:disable RSpec:IndexedLet
   let!(:branch1) { create(:branch) }
   let!(:branch2) { create(:branch) }

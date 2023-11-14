@@ -66,7 +66,7 @@ module Api
       end
 
       def fetch_and_render_users(serializer)
-        @users = UsersFilterService.call(@users, params)
+        @users = Filter::UsersFilterService.call(@users, params)
         @users, meta = paginate_resources(@users)
         render_response(data: @users, serializer: serializer, meta: meta)
       end

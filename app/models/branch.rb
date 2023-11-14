@@ -30,6 +30,19 @@ class Branch < ApplicationRecord
     where(organization_id: organization_ids)
   }
 
+  scope :by_departments, lambda { |departments, country|
+    return all if departments.blank?
+    return all if country.blank?
+
+    where(department: departments, country: country)
+  }
+
+  scope :by_countries, lambda { |countries|
+    return all if countries.blank?
+
+    where(country: countries)
+  }
+
   private
 
   def validate_allies_belongs_to_organization

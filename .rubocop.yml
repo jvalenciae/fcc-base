@@ -110,4 +110,4 @@ RSpec/NestedGroups:
 # Lint
 Lint/MissingSuper:
   Exclude:
-    - app/services/*
+    - app/services/**/*

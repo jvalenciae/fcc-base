@@ -94,5 +94,47 @@ RSpec.describe Branch do
         expect(described_class.search_by_q('Álice')).to contain_exactly(branch3)
       end
     end
+
+    describe '.by_departments' do
+      # rubocop:disable RSpec/IndexedLet
+      let!(:organization) { create(:organization) }
+      let!(:branch1) { create(:branch, organization: organization, department: 'ATL') }
+      let!(:branch2) { create(:branch, organization: organization, department: 'AMA') }
+      # rubocop:enable RSpec/IndexedLet
+
+      it 'filters branches by departments' do
+        branches = described_class.by_departments([branch1.department], branch1.country)
+
+        expect(branches).to include(branch1)
+        expect(branches).not_to include(branch2)
+      end
+
+      it 'returns all branches when no departments are provided' do
+        branches = described_class.by_departments(nil, nil)
+
+        expect(branches).to include(branch1, branch2)
+      end
+    end
+
+    describe '.by_countries' do
+      # rubocop:disable RSpec/IndexedLet
+      let!(:organization) { create(:organization) }
+      let!(:branch1) { create(:branch, organization: organization, country: 'CO') }
+      let!(:branch2) { create(:branch, organization: organization, country: 'US') }
+      # rubocop:enable RSpec/IndexedLet
+
+      it 'filters branches by countries' do
+        branches = described_class.by_countries(['CO'])
+
+        expect(branches).to include(branch1)
+        expect(branches).not_to include(branch2)
+      end
+
+      it 'returns all branches when no countries are provided' do
+        branches = described_class.by_countries(nil)
+
+        expect(branches).to include(branch1, branch2)
+      end
+    end
   end
 end

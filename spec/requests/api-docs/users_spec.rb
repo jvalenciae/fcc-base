@@ -23,6 +23,10 @@ describe 'Users API' do
         type: :array,
         items: { type: :string }
       }, description: 'An array of departments to filter users by', required: false
+      parameter name: 'countries[]', in: :query, style: :form, explode: true, schema: {
+        type: :array,
+        items: { type: :string }
+      }, description: 'An array of countries to filter users by', required: false
       parameter name: :role, in: :query, type: :string,
                 description: 'A query string to filter users by role',
                 required: false

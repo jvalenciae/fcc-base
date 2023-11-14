@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe GroupsFilterService do
+RSpec.describe Filter::GroupsFilterService do
   # rubocop:disable RSpec:IndexedLet
   let!(:branch1) { create(:branch, name: 'branch one') }
   let!(:branch2) { create(:branch, name: 'branch two') }

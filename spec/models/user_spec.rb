@@ -271,6 +271,29 @@ RSpec.describe User do
         expect(users).to include(user1, user2)
       end
     end
+
+    describe '.by_countries' do
+      # rubocop:disable RSpec/IndexedLet
+      let!(:organization) { create(:organization) }
+      let!(:branch1) { create(:branch, organization: organization, country: 'CO') }
+      let!(:branch2) { create(:branch, organization: organization, country: 'US') }
+      let!(:user1) { create(:user, organization: organization, branches: [branch1]) }
+      let!(:user2) { create(:user, organization: organization, branches: [branch2]) }
+      # rubocop:enable RSpec/IndexedLet
+
+      it 'filters users by countries' do
+        users = described_class.by_countries(['CO'])
+
+        expect(users).to include(user1)
+        expect(users).not_to include(user2)
+      end
+
+      it 'returns all users when no countries are provided' do
+        users = described_class.by_countries(nil)
+
+        expect(users).to include(user1, user2)
+      end
+    end
   end
 
   describe '#super_admin?' do

@@ -58,7 +58,7 @@ module Api
 
       def set_groups
         @groups ||= Group.accessible_by(current_ability)
-        @groups = GroupsFilterService.call(@groups, params)
+        @groups = Filter::GroupsFilterService.call(@groups, params)
       end
 
       def group_params

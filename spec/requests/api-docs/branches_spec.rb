@@ -12,6 +12,14 @@ describe 'Branches API' do
         type: :array,
         items: { type: :string }
       }, description: 'An array of organization IDs to filter branches by', required: false
+      parameter name: 'departments[]', in: :query, style: :form, explode: true, schema: {
+        type: :array,
+        items: { type: :string }
+      }, description: 'An array of departments to filter branches by', required: false
+      parameter name: 'countries[]', in: :query, style: :form, explode: true, schema: {
+        type: :array,
+        items: { type: :string }
+      }, description: 'An array of countries to filter branches by', required: false
       parameter name: :q, in: :query, type: :string,
                 description: 'A query string to search for branches by name',
                 required: false

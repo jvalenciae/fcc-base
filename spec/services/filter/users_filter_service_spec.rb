@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe UsersFilterService do
+RSpec.describe Filter::UsersFilterService do
   # rubocop:disable RSpec/IndexedLet
   let!(:organization) { create(:organization) }
   let!(:branch) { create(:branch, organization: organization) }
