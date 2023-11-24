@@ -8,7 +8,7 @@ FactoryBot.define do
     birthdate { Faker::Date.between(from: '1950-01-01', to: '2005-12-31') }
     phone_number { Faker::Number.number(digits: 10) }
     profession { Faker::Job.title }
-    relationship { rand(0..5) }
+    relationship { Supervisor::RELATIONSHIPS.keys.sample }
     student
   end
 end

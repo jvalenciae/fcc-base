@@ -82,10 +82,11 @@ RSpec.describe 'Students' do
   describe 'POST #create' do
     let(:student_params) do
       {
-        student: student_attributes
+        student: student_attributes.merge({ supervisors_attributes: [supervisor_attributes] })
       }
     end
     let(:student_attributes) { attributes_for(:student, branch_id: branch.id, group_id: group.id) }
+    let(:supervisor_attributes) { attributes_for(:supervisor) }
     let(:organization) { create(:organization) }
     let!(:branch) { create(:branch, organization: organization) }
     let!(:group) { create(:group, branch: branch) }
@@ -210,6 +211,10 @@ RSpec.describe 'Students' do
 
   describe 'GET #export' do
     let!(:super_admin) { create(:user, :super_admin) }
+
+    before do
+      create(:supervisor)
+    end
 
     it 'exports students as CSV' do
       get '/api/v1/students/export.csv', headers: authenticated_header(super_admin)
