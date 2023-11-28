@@ -63,6 +63,11 @@ Rails.application.routes.draw do
       resources :attendances, only: %i[index show create update]
 
       resources :reports, only: %i[index show create update destroy]
+
+      resources :surveys, only: %i[index show create update]
+      namespace :surveys do
+        resource :webhook, only: :create
+      end
     end
   end
 end

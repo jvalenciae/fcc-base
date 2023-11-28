@@ -18,7 +18,6 @@ RSpec.describe Student do
     it { is_expected.to validate_presence_of(:favourite_sport) }
     it { is_expected.to validate_presence_of(:favourite_place) }
     it { is_expected.to validate_presence_of(:feeling_when_playing_soccer) }
-    it { is_expected.to validate_presence_of(:country) }
     it { is_expected.to validate_presence_of(:city) }
     it { is_expected.to validate_presence_of(:neighborhood) }
     it { is_expected.to validate_presence_of(:address) }
@@ -27,7 +26,6 @@ RSpec.describe Student do
     it { is_expected.to validate_presence_of(:id_type) }
     it { is_expected.to validate_presence_of(:study_day) }
     it { is_expected.to validate_presence_of(:grade) }
-    it { is_expected.to validate_presence_of(:department) }
     it { is_expected.to validate_presence_of(:height) }
     it { is_expected.to validate_presence_of(:weight) }
 
@@ -58,6 +56,7 @@ RSpec.describe Student do
     it { is_expected.to belong_to(:branch) }
     it { is_expected.to have_many(:supervisors).dependent(nil) }
     it { is_expected.to have_many(:student_attendances).dependent(:destroy) }
+    it { is_expected.to have_many(:survey_responses).dependent(nil) }
   end
 
   describe 'callbacks' do
@@ -72,6 +71,22 @@ RSpec.describe Student do
         student = create(:student, status: Student::STATUSES.keys.last)
 
         expect(student.status).to eq(Student::STATUSES.keys.last)
+      end
+    end
+
+    describe 'before_create :set_default_country_and_department' do
+      it 'sets a default country and department if they are blank' do
+        student = create(:student, country: nil, department: nil)
+
+        expect(student.country).not_to be_nil
+        expect(student.department).not_to be_nil
+      end
+
+      it 'does not change the country and department if they are present' do
+        student = create(:student, country: 'CO', department: 'ATL')
+
+        expect(student.country).to eq('CO')
+        expect(student.department).to eq('ATL')
       end
     end
   end

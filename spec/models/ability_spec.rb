@@ -45,6 +45,9 @@ RSpec.describe Ability do
 
     # StudentAttendance permissions
     it { is_expected.to be_able_to(:manage, StudentAttendance) }
+
+    # Survey permissions
+    it { is_expected.to be_able_to(:manage, Survey) }
   end
 
   context 'when user is an admin' do
@@ -52,6 +55,8 @@ RSpec.describe Ability do
     let(:member_user) { create(:user, organization: organization) } # User in admin's organizations
     let(:admin_user) { create(:user, :admin, organization: organization) } # Admin User in admin's organizations
     let(:user_in_other_organization) { create(:user) } # User not in admin's organizations
+    let(:survey) { create(:survey, organization: organization) }
+    let(:survey_in_other_organization) { create(:survey) }
 
     # User permissions
     it { is_expected.to be_able_to(:create, member_user, organization_id: organization.id) }
@@ -88,12 +93,18 @@ RSpec.describe Ability do
 
     # StudentAttendance permissions
     it { is_expected.to be_able_to(:manage, student_attendance) }
+
+    # Survey permissions
+    it { is_expected.to be_able_to(:manage, survey) }
+    it { is_expected.not_to be_able_to(:manage, survey_in_other_organization) }
   end
 
   context 'when user is a member' do
     let(:user) { create(:user, organization: organization, branches: [branch]) }
 
     let(:other_user) { create(:user) } # Another user, not the same as the logged-in user
+    let(:survey) { create(:survey, organization: organization) }
+    let(:survey_in_other_organization) { create(:survey) }
 
     # User permissions
     it { is_expected.to be_able_to(:read, user) }
@@ -124,5 +135,9 @@ RSpec.describe Ability do
 
     # StudentAttendance permissions
     it { is_expected.to be_able_to(:manage, student_attendance) }
+
+    # Survey permissions
+    it { is_expected.to be_able_to(:read, survey) }
+    it { is_expected.not_to be_able_to(:read, survey_in_other_organization) }
   end
 end

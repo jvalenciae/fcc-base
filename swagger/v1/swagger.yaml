@@ -910,7 +910,7 @@ paths:
                     phone_number:
                       type: string
                     organization_id:
-                      type: integer
+                      type: string
                     ally_ids:
                       type: array
                       items:
@@ -1088,7 +1088,7 @@ paths:
                     phone_number:
                       type: string
                     organization_id:
-                      type: integer
+                      type: string
                     ally_ids:
                       type: array
                       items:
@@ -3067,6 +3067,256 @@ paths:
             text/csv:
               schema:
                 type: string
+  "/api/v1/surveys":
+    get:
+      summary: Retrieve list of surveys
+      tags:
+      - Surveys
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: page
+        in: query
+        description: Page number
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: How many records per page
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        description:
+                          type: string
+                        form_id:
+                          type: string
+                        organization:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+                            country:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                name:
+                                  type: string
+                  meta:
+                    type: object
+                    properties:
+                      total_pages:
+                        type: integer
+                      page_number:
+                        type: integer
+                      max_per_page:
+                        type: integer
+                      total_resources:
+                        type: integer
+    post:
+      summary: Create a new survey
+      tags:
+      - Surveys
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        description:
+                          type: string
+                        form_id:
+                          type: string
+                        organization:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+                            country:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                name:
+                                  type: string
+                  meta:
+                    type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                survey:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    form_id:
+                      type: string
+                    organization_id:
+                      type: string
+                  required:
+                  - name
+                  - description
+                  - form_id
+                  - organization_id
+  "/api/v1/surveys/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: Survey ID
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Retrieve a survey by ID
+      tags:
+      - Surveys
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        description:
+                          type: string
+                        form_id:
+                          type: string
+                        organization:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+                            country:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                name:
+                                  type: string
+                  meta:
+                    type: object
+    put:
+      summary: Update a survey by ID
+      tags:
+      - Surveys
+      security:
+      - bearerAuth: []
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        description:
+                          type: string
+                        form_id:
+                          type: string
+                        organization:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+                            country:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                name:
+                                  type: string
+                  meta:
+                    type: object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                survey:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    form_id:
+                      type: string
+                    organization_id:
+                      type: string
   "/api/v1/users":
     get:
       summary: List users

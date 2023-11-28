@@ -51,6 +51,7 @@ class Ability
     can :manage, GroupAttendance
     can :manage, StudentAttendance
     can :manage, Report
+    can :manage, Survey
   end
 
   def define_admin_abilities(user)
@@ -67,6 +68,7 @@ class Ability
     can :manage, GroupAttendance, { group: { branch: { organization_id: user.organization_id } } }
     can :manage, StudentAttendance, { student: { branch: { organization_id: user.organization_id } } }
     can :read, Report, { organization_id: user.organization_id }
+    can :manage, Survey, { organization_id: user.organization_id }
   end
 
   def define_member_abilities(user)
@@ -80,5 +82,6 @@ class Ability
     can :manage, GroupAttendance, { group: { branch_id: user.branch_ids } }
     can :manage, StudentAttendance, { student: { branch_id: user.branch_ids } }
     can :read, Report, { organization_id: user.organization_id }
+    can :read, Survey, { organization_id: user.organization_id }
   end
 end

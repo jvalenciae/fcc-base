@@ -113,7 +113,7 @@ describe 'Branches API' do
               city: { type: :string },
               address: { type: :string },
               phone_number: { type: :string },
-              organization_id: { type: :integer },
+              organization_id: { type: :string },
               ally_ids: { type: :array, items: { type: :string } }
             },
             required: %w[name country city address phone_number organization_id]
@@ -266,7 +266,7 @@ describe 'Branches API' do
               city: { type: :string },
               address: { type: :string },
               phone_number: { type: :string },
-              organization_id: { type: :integer },
+              organization_id: { type: :string },
               ally_ids: { type: :array, items: { type: :string } }
             },
             required: %w[name country city address phone_number organization_id]

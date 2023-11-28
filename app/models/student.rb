@@ -7,8 +7,8 @@ class Student < ApplicationRecord
 
   validates :id_number, :name, :birthplace, :birthdate, :gender, :tshirt_size, :shorts_size, :socks_size, :shoe_size,
             :favourite_colour, :favourite_food, :favourite_sport, :favourite_place, :feeling_when_playing_soccer, :city,
-            :country, :neighborhood, :address, :school, :health_coverage, :id_type, :study_day, :grade, :department,
-            :height, :weight, presence: true
+            :neighborhood, :address, :school, :health_coverage, :id_type, :study_day,
+            :grade, :height, :weight, presence: true
 
   validate :validate_group_belongs_to_branch
 
@@ -17,7 +17,9 @@ class Student < ApplicationRecord
   has_many :supervisors, dependent: nil
   accepts_nested_attributes_for :supervisors
   has_many :student_attendances, dependent: :destroy
+  has_many :survey_responses, dependent: nil
 
+  before_save :set_default_country_and_department
   before_create :set_default_status
 
   include PgSearch::Model
@@ -124,6 +126,11 @@ class Student < ApplicationRecord
 
   def set_default_status
     self.status = status.presence || STATUSES.keys.first
+  end
+
+  def set_default_country_and_department
+    self.country = country.presence || group.branch.country
+    self.department = department.presence || group.branch.department
   end
 
   def validate_group_belongs_to_branch

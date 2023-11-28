@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_07_154048) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_28_221021) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -147,7 +147,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_07_154048) do
     t.string "favourite_sport", null: false
     t.string "favourite_place", null: false
     t.string "feeling_when_playing_soccer", null: false
-    t.string "country", null: false
+    t.string "country"
     t.string "city", null: false
     t.string "neighborhood", null: false
     t.string "address", null: false
@@ -173,7 +173,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_07_154048) do
     t.string "grade", default: " ", null: false
     t.string "eps"
     t.boolean "lives_with_parent", default: false, null: false
-    t.string "department", default: " ", null: false
+    t.string "department", default: " "
     t.string "height", default: " ", null: false
     t.string "weight", default: " ", null: false
     t.index ["branch_id"], name: "index_students_on_branch_id"
@@ -195,6 +195,31 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_07_154048) do
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_supervisors_on_deleted_at"
     t.index ["student_id"], name: "index_supervisors_on_student_id"
+  end
+
+  create_table "survey_responses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "response_id", null: false
+    t.jsonb "json_response", null: false
+    t.date "date", null: false
+    t.uuid "survey_id", null: false
+    t.uuid "student_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "kind_of_measurement", null: false
+    t.jsonb "scores", null: false
+    t.index ["response_id"], name: "index_survey_responses_on_response_id", unique: true
+    t.index ["student_id"], name: "index_survey_responses_on_student_id"
+    t.index ["survey_id"], name: "index_survey_responses_on_survey_id"
+  end
+
+  create_table "surveys", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description", null: false
+    t.string "form_id", null: false
+    t.uuid "organization_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_surveys_on_organization_id"
   end
 
   create_table "uploaded_files", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -250,6 +275,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_07_154048) do
   add_foreign_key "students", "branches"
   add_foreign_key "students", "groups"
   add_foreign_key "supervisors", "students"
+  add_foreign_key "survey_responses", "students"
+  add_foreign_key "survey_responses", "surveys"
+  add_foreign_key "surveys", "organizations"
   add_foreign_key "user_branches", "branches"
   add_foreign_key "user_branches", "users"
   add_foreign_key "users", "organizations"
