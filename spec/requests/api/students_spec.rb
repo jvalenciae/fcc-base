@@ -82,7 +82,7 @@ RSpec.describe 'Students' do
   describe 'POST #create' do
     let(:student_params) do
       {
-        student: student_attributes.merge({ supervisors_attributes: [supervisor_attributes] })
+        student: student_attributes.merge({ supervisors_attributes: [supervisor_attributes] }).except(:branch_id)
       }
     end
     let(:student_attributes) { attributes_for(:student, branch_id: branch.id, group_id: group.id) }

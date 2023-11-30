@@ -5,6 +5,7 @@ module Api
     class StudentsController < ApiController
       before_action :set_student, only: %i[show update destroy]
       before_action :set_students, only: %i[index export]
+      before_action :build_new_student_hash, only: %i[create update]
 
       def index
         @students, meta = paginate_resources(@students)
@@ -17,13 +18,13 @@ module Api
       end
 
       def create
-        @student = Student.new(student_params)
+        @student = Student.new(@student_hash)
         authorize!(:create, @student, message: I18n.t('unauthorized.create.student'))
         render_response(data: @student, serializer: Students::BigSerializer) if @student.save!
       end
 
       def update
-        @student.assign_attributes(student_params)
+        @student.assign_attributes(@student_hash)
         authorize!(:update, @student, message: I18n.t('unauthorized.update.student'))
         render_response(data: @student, serializer: Students::BigSerializer) if @student.save!
       end
@@ -80,6 +81,15 @@ module Api
           :grade, :department, :height, :weight, :id_type, :study_day, :eps, :lives_with_parent,
           supervisors_attributes: %i[id_number name email birthdate phone_number profession relationship]
         )
+      end
+
+      def build_new_student_hash
+        @student_hash = student_params
+        return unless @student_hash[:group_id]
+        return if @student_hash[:branch_id]
+
+        branch_id = Group.find(student_params[:group_id]).branch_id
+        @student_hash[:branch_id] = branch_id
       end
     end
   end

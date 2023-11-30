@@ -74,7 +74,7 @@ RSpec.describe Student do
       end
     end
 
-    describe 'before_create :set_default_country_and_department' do
+    describe 'before_save :set_default_country_and_department' do
       it 'sets a default country and department if they are blank' do
         student = create(:student, country: nil, department: nil)
 

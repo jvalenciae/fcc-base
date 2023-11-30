@@ -47,7 +47,8 @@ RemoveUnusedMethodsInControllersCheck: {
     Api::V1::StudentsController#create,
     Api::V1::ReportsController#index,
     Api::V1::ReportsController#create,
-    Api::V1::Surveys::WebhooksController#create
+    Api::V1::Surveys::WebhooksController#create,
+    Api::V1::StudentsController#import
   ]
 }
 RemoveUnusedMethodsInHelpersCheck: { except_methods: [] }
