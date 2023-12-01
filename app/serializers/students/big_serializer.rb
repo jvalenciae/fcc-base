@@ -12,6 +12,7 @@ module Students
 
     belongs_to :branch
     belongs_to :group
+    has_many :supervisors
 
     def country
       {

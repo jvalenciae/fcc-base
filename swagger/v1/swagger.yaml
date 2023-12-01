@@ -2246,6 +2246,27 @@ paths:
                               type: string
                             category:
                               type: string
+                        supervisors:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              id_number:
+                                type: string
+                              name:
+                                type: string
+                              email:
+                                type: string
+                              birthdate:
+                                type: string
+                              phone_number:
+                                type: string
+                              profession:
+                                type: string
+                              relationship:
+                                type: string
                   meta:
                     type: object
                     properties:
@@ -2391,6 +2412,27 @@ paths:
                             type: string
                           category:
                             type: string
+                      supervisors:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            id_number:
+                              type: string
+                            name:
+                              type: string
+                            email:
+                              type: string
+                            birthdate:
+                              type: string
+                            phone_number:
+                              type: string
+                            profession:
+                              type: string
+                            relationship:
+                              type: string
                   meta:
                     type: object
       requestBody:
@@ -2675,6 +2717,27 @@ paths:
                             type: string
                           category:
                             type: string
+                      supervisors:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            id_number:
+                              type: string
+                            name:
+                              type: string
+                            email:
+                              type: string
+                            birthdate:
+                              type: string
+                            phone_number:
+                              type: string
+                            profession:
+                              type: string
+                            relationship:
+                              type: string
                   meta:
                     type: object
     put:
@@ -2811,6 +2874,27 @@ paths:
                             type: string
                           category:
                             type: string
+                      supervisors:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            id_number:
+                              type: string
+                            name:
+                              type: string
+                            email:
+                              type: string
+                            birthdate:
+                              type: string
+                            phone_number:
+                              type: string
+                            profession:
+                              type: string
+                            relationship:
+                              type: string
                   meta:
                     type: object
       requestBody:

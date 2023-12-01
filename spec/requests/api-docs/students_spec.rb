@@ -97,6 +97,22 @@ describe 'Students API' do
                            id: { type: :string },
                            category: { type: :string }
                          }
+                       },
+                       supervisors: {
+                         type: :array,
+                         items: {
+                           type: :object,
+                           properties: {
+                             id: { type: :string },
+                             id_number: { type: :string },
+                             name: { type: :string },
+                             email: { type: :string },
+                             birthdate: { type: :string },
+                             phone_number: { type: :string },
+                             profession: { type: :string },
+                             relationship: { type: :string }
+                           }
+                         }
                        }
                      }
                    }
@@ -266,6 +282,22 @@ describe 'Students API' do
                          id: { type: :string },
                          category: { type: :string }
                        }
+                     },
+                     supervisors: {
+                       type: :array,
+                       items: {
+                         type: :object,
+                         properties: {
+                           id: { type: :string },
+                           id_number: { type: :string },
+                           name: { type: :string },
+                           email: { type: :string },
+                           birthdate: { type: :string },
+                           phone_number: { type: :string },
+                           profession: { type: :string },
+                           relationship: { type: :string }
+                         }
+                       }
                      }
                    }
                  },
@@ -360,6 +392,22 @@ describe 'Students API' do
                        properties: {
                          id: { type: :string },
                          category: { type: :string }
+                       }
+                     },
+                     supervisors: {
+                       type: :array,
+                       items: {
+                         type: :object,
+                         properties: {
+                           id: { type: :string },
+                           id_number: { type: :string },
+                           name: { type: :string },
+                           email: { type: :string },
+                           birthdate: { type: :string },
+                           phone_number: { type: :string },
+                           profession: { type: :string },
+                           relationship: { type: :string }
+                         }
                        }
                      }
                    }
@@ -517,6 +565,22 @@ describe 'Students API' do
                        properties: {
                          id: { type: :string },
                          category: { type: :string }
+                       }
+                     },
+                     supervisors: {
+                       type: :array,
+                       items: {
+                         type: :object,
+                         properties: {
+                           id: { type: :string },
+                           id_number: { type: :string },
+                           name: { type: :string },
+                           email: { type: :string },
+                           birthdate: { type: :string },
+                           phone_number: { type: :string },
+                           profession: { type: :string },
+                           relationship: { type: :string }
+                         }
                        }
                      }
                    }
