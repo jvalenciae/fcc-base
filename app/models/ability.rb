@@ -75,7 +75,7 @@ class Ability
     can %i[read update], User, { id: user.id, role: User::MEMBER_ROLES.keys }
     can :read, Organization, { id: user.organization_id }
     can :read, Ally, { organization_id: user.organization_id }
-    can :read, Branch, { organization_id: user.organization_id }
+    can :read, Branch, { id: user.branch_ids }
     can :manage, Group, { branch_id: user.branch_ids }
     can :manage, Student, { branch_id: user.branch_ids }
     can :manage, Supervisor, { student: { branch_id: user.branch_ids } }

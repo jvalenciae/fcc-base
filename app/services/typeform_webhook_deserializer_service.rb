@@ -17,7 +17,8 @@ class TypeformWebhookDeserializerService < ApplicationService
   def find_attributes(payload)
     response_id = payload['event_id']
     date = payload['form_response']['answers'].find { |ans| ans['type'] == 'date' }['date']
-    kind_of_measurement = payload['form_response']['answers'].second['choice']['label']
+    kind_of_measurement = payload.try(:[], 'form_response')
+                                 .try(:[], 'answers')&.second.try(:[], 'choice').try(:[], 'label') || 'NA'
     scores = payload['form_response']['variables']
     survey_id = payload['form_response']['hidden']['survey_id']
     student_id = payload['form_response']['hidden']['student_id']
