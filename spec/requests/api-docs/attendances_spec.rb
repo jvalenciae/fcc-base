@@ -131,7 +131,21 @@ describe 'Attendances API' do
                    properties: {
                      id: { type: :string },
                      category: { type: :string },
-                     name: { type: :string }
+                     name: { type: :string },
+                     branch: {
+                       type: :object,
+                       properties: {
+                         id: { type: :string },
+                         name: { type: :string }
+                       }
+                     },
+                     organization: {
+                       type: :object,
+                       properties: {
+                         id: { type: :string },
+                         name: { type: :string }
+                       }
+                     }
                    }
                  },
                  student_attendances: {
@@ -178,7 +192,21 @@ describe 'Attendances API' do
                    properties: {
                      id: { type: :string },
                      category: { type: :string },
-                     name: { type: :string }
+                     name: { type: :string },
+                     branch: {
+                       type: :object,
+                       properties: {
+                         id: { type: :string },
+                         name: { type: :string }
+                       }
+                     },
+                     organization: {
+                       type: :object,
+                       properties: {
+                         id: { type: :string },
+                         name: { type: :string }
+                       }
+                     }
                    }
                  },
                  student_attendances: {
@@ -244,7 +272,21 @@ describe 'Attendances API' do
                    properties: {
                      id: { type: :string },
                      category: { type: :string },
-                     name: { type: :string }
+                     name: { type: :string },
+                     branch: {
+                       type: :object,
+                       properties: {
+                         id: { type: :string },
+                         name: { type: :string }
+                       }
+                     },
+                     organization: {
+                       type: :object,
+                       properties: {
+                         id: { type: :string },
+                         name: { type: :string }
+                       }
+                     }
                    }
                  },
                  student_attendances: {
@@ -265,6 +307,21 @@ describe 'Attendances API' do
                      }
                    }
                  }
+               }
+
+        xit
+      end
+    end
+
+    delete 'Delete attendace' do
+      tags 'Attendances'
+      security [bearerAuth: []]
+
+      produces 'application/json'
+      response '200', 'OK' do
+        schema type: :object,
+               properties: {
+                 message: { type: :string }
                }
 
         xit

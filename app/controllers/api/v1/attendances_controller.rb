@@ -3,7 +3,7 @@
 module Api
   module V1
     class AttendancesController < ApiController
-      before_action :set_attendance, only: %i[show]
+      before_action :set_attendance, only: %i[show destroy]
 
       def index
         @attendances = GroupAttendance.accessible_by(current_ability)
@@ -35,6 +35,11 @@ module Api
         authorize_multiple!(:update, student_attendances, I18n.t('unauthorized.update.attendance'))
         @attendance.student_attendances = student_attendances if @attendance.save!
         render_response(data: @attendance, serializer: GroupAttendanceSerializer) if @attendance.save!
+      end
+
+      def destroy
+        authorize!(:destroy, @attendance, message: I18n.t('unauthorized.destroy.attendance'))
+        render json: { message: I18n.t('attendance.successful_delete') }, status: :ok if @attendance.destroy!
       end
 
       private

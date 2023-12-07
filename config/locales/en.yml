@@ -30,6 +30,8 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  attendance:
+    successful_delete: 'Attendance successfully deleted'
   auth:
     passwords:
       password_changed_successfully: 'Password changed successfully'
@@ -49,6 +51,7 @@ en:
     default: "Error"
     create:
       ally: "You are not authorized to create this ally."
+      attendance: "You are not authorized to create this attendance."
       branch: "You are not authorized to create this branch."
       group: "You are not authorized to create this group."
       organization: "You are not authorized to create this organization."
@@ -56,6 +59,7 @@ en:
       user: "You are not authorized to create this user."
     destroy:
       ally: "You are not authorized to delete this ally."
+      attendance: "You are not authorized to delete this attendance."
       branch: "You are not authorized to delete this branch."
       group: "You are not authorized to delete this group."
       organization: "You are not authorized to delete this organization."
@@ -63,6 +67,7 @@ en:
       user: "You are not authorized to delete this user."
     read:
       ally: "You are not authorized to access this ally."
+      attendance: "You are not authorized to access this attendance."
       branch: "You are not authorized to access this branch."
       group: "You are not authorized to access this group."
       organization: "You are not authorized to access this organization."
@@ -70,6 +75,7 @@ en:
       user: "You are not authorized to access this user."
     update:
       ally: "You are not authorized to update this ally."
+      attendance: "You are not authorized to update this attendance."
       branch: "You are not authorized to update this branch."
       group: "You are not authorized to update this group."
       organization: "You are not authorized to update this organization."

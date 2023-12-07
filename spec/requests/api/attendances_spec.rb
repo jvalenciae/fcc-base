@@ -85,4 +85,28 @@ RSpec.describe 'Attendances' do
       expect(group_attendance.student_attendances.last.present).to be_falsy
     end
   end
+
+  describe 'DELETE #destroy' do
+    let!(:super_admin) { create(:user, :super_admin) }
+    let!(:user) { create(:user) }
+    let!(:id) { 'c15cc7ea-3203-47c0-bb59-a34dc5d22c0c' }
+    let!(:group_attendance) { create(:group_attendance, id: id) }
+
+    context 'when user have permissions' do
+      it 'soft deletes the group_attendance' do
+        delete "/api/v1/attendances/#{id}", headers: authenticated_header(super_admin)
+        expect(response).to have_http_status(:success)
+        expect(json_response[:message]).to eq('Attendance successfully deleted')
+        expect { GroupAttendance.find(id) }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context 'when user does not have permissions' do
+      it 'gives unauthorized' do
+        delete "/api/v1/attendances/#{id}", headers: authenticated_header(user)
+        expect(response).to have_http_status(:unauthorized)
+        expect(GroupAttendance.find(id)).to eq(group_attendance)
+      end
+    end
+  end
 end

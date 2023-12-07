@@ -6,7 +6,7 @@ class GroupAttendance < ApplicationRecord
   validates :date, presence: true
 
   belongs_to :group
-  has_many :student_attendances, dependent: :destroy
+  has_many :student_attendances, dependent: :delete_all
 
   scope :by_branch_ids, lambda { |branch_ids|
     return all if branch_ids.blank?

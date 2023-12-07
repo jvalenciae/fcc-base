@@ -14,7 +14,7 @@ RSpec.describe GroupAttendance do
   describe 'associations' do
     it 'validates associations' do
       expect(group_attendance).to belong_to(:group)
-      expect(group_attendance).to have_many(:student_attendances).dependent(:destroy)
+      expect(group_attendance).to have_many(:student_attendances).dependent(:delete_all)
     end
   end
 
