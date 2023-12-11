@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_28_221021) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_11_162201) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -270,7 +270,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_28_221021) do
   add_foreign_key "group_attendances", "groups"
   add_foreign_key "groups", "branches"
   add_foreign_key "reports", "organizations"
-  add_foreign_key "student_attendances", "group_attendances"
+  add_foreign_key "student_attendances", "group_attendances", on_delete: :cascade
   add_foreign_key "student_attendances", "students"
   add_foreign_key "students", "branches"
   add_foreign_key "students", "groups"
