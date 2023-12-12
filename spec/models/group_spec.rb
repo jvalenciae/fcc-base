@@ -16,6 +16,19 @@ RSpec.describe Group do
     it { is_expected.to have_many(:group_attendances).dependent(nil) }
   end
 
+  describe 'callbacks' do
+    describe 'before_save :set_display_name' do
+      let(:branch) { create(:branch, name: 'branch') }
+
+      it 'sets a display_name' do
+        group = create(:group, branch: branch, category: 'builders', name: 'name')
+
+        expect(group.display_name).not_to be_nil
+        expect(group.display_name).to eq('branch builders name')
+      end
+    end
+  end
+
   describe 'constants' do
     it 'has the correct categories' do
       expect(Group::CATEGORIES).to eq({
@@ -50,6 +63,13 @@ RSpec.describe Group do
 
       it 'searches by branch name' do
         results = described_class.search_by_q('one')
+
+        expect(results).to include(group1)
+        expect(results).not_to include(group2)
+      end
+
+      it 'searches by display name' do
+        results = described_class.search_by_q('Branch One creators 1')
 
         expect(results).to include(group1)
         expect(results).not_to include(group2)

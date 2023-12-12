@@ -13,6 +13,8 @@ class Group < ApplicationRecord
   has_many :students, dependent: nil
   has_many :group_attendances, dependent: nil
 
+  before_save :set_display_name
+
   CATEGORIES = {
     creators: 0,
     explorers: 1,
@@ -24,7 +26,7 @@ class Group < ApplicationRecord
 
   include PgSearch::Model
   pg_search_scope :search_by_q,
-                  against: %i[name],
+                  against: %i[name display_name],
                   associated_against: {
                     branch: [:name]
                   },
@@ -50,4 +52,10 @@ class Group < ApplicationRecord
 
     where(category: categories)
   }
+
+  private
+
+  def set_display_name
+    self.display_name = "#{branch.name} #{category} #{name}"
+  end
 end

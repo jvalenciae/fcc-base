@@ -32,6 +32,30 @@ RSpec.describe GroupAttendance do
       create(:group_attendance, date: Time.zone.tomorrow, group: group2)
     end
 
+    describe '.search_by_q' do
+      let!(:branch) { create(:branch, name: 'Branch One') }
+      let!(:group) { create(:group, name: 'group_name', category: Group::CATEGORIES.keys.first, branch: branch) }
+      let!(:group_attendance) { create(:group_attendance, date: Time.zone.tomorrow, group: group) }
+
+      it 'searches by group.branch' do
+        results = described_class.search_by_q('Branch One')
+
+        expect(results).to include(group_attendance)
+      end
+
+      it 'searches by group.category' do
+        results = described_class.search_by_q('creators')
+
+        expect(results).to include(group_attendance)
+      end
+
+      it 'searches by group.name' do
+        results = described_class.search_by_q('group_name')
+
+        expect(results).to include(group_attendance)
+      end
+    end
+
     describe '.by_branch_ids' do
       it 'filters group attendances by branch ids' do
         results = described_class.by_branch_ids([branch1.id])

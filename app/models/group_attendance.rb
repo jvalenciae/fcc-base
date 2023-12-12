@@ -8,6 +8,15 @@ class GroupAttendance < ApplicationRecord
   belongs_to :group
   has_many :student_attendances, dependent: :delete_all
 
+  include PgSearch::Model
+  pg_search_scope :search_by_q,
+                  associated_against: {
+                    group: [:display_name]
+                  },
+                  using: {
+                    tsearch: { prefix: true }
+                  }, ignoring: :accents
+
   scope :by_branch_ids, lambda { |branch_ids|
     return all if branch_ids.blank?
 

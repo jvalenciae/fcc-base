@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class GroupSerializer < ActiveModel::Serializer
-  attributes :id, :category, :name, :organization
+  attributes :id, :category, :name, :display_name, :organization
 
   belongs_to :branch
 
