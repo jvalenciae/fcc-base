@@ -6,6 +6,7 @@ class StudentAttendanceSerializer < ActiveModel::Serializer
   def student
     {
       id: object.student.id,
+      id_number: object.student.id_number,
       name: object.student.name
     }
   end

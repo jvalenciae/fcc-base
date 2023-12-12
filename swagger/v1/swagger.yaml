@@ -317,6 +317,8 @@ paths:
                             properties:
                               id:
                                 type: string
+                              id_number:
+                                type: string
                               date:
                                 type: string
                               present:
@@ -387,6 +389,8 @@ paths:
                       type: object
                       properties:
                         id:
+                          type: string
+                        id_number:
                           type: string
                         date:
                           type: string
@@ -483,6 +487,8 @@ paths:
                           type: string
                         date:
                           type: string
+                        id_number:
+                          type: string
                         present:
                           type: boolean
                         student:
@@ -542,6 +548,8 @@ paths:
                         id:
                           type: string
                         date:
+                          type: string
+                        id_number:
                           type: string
                         present:
                           type: boolean

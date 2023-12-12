@@ -61,6 +61,7 @@ describe 'Attendances API' do
                            type: :object,
                            properties: {
                              id: { type: :string },
+                             id_number: { type: :string },
                              date: { type: :string },
                              present: { type: :boolean },
                              student: {
@@ -154,6 +155,7 @@ describe 'Attendances API' do
                      type: :object,
                      properties: {
                        id: { type: :string },
+                       id_number: { type: :string },
                        date: { type: :string },
                        present: { type: :boolean },
                        student: {
@@ -216,6 +218,7 @@ describe 'Attendances API' do
                      properties: {
                        id: { type: :string },
                        date: { type: :string },
+                       id_number: { type: :string },
                        present: { type: :boolean },
                        student: {
                          type: :object,
@@ -296,6 +299,7 @@ describe 'Attendances API' do
                      properties: {
                        id: { type: :string },
                        date: { type: :string },
+                       id_number: { type: :string },
                        present: { type: :boolean },
                        student: {
                          type: :object,
