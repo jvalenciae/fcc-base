@@ -14,7 +14,7 @@ RSpec.describe StudentsExportService do
     it 'generates a CSV with students information' do
       csv_result = described_class.call(students)
 
-      expect(csv_result).to include(Student.take.attributes.keys.join(','))
+      expect(csv_result).to include(Student.new.attributes.keys.join(','))
       expect(csv_result).to include(student1.attributes.values.join(','))
       expect(csv_result).to include(student2.attributes.values.join(','))
       expect(csv_result).to include(student1.supervisors.first.attributes.values.join(','))

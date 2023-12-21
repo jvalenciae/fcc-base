@@ -73,5 +73,7 @@ RSpec.configure do |config|
       .and_return(instance_double(ActionMailer::MessageDelivery, deliver_later: true))
     allow(UserMailer).to receive(:invitation)
       .and_return(instance_double(ActionMailer::MessageDelivery, deliver_later: true))
+    allow(ImportMailer).to receive(:students)
+      .and_return(instance_double(ActionMailer::MessageDelivery, deliver_later: true))
   end
 end

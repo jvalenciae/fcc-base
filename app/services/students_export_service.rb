@@ -22,8 +22,8 @@ class StudentsExportService < ApplicationService
   private
 
   def build_headers
-    student_header = Student.take.attributes.keys
-    supervisor_header = Supervisor.take.attributes.keys
+    student_header = Student.new.attributes.keys
+    supervisor_header = Supervisor.new.attributes.keys
     sh1 = supervisor_header.map { |sh| "supervisor1_#{sh}" }
     sh2 = supervisor_header.map { |sh| "supervisor2_#{sh}" }
     (student_header + sh1 + sh2)
@@ -32,8 +32,8 @@ class StudentsExportService < ApplicationService
   def build_row(record)
     student_attributes = record.attributes.values
     supervisors_attr = []
-    supervisors_attr += record.supervisors.first&.attributes&.values || Array.new(Supervisor.take.attributes.size)
-    supervisors_attr += record.supervisors.second&.attributes&.values || Array.new(Supervisor.take.attributes.size)
+    supervisors_attr += record.supervisors.first&.attributes&.values || Array.new(Supervisor.new.attributes.size)
+    supervisors_attr += record.supervisors.second&.attributes&.values || Array.new(Supervisor.new.attributes.size)
     (student_attributes + supervisors_attr)
   end
 end

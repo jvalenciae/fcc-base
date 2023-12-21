@@ -13,6 +13,8 @@ es:
     errors:
       allies_belongs_to_organization: 'Algunos aliados no pertenecen a la organización de la sede'
   mailer:
+    import:
+      students: 'Resultado de la carga masiva de estudiantes'
     user:
       invitation: '¡Te han enviado una invitación!'
       password_reset: 'Configura tu contraseña'

@@ -95,8 +95,8 @@ RSpec.describe Ability do
     it { is_expected.to be_able_to(:manage, student_attendance) }
 
     # Survey permissions
-    it { is_expected.to be_able_to(:manage, survey) }
-    it { is_expected.not_to be_able_to(:manage, survey_in_other_organization) }
+    it { is_expected.to be_able_to(:read, survey) }
+    it { is_expected.not_to be_able_to(:read, survey_in_other_organization) }
   end
 
   context 'when user is a member' do

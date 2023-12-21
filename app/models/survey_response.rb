@@ -7,5 +7,6 @@ class SurveyResponse < ApplicationRecord
   validates :response_id, uniqueness: true, allow_nil: false
 
   belongs_to :survey
-  belongs_to :student
+  belongs_to :branch, optional: true
+  belongs_to :student, optional: true
 end

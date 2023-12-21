@@ -44,6 +44,8 @@ en:
     errors:
       allies_belongs_to_organization: "Some allies don't belong to the branch's organization"
   mailer:
+    import:
+      students: 'Students import result'
     user:
       invitation: 'You have been sent an invitation!'
       password_reset: 'Set up your password'

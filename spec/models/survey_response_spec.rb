@@ -16,6 +16,7 @@ RSpec.describe SurveyResponse do
 
   describe 'associations' do
     it { is_expected.to belong_to(:survey) }
-    it { is_expected.to belong_to(:student) }
+    it { is_expected.to belong_to(:branch).optional(true) }
+    it { is_expected.to belong_to(:student).optional(true) }
   end
 end

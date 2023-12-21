@@ -26,6 +26,7 @@ RSpec.describe StudentsImportService do
 
       expect(Student.find_by(id_number: '111')).to be_present
       expect(Student.find_by(id_number: '222')).to be_present
+      expect(ImportMailer).to have_received(:students)
     end
   end
 end

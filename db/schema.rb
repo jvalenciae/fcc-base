@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_11_183502) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_14_094406) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -203,11 +203,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_183502) do
     t.jsonb "json_response", null: false
     t.date "date", null: false
     t.uuid "survey_id", null: false
-    t.uuid "student_id", null: false
+    t.uuid "student_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "kind_of_measurement", null: false
     t.jsonb "scores", null: false
+    t.uuid "branch_id"
+    t.index ["branch_id"], name: "index_survey_responses_on_branch_id"
     t.index ["response_id"], name: "index_survey_responses_on_response_id", unique: true
     t.index ["student_id"], name: "index_survey_responses_on_student_id"
     t.index ["survey_id"], name: "index_survey_responses_on_survey_id"
@@ -276,6 +278,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_183502) do
   add_foreign_key "students", "branches"
   add_foreign_key "students", "groups"
   add_foreign_key "supervisors", "students"
+  add_foreign_key "survey_responses", "branches"
   add_foreign_key "survey_responses", "students"
   add_foreign_key "survey_responses", "surveys"
   add_foreign_key "surveys", "organizations"

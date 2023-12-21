@@ -14,7 +14,7 @@ RSpec.describe GroupsExportService do
     it 'generates a CSV with group information' do
       csv_result = described_class.call(groups)
 
-      expect(csv_result).to include(Group.take.attributes.keys.join(','))
+      expect(csv_result).to include(Group.new.attributes.keys.join(','))
       expect(csv_result).to include(group1.attributes.values.join(','))
       expect(csv_result).to include(group2.attributes.values.join(','))
     end

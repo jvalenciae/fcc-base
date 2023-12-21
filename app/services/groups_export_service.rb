@@ -11,7 +11,7 @@ class GroupsExportService < ApplicationService
 
   def call
     CSV.generate do |csv|
-      csv << Group.take.attributes.keys
+      csv << Group.new.attributes.keys
 
       groups.each do |group|
         csv << group.attributes.values

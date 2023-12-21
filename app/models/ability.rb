@@ -68,7 +68,7 @@ class Ability
     can :manage, GroupAttendance, { group: { branch: { organization_id: user.organization_id } } }
     can :manage, StudentAttendance, { student: { branch: { organization_id: user.organization_id } } }
     can :read, Report, { organization_id: user.organization_id }
-    can :manage, Survey, { organization_id: user.organization_id }
+    can :read, Survey, { organization_id: user.organization_id }
   end
 
   def define_member_abilities(user)

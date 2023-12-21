@@ -46,6 +46,8 @@ GitlabSecurity/DeepMunge:
   Enabled: true
 GitlabSecurity/JsonSerialization:
   Enabled: true
+  Exclude:
+   - app/services/mailer_service.rb
 GitlabSecurity/RedirectToParamsUpdate:
   Enabled: true
 GitlabSecurity/SendFileParams:
