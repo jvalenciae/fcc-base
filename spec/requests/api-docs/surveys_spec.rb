@@ -219,5 +219,111 @@ describe 'Surveys API' do
         xit
       end
     end
+
+    path '/api/v1/surveys/default' do
+      get 'List of default surveys' do
+        tags 'Surveys'
+        security [bearerAuth: []]
+
+        produces 'application/json'
+        response '200', 'OK' do
+          schema type: :object,
+                 properties: {
+                   status: { type: :string },
+                   data: {
+                     type: :array,
+                     items: {
+                       type: :object,
+                       properties: {
+                         id: { type: :string },
+                         name: { type: :string },
+                         description: { type: :string },
+                         form_id: { type: :string },
+                         organization: {
+                           type: :object,
+                           properties: {
+                             id: { type: :string },
+                             name: { type: :string },
+                             country: {
+                               type: :object,
+                               properties: {
+                                 code: { type: :string },
+                                 name: { type: :string }
+                               }
+                             }
+                           }
+                         }
+                       }
+                     }
+                   },
+                   meta: {
+                     type: :object,
+                     properties: {
+                       total_pages: { type: :integer },
+                       page_number: { type: :integer },
+                       max_per_page: { type: :integer },
+                       total_resources: { type: :integer }
+                     }
+                   }
+                 }
+
+          xit
+        end
+      end
+    end
+
+    path '/api/v1/surveys/ad_hoc' do
+      get 'Retrieve list of ad_hoc surveys' do
+        tags 'Surveys'
+        security [bearerAuth: []]
+
+        parameter name: :page, in: :query, type: :integer, description: 'Page number'
+        parameter name: :per_page, in: :query, type: :integer, description: 'How many records per page'
+
+        produces 'application/json'
+        response '200', 'OK' do
+          schema type: :object,
+                 properties: {
+                   status: { type: :string },
+                   data: {
+                     type: :array,
+                     items: {
+                       type: :object,
+                       properties: {
+                         id: { type: :string },
+                         name: { type: :string },
+                         description: { type: :string },
+                         form_id: { type: :string },
+                         organization: {
+                           type: :object,
+                           properties: {
+                             id: { type: :string },
+                             name: { type: :string },
+                             country: {
+                               type: :object,
+                               properties: {
+                                 code: { type: :string },
+                                 name: { type: :string }
+                               }
+                             }
+                           }
+                         }
+                       }
+                     }
+                   },
+                   meta: {
+                     type: :object,
+                     properties: {
+                       total_pages: { type: :integer },
+                       page_number: { type: :integer },
+                       max_per_page: { type: :integer },
+                       total_resources: { type: :integer }
+                     }
+                   }
+                 }
+          xit
+        end
+      end
+    end
   end
 end

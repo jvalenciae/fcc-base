@@ -165,4 +165,37 @@ RSpec.describe 'Surveys' do
       end
     end
   end
+
+  describe 'GET #default' do
+    let!(:super_admin) { create(:user, :super_admin) }
+
+    before do
+      create(:survey, default: true, name: 'Habilidades para la Vida Survey')
+    end
+
+    it 'returns a successful response' do
+      get '/api/v1/surveys/default', headers: authenticated_header(super_admin)
+
+      expect(response).to have_http_status(:ok)
+      expect(json_response[:status]).to eq('ok')
+      expect(json_response[:data]).not_to be_nil
+      expect(json_response[:meta]).to be_nil
+    end
+  end
+
+  describe 'GET #ad_hoc' do
+    let!(:super_admin) { create(:user, :super_admin) }
+
+    before do
+      create_list(:survey, 10, default: false)
+    end
+
+    it 'returns paginated ad hoc surveys' do
+      get '/api/v1/surveys/ad_hoc', headers: authenticated_header(super_admin)
+
+      expect(response).to have_http_status(:ok)
+      expect(json_response[:status]).to eq('ok')
+      expect(json_response[:data].size).to eq(10)
+    end
+  end
 end

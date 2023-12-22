@@ -92,9 +92,13 @@ Metrics/ClassLength:
 
 Metrics/MethodLength:
   Max: 15
+  Exclude:
+    - app/models/ability.rb
 
 Metrics/AbcSize:
   CountRepeatedAttributes: false
+  Exclude:
+    - app/models/ability.rb
 
 # Rspec
 RSpec/MultipleMemoizedHelpers:

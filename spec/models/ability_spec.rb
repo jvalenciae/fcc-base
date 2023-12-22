@@ -48,6 +48,9 @@ RSpec.describe Ability do
 
     # Survey permissions
     it { is_expected.to be_able_to(:manage, Survey) }
+
+    # SurveyResponse permissions
+    it { is_expected.to be_able_to(:manage, SurveyResponse) }
   end
 
   context 'when user is an admin' do
@@ -57,6 +60,10 @@ RSpec.describe Ability do
     let(:user_in_other_organization) { create(:user) } # User not in admin's organizations
     let(:survey) { create(:survey, organization: organization) }
     let(:survey_in_other_organization) { create(:survey) }
+    let(:default_survey) { create(:survey, organization: organization, default: true) }
+    let(:survey_response) { create(:survey_response, survey: survey) }
+    let(:default_survey_response) { create(:survey_response, survey: default_survey) }
+    let(:unauthorized_survey_response) { create(:survey_response, survey: survey_in_other_organization) }
 
     # User permissions
     it { is_expected.to be_able_to(:create, member_user, organization_id: organization.id) }
@@ -96,7 +103,13 @@ RSpec.describe Ability do
 
     # Survey permissions
     it { is_expected.to be_able_to(:read, survey) }
+    it { is_expected.to be_able_to(:read, default_survey) }
     it { is_expected.not_to be_able_to(:read, survey_in_other_organization) }
+
+    # Survey permissions
+    it { is_expected.to be_able_to(:read, survey_response) }
+    it { is_expected.to be_able_to(:read, default_survey_response) }
+    it { is_expected.not_to be_able_to(:read, unauthorized_survey_response) }
   end
 
   context 'when user is a member' do
@@ -105,6 +118,10 @@ RSpec.describe Ability do
     let(:other_user) { create(:user) } # Another user, not the same as the logged-in user
     let(:survey) { create(:survey, organization: organization) }
     let(:survey_in_other_organization) { create(:survey) }
+    let(:default_survey) { create(:survey, organization: organization, default: true) }
+    let(:survey_response) { create(:survey_response, survey: survey) }
+    let(:default_survey_response) { create(:survey_response, survey: default_survey) }
+    let(:unauthorized_survey_response) { create(:survey_response, survey: survey_in_other_organization) }
 
     # User permissions
     it { is_expected.to be_able_to(:read, user) }
@@ -138,6 +155,12 @@ RSpec.describe Ability do
 
     # Survey permissions
     it { is_expected.to be_able_to(:read, survey) }
+    it { is_expected.to be_able_to(:read, default_survey) }
     it { is_expected.not_to be_able_to(:read, survey_in_other_organization) }
+
+    # Survey permissions
+    it { is_expected.to be_able_to(:read, survey_response) }
+    it { is_expected.to be_able_to(:read, default_survey_response) }
+    it { is_expected.not_to be_able_to(:read, unauthorized_survey_response) }
   end
 end

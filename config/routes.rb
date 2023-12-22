@@ -64,10 +64,17 @@ Rails.application.routes.draw do
 
       resources :reports, only: %i[index show create update destroy]
 
-      resources :surveys, only: %i[index show create update]
+      resources :surveys, only: %i[index show create update] do
+        collection do
+          get 'default', to: 'surveys#default'
+          get 'ad_hoc', to: 'surveys#ad_hoc'
+        end
+      end
       namespace :surveys do
         resource :webhook, only: :create
       end
+
+      resources :survey_responses, only: %i[index]
     end
   end
 end

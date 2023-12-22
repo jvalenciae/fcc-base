@@ -3231,6 +3231,133 @@ paths:
             text/csv:
               schema:
                 type: string
+  "/api/v1/survey_reponses":
+    get:
+      summary: Retrieve list of survey responses
+      tags:
+      - SurveyReponses
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: survey_ids[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        description: An array of survey IDs to filter responses by
+        required: false
+      - name: branch_ids[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        description: An array of branch IDs to filter responses by
+        required: false
+      - name: group_ids[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        description: An array of group IDs to filter responses by
+        required: false
+      - name: categories[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        description: An array of categories to filter responses by
+        required: false
+      - name: gender[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        description: An array of genders ["male", "female"] to filter responses by
+        required: false
+      - name: kind_of_measurement[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+        description: An array of kind_of_measurement ["Ingreso", "Salida"] to filter
+          responses by
+        required: false
+      - name: years[]
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: integer
+        description: An array of years [2020, 2022] to filter responses by
+        required: false
+      - name: page
+        in: query
+        description: Page number
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: How many records per page
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        response_id:
+                          type: string
+                        date:
+                          type: string
+                        survey_id:
+                          type: string
+                        student_id:
+                          type: string
+                        kind_of_measurement:
+                          type: string
+                  meta:
+                    type: object
+                    properties:
+                      total_pages:
+                        type: integer
+                      page_number:
+                        type: integer
+                      max_per_page:
+                        type: integer
+                      total_resources:
+                        type: integer
   "/api/v1/surveys":
     get:
       summary: Retrieve list of surveys
@@ -3481,6 +3608,127 @@ paths:
                       type: string
                     organization_id:
                       type: string
+  "/api/v1/surveys/default":
+    get:
+      summary: List of default surveys
+      tags:
+      - Surveys
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        description:
+                          type: string
+                        form_id:
+                          type: string
+                        organization:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+                            country:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                name:
+                                  type: string
+                  meta:
+                    type: object
+                    properties:
+                      total_pages:
+                        type: integer
+                      page_number:
+                        type: integer
+                      max_per_page:
+                        type: integer
+                      total_resources:
+                        type: integer
+  "/api/v1/surveys/ad_hoc":
+    get:
+      summary: Retrieve list of ad_hoc surveys
+      tags:
+      - Surveys
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: page
+        in: query
+        description: Page number
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: How many records per page
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        description:
+                          type: string
+                        form_id:
+                          type: string
+                        organization:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+                            country:
+                              type: object
+                              properties:
+                                code:
+                                  type: string
+                                name:
+                                  type: string
+                  meta:
+                    type: object
+                    properties:
+                      total_pages:
+                        type: integer
+                      page_number:
+                        type: integer
+                      max_per_page:
+                        type: integer
+                      total_resources:
+                        type: integer
   "/api/v1/users":
     get:
       summary: List users
