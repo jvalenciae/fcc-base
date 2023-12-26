@@ -140,7 +140,8 @@ RSpec.describe 'Surveys' do
     let(:survey_params) do
       {
         survey: {
-          name: 'New_Name'
+          name: 'New_Name',
+          default: true
         }
       }
     end
@@ -155,6 +156,7 @@ RSpec.describe 'Surveys' do
         put "/api/v1/surveys/#{id}", params: survey_params, headers: authenticated_header(super_admin)
         expect(response).to have_http_status(:success)
         expect(json_response[:data][:name]).to eq(survey_params[:survey][:name])
+        expect(json_response[:data][:default]).to eq(survey_params[:survey][:default])
       end
     end
 

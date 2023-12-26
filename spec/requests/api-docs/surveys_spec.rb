@@ -38,7 +38,8 @@ describe 'Surveys API' do
                              }
                            }
                          }
-                       }
+                       },
+                       default: { type: :boolean }
                      }
                    }
                  },
@@ -71,7 +72,8 @@ describe 'Surveys API' do
               name: { type: :string },
               description: { type: :string },
               form_id: { type: :string },
-              organization_id: { type: :string }
+              organization_id: { type: :string },
+              default: { type: :boolean }
             },
             required: %w[name description form_id organization_id]
           }
@@ -104,7 +106,8 @@ describe 'Surveys API' do
                              }
                            }
                          }
-                       }
+                       },
+                       default: { type: :boolean }
                      }
                    }
                  },
@@ -151,7 +154,8 @@ describe 'Surveys API' do
                              }
                            }
                          }
-                       }
+                       },
+                       default: { type: :boolean }
                      }
                    }
                  },
@@ -177,7 +181,8 @@ describe 'Surveys API' do
               name: { type: :string },
               description: { type: :string },
               form_id: { type: :string },
-              organization_id: { type: :string }
+              organization_id: { type: :string },
+              default: { type: :boolean }
             }
           }
         }
@@ -209,7 +214,8 @@ describe 'Surveys API' do
                              }
                            }
                          }
-                       }
+                       },
+                       default: { type: :boolean }
                      }
                    }
                  },
@@ -252,7 +258,8 @@ describe 'Surveys API' do
                                }
                              }
                            }
-                         }
+                         },
+                         default: { type: :boolean }
                        }
                      }
                    },
@@ -307,7 +314,8 @@ describe 'Surveys API' do
                                }
                              }
                            }
-                         }
+                         },
+                         default: { type: :boolean }
                        }
                      }
                    },

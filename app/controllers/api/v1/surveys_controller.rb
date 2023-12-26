@@ -7,7 +7,6 @@ module Api
       before_action :set_surveys, only: %i[index default ad_hoc]
 
       def index
-        @surveys = Survey.accessible_by(current_ability)
         @surveys, meta = paginate_resources(@surveys)
         render_response(data: @surveys, serializer: SurveySerializer, meta: meta)
       end
@@ -52,7 +51,7 @@ module Api
 
       def survey_params
         params.require(:survey).permit(
-          :name, :description, :form_id, :organization_id
+          :name, :description, :form_id, :organization_id, :default
         )
       end
     end

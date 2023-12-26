@@ -17,14 +17,14 @@ class TypeformWebhookDeserializerService < ApplicationService
   def find_attributes(payload)
     response_id = payload['event_id']
     date = payload['form_response']['answers'].find { |ans| ans['type'] == 'date' }['date']
-    kind_of_measurement = payload.try(:[], 'form_response')
-                                 .try(:[], 'answers')&.second.try(:[], 'choice').try(:[], 'label') || 'NA'
+    kind_of_measurement = payload['form_response']['answers']&.second.try(:[], 'choice').try(:[], 'label')
     scores = payload['form_response']['variables']
     survey_id = payload['form_response']['hidden']['survey_id']
-    branch_id = payload.try(:[], 'form_response').try(:[], 'hidden').try(:[], 'branch_id')
-    student_id = payload.try(:[], 'form_response').try(:[], 'hidden').try(:[], 'student_id')
+    branch_id = payload['form_response']['hidden'].try(:[], 'branch_id')
+    student_id = payload['form_response']['hidden'].try(:[], 'student_id')
+    single_responses = SingleResponseInputBuilderService.call(payload)
 
-    [response_id, date, kind_of_measurement, scores, survey_id, branch_id, student_id]
+    [response_id, date, kind_of_measurement, scores, survey_id, branch_id, student_id, single_responses]
   end
   # rubocop:enable Metrics/AbcSize
 end

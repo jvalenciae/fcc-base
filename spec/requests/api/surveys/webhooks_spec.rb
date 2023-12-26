@@ -10,6 +10,14 @@ RSpec.describe 'Surveys::Webhooks' do
       {
         event_id: 'valid_response_id',
         form_response: {
+          definition: {
+            fields: [
+              {
+                type: 'multiple_choice',
+                title: 'example multi choice'
+              }
+            ]
+          },
           variables: [
             {
               key: 'autonomy',
@@ -23,6 +31,7 @@ RSpec.describe 'Surveys::Webhooks' do
               date: '2023-01-01'
             },
             {
+              type: 'choice',
               choice: {
                 label: 'kind_of_measurement'
               }
@@ -50,6 +59,7 @@ RSpec.describe 'Surveys::Webhooks' do
 
         expect(response).to have_http_status(:ok)
         expect(SurveyResponse.count).to eq(1)
+        expect(SingleResponseInput.count).to eq(1)
       end
     end
 
@@ -66,6 +76,7 @@ RSpec.describe 'Surveys::Webhooks' do
 
         expect(response).to have_http_status(:unauthorized)
         expect(SurveyResponse.count).to eq(0)
+        expect(SingleResponseInput.count).to eq(0)
       end
     end
 
@@ -83,6 +94,7 @@ RSpec.describe 'Surveys::Webhooks' do
 
         expect(response).to have_http_status(:unprocessable_entity)
         expect(SurveyResponse.count).to eq(0)
+        expect(SingleResponseInput.count).to eq(0)
       end
     end
   end

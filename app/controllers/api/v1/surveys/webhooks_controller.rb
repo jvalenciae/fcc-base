@@ -11,11 +11,11 @@ module Api
 
         def create
           @response_payload = JSON.parse(request.body.read)
-          response_id, date, kind_of_measurement, scores, survey_id, branch_id, student_id =
+          response_id, date, kind_of_measurement, scores, survey_id, branch_id, student_id, single_response_inputs =
             TypeformWebhookDeserializerService.call(@response_payload)
 
           survey_response = build_survey_response(@response_payload, response_id, date, kind_of_measurement, scores,
-                                                  survey_id, branch_id, student_id)
+                                                  survey_id, branch_id, student_id, single_response_inputs)
 
           head :ok if survey_response.save!
         end
@@ -32,7 +32,7 @@ module Api
         end
 
         def build_survey_response(response_payload, response_id, date, kind_of_measurement, scores, survey_id,
-                                  branch_id, student_id)
+                                  branch_id, student_id, single_response_inputs)
           survey_response = SurveyResponse.find_or_initialize_by(
             kind_of_measurement: kind_of_measurement,
             branch_id: branch_id,
@@ -44,6 +44,7 @@ module Api
           survey_response.response_id = response_id
           survey_response.json_response = response_payload
           survey_response.scores = scores
+          survey_response.single_response_inputs = single_response_inputs
           survey_response
         end
       end

@@ -3,12 +3,14 @@
 class SurveyResponse < ApplicationRecord
   self.implicit_order_column = 'created_at'
 
-  validates :response_id, :json_response, :date, :kind_of_measurement, :scores, presence: true
+  validates :response_id, :json_response, :date, presence: true
   validates :response_id, uniqueness: true, allow_nil: false
 
   belongs_to :survey
   belongs_to :branch, optional: true
   belongs_to :student, optional: true
+
+  has_many :single_response_inputs, dependent: :destroy
 
   scope :by_survey_ids, lambda { |survey_ids|
     return all if survey_ids.blank?

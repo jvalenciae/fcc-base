@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_19_202916) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_25_211640) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -120,6 +120,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_19_202916) do
     t.index ["organization_id"], name: "index_reports_on_organization_id"
   end
 
+  create_table "single_response_inputs", force: :cascade do |t|
+    t.string "question"
+    t.string "answer"
+    t.uuid "survey_response_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["survey_response_id"], name: "index_single_response_inputs_on_survey_response_id"
+  end
+
   create_table "student_attendances", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.date "date"
     t.boolean "present", default: true, null: false
@@ -206,8 +215,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_19_202916) do
     t.uuid "student_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "kind_of_measurement", null: false
-    t.jsonb "scores", null: false
+    t.string "kind_of_measurement"
+    t.jsonb "scores"
     t.uuid "branch_id"
     t.index ["branch_id"], name: "index_survey_responses_on_branch_id"
     t.index ["response_id"], name: "index_survey_responses_on_response_id", unique: true
@@ -274,6 +283,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_19_202916) do
   add_foreign_key "group_attendances", "groups"
   add_foreign_key "groups", "branches"
   add_foreign_key "reports", "organizations"
+  add_foreign_key "single_response_inputs", "survey_responses"
   add_foreign_key "student_attendances", "group_attendances", on_delete: :cascade
   add_foreign_key "student_attendances", "students"
   add_foreign_key "students", "branches"

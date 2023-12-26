@@ -3413,6 +3413,8 @@ paths:
                                   type: string
                                 name:
                                   type: string
+                        default:
+                          type: boolean
                   meta:
                     type: object
                     properties:
@@ -3468,6 +3470,8 @@ paths:
                                   type: string
                                 name:
                                   type: string
+                        default:
+                          type: boolean
                   meta:
                     type: object
       requestBody:
@@ -3487,6 +3491,8 @@ paths:
                       type: string
                     organization_id:
                       type: string
+                    default:
+                      type: boolean
                   required:
                   - name
                   - description
@@ -3543,6 +3549,8 @@ paths:
                                   type: string
                                 name:
                                   type: string
+                        default:
+                          type: boolean
                   meta:
                     type: object
     put:
@@ -3589,6 +3597,8 @@ paths:
                                   type: string
                                 name:
                                   type: string
+                        default:
+                          type: boolean
                   meta:
                     type: object
       requestBody:
@@ -3608,6 +3618,8 @@ paths:
                       type: string
                     organization_id:
                       type: string
+                    default:
+                      type: boolean
   "/api/v1/surveys/default":
     get:
       summary: List of default surveys
@@ -3652,6 +3664,8 @@ paths:
                                   type: string
                                 name:
                                   type: string
+                        default:
+                          type: boolean
                   meta:
                     type: object
                     properties:
@@ -3718,6 +3732,8 @@ paths:
                                   type: string
                                 name:
                                   type: string
+                        default:
+                          type: boolean
                   meta:
                     type: object
                     properties:
