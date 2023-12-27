@@ -123,4 +123,18 @@ RSpec.describe SurveyResponse do
       expect(result).to eq([survey_response])
     end
   end
+
+  describe 'by_survey_key' do
+    let!(:survey) { create(:survey, default: true, name: 'Default Survey', key: 'some_key') }
+    let!(:survey_response) { create(:survey_response, survey: survey) }
+
+    before do
+      create_list(:survey_response, 3)
+    end
+
+    it 'returns filtered survey responses' do
+      result = described_class.by_survey_key(survey.key)
+      expect(result).to eq([survey_response])
+    end
+  end
 end

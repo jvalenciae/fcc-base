@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :survey do
     name { 'survey' }
-    description { 'description' }
+    key { 'key' }
     form_id { 'form_id' }
     organization
   end

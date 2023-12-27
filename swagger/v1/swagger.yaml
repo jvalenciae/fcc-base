@@ -3310,6 +3310,11 @@ paths:
             type: integer
         description: An array of years [2020, 2022] to filter responses by
         required: false
+      - name: key
+        in: query
+        description: Survey Key to filter responses by
+        schema:
+          type: string
       - name: page
         in: query
         description: Page number
@@ -3395,7 +3400,7 @@ paths:
                           type: string
                         name:
                           type: string
-                        description:
+                        key:
                           type: string
                         form_id:
                           type: string
@@ -3452,7 +3457,7 @@ paths:
                           type: string
                         name:
                           type: string
-                        description:
+                        key:
                           type: string
                         form_id:
                           type: string
@@ -3485,7 +3490,7 @@ paths:
                   properties:
                     name:
                       type: string
-                    description:
+                    key:
                       type: string
                     form_id:
                       type: string
@@ -3531,7 +3536,7 @@ paths:
                           type: string
                         name:
                           type: string
-                        description:
+                        key:
                           type: string
                         form_id:
                           type: string
@@ -3579,7 +3584,7 @@ paths:
                           type: string
                         name:
                           type: string
-                        description:
+                        key:
                           type: string
                         form_id:
                           type: string
@@ -3612,7 +3617,7 @@ paths:
                   properties:
                     name:
                       type: string
-                    description:
+                    key:
                       type: string
                     form_id:
                       type: string
@@ -3646,7 +3651,7 @@ paths:
                           type: string
                         name:
                           type: string
-                        description:
+                        key:
                           type: string
                         form_id:
                           type: string
@@ -3714,7 +3719,7 @@ paths:
                           type: string
                         name:
                           type: string
-                        description:
+                        key:
                           type: string
                         form_id:
                           type: string

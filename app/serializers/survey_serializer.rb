@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SurveySerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :form_id, :default
+  attributes :id, :name, :key, :form_id, :default
 
   belongs_to :organization
 

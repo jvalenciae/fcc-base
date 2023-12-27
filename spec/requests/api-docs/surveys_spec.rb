@@ -23,7 +23,7 @@ describe 'Surveys API' do
                      properties: {
                        id: { type: :string },
                        name: { type: :string },
-                       description: { type: :string },
+                       key: { type: :string },
                        form_id: { type: :string },
                        organization: {
                          type: :object,
@@ -70,7 +70,7 @@ describe 'Surveys API' do
             type: :object,
             properties: {
               name: { type: :string },
-              description: { type: :string },
+              key: { type: :string },
               form_id: { type: :string },
               organization_id: { type: :string },
               default: { type: :boolean }
@@ -91,7 +91,7 @@ describe 'Surveys API' do
                      properties: {
                        id: { type: :string },
                        name: { type: :string },
-                       description: { type: :string },
+                       key: { type: :string },
                        form_id: { type: :string },
                        organization: {
                          type: :object,
@@ -139,7 +139,7 @@ describe 'Surveys API' do
                      properties: {
                        id: { type: :string },
                        name: { type: :string },
-                       description: { type: :string },
+                       key: { type: :string },
                        form_id: { type: :string },
                        organization: {
                          type: :object,
@@ -179,7 +179,7 @@ describe 'Surveys API' do
             type: :object,
             properties: {
               name: { type: :string },
-              description: { type: :string },
+              key: { type: :string },
               form_id: { type: :string },
               organization_id: { type: :string },
               default: { type: :boolean }
@@ -199,7 +199,7 @@ describe 'Surveys API' do
                      properties: {
                        id: { type: :string },
                        name: { type: :string },
-                       description: { type: :string },
+                       key: { type: :string },
                        form_id: { type: :string },
                        organization: {
                          type: :object,
@@ -243,7 +243,7 @@ describe 'Surveys API' do
                        properties: {
                          id: { type: :string },
                          name: { type: :string },
-                         description: { type: :string },
+                         key: { type: :string },
                          form_id: { type: :string },
                          organization: {
                            type: :object,
@@ -299,7 +299,7 @@ describe 'Surveys API' do
                        properties: {
                          id: { type: :string },
                          name: { type: :string },
-                         description: { type: :string },
+                         key: { type: :string },
                          form_id: { type: :string },
                          organization: {
                            type: :object,

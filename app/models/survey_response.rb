@@ -54,4 +54,10 @@ class SurveyResponse < ApplicationRecord
 
     where('EXTRACT(YEAR FROM date) IN (?)', years)
   }
+
+  scope :by_survey_key, lambda { |key|
+    return all if key.blank?
+
+    joins(:survey).where(survey: { key: key })
+  }
 end

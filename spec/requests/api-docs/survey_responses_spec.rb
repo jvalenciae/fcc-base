@@ -43,6 +43,8 @@ describe 'SurveyReponses API' do
         items: { type: :integer }
       }, description: 'An array of years [2020, 2022] to filter responses by', required: false
 
+      parameter name: :key, in: :query, type: :string, description: 'Survey Key to filter responses by'
+
       parameter name: :page, in: :query, type: :integer, description: 'Page number'
       parameter name: :per_page, in: :query, type: :integer, description: 'How many records per page'
 

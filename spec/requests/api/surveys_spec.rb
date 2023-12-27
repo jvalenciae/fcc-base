@@ -66,7 +66,7 @@ RSpec.describe 'Surveys' do
       {
         survey: {
           name: 'name',
-          description: 'description',
+          key: 'key',
           form_id: 'form_id',
           organization_id: organization.id
         }
@@ -92,7 +92,7 @@ RSpec.describe 'Surveys' do
         post '/api/v1/surveys', params: survey_params, headers: authenticated_header(super_admin_user)
         expect(json_response[:data]).to include(
           'name' => 'name',
-          'description' => 'description',
+          'key' => 'key',
           'form_id' => 'form_id'
         )
       end

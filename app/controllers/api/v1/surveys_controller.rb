@@ -51,7 +51,7 @@ module Api
 
       def survey_params
         params.require(:survey).permit(
-          :name, :description, :form_id, :organization_id, :default
+          :name, :key, :form_id, :organization_id, :default
         )
       end
     end
