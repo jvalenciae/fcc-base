@@ -35,23 +35,6 @@ module Api
         render json: { message: I18n.t('user.successful_delete') }, status: :ok if @user.destroy!
       end
 
-      def members
-        @users = User.accessible_by(current_ability).by_role('member')
-        fetch_and_render_users(Users::MemberSerializer)
-      end
-
-      def roles
-        super_admin_roles = User::SUPER_ADMIN_ROLES.keys
-        admin_roles = User::ADMIN_ROLES.keys
-        member_roles = User::MEMBER_ROLES.keys
-        @roles = {
-          super_admin: super_admin_roles,
-          admin: admin_roles,
-          member: member_roles
-        }
-        render_response(data: @roles)
-      end
-
       private
 
       def set_user
