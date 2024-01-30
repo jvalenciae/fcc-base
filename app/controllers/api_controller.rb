@@ -5,7 +5,7 @@ class ApiController < ApplicationController
   include ExceptionHandler
   include PaginationHandler
 
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   before_action :set_locale
 
   def set_locale

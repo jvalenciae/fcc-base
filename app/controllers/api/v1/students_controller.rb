@@ -67,7 +67,8 @@ module Api
       end
 
       def set_students
-        @students = Student.accessible_by(current_ability)
+        @students = Student.all
+        #@students = Student.accessible_by(current_ability)
         @students = Filter::StudentsFilterService.call(@students, params)
       end
 
