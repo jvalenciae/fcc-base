@@ -50,12 +50,16 @@ en:
     default: "Error"
     create:
       user: "You are not authorized to create this user."
+      task: "You are not authorized to create this task."
     destroy:
       user: "You are not authorized to delete this user."
+      task: "You are not authorized to delete this task."
     read:
       user: "You are not authorized to access this user."
+      task: "You are not authorized to access this task."
     update:
       user: "You are not authorized to update this user."
+      task: "You are not authorized to update this task."
   errors:
     message:
       general: 'An error has occurred'

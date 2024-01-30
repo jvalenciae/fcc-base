@@ -34,6 +34,8 @@ Rails.application.routes.draw do
       resources :cities, only: %i[index]
 
       resources :users, only: %i[index show create update destroy]
+
+      resources :tasks, only: %i[index show create update destroy]
     end
   end
 end

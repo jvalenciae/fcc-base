@@ -68,7 +68,7 @@ RSpec.describe User do
 
   describe 'associations' do
     # it { is_expected.to belong_to(:organization).optional(true) }
-    # it { is_expected.to have_many(:user_branches).dependent(:destroy) }
+    it { is_expected.to have_many(:tasks).dependent(:destroy) }
   end
 
   describe 'constants' do
