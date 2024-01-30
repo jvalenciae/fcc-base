@@ -13,16 +13,11 @@ RSpec.describe 'Users' do
           password: 'Password123!',
           phone_number: '123456789',
           country: 'CO',
-          role: 'trainer',
-          organization_id: organization.id,
-          branch_ids: [branch.id]
+          role: 'user'
         }
       }
     end
-    let(:organization) { create(:organization) }
-    let(:branch) { create(:branch, organization: organization) }
-
-    let!(:admin_user) { create(:user, :admin, organization: organization) }
+    let!(:admin_user) { create(:user, :super_admin) }
 
     context 'when the request is valid' do
       it 'creates a new user' do
@@ -43,7 +38,7 @@ RSpec.describe 'Users' do
           'last_name' => 'Doe',
           'email' => 'john.doe@example.com',
           'country' => { 'code' => 'CO', 'name' => 'Colombia' },
-          'role' => 'trainer'
+          'role' => 'user'
         )
       end
 
@@ -55,7 +50,7 @@ RSpec.describe 'Users' do
     end
 
     context 'when the request is unauthorized' do
-      let!(:unauthorized_user) { create(:user, role: 'trainer', organization: organization) }
+      let!(:unauthorized_user) { create(:user, role: 'user') }
 
       it 'does not create a new user' do
         expect do
@@ -92,36 +87,11 @@ RSpec.describe 'Users' do
 
   describe 'GET #index' do
     let!(:super_admin) { create(:user, :super_admin) }
-    let(:organization) { create(:organization) }
-    let!(:admin) { create(:user, :admin, organization: organization) }
-    let!(:trainer) { create(:user) }
 
-    context 'when user is super_admin' do
-      it 'returns a list of users' do
-        get '/api/v1/users', headers: authenticated_header(super_admin)
-        expect(response).to have_http_status(:success)
-        expect(json_response[:data].length).to eq(User.count - 1) # Excluding current_user
-      end
-    end
-
-    context 'when user is an admin' do
-      before do
-        create(:user, organization: organization)
-      end
-
-      it 'returns users that are in the same organization' do
-        get '/api/v1/users', headers: authenticated_header(admin)
-        expect(response).to have_http_status(:success)
-        expect(json_response[:data].length).to eq(1)
-      end
-    end
-
-    context 'when user is a member' do
-      it 'does not return any users' do
-        get '/api/v1/users', headers: authenticated_header(trainer)
-        expect(response).to have_http_status(:success)
-        expect(json_response[:data].length).to eq(0)
-      end
+    it 'returns a list of users' do
+      get '/api/v1/users', headers: authenticated_header(super_admin)
+      expect(response).to have_http_status(:success)
+      expect(json_response[:data].length).to eq(User.count - 1) # Excluding current_user
     end
   end
 
@@ -197,58 +167,6 @@ RSpec.describe 'Users' do
         delete "/api/v1/users/#{super_admin_id}", headers: authenticated_header(user)
         expect(response).to have_http_status(:unauthorized)
       end
-    end
-  end
-
-  describe 'GET #members' do
-    let(:org) { create(:organization) }
-    let(:first_branch) { create(:branch, organization: org) }
-    let(:second_branch) { create(:branch, organization: org) }
-
-    let(:super_admin) { create(:user, :super_admin) }
-    let!(:user) { create(:user, branches: [first_branch], organization: org) }
-
-    before do
-      create(:user, branches: [second_branch], organization: org)
-    end
-
-    it 'returns a successful response with members filtered by branch_ids and q' do
-      get '/api/v1/users/members', params: { branch_ids: [first_branch.id], q: user.first_name },
-                                   headers: authenticated_header(super_admin)
-
-      expect(response).to have_http_status(:ok)
-      expect(json_response[:data].size).to eq(1)
-      expect(json_response[:data][0][:id]).to eq(user.id)
-    end
-
-    it 'returns all members if branch_ids and q are blank' do
-      get '/api/v1/users/members', headers: authenticated_header(super_admin)
-
-      expect(response).to have_http_status(:ok)
-      expect(json_response[:data].size).to eq(2)
-    end
-
-    it 'returns an empty array if no members match the criteria' do
-      get '/api/v1/users/members', params: { branch_ids: [9999], q: 'nonexistent' },
-                                   headers: authenticated_header(super_admin)
-
-      expect(response).to have_http_status(:ok)
-      expect(json_response[:data]).to be_empty
-    end
-  end
-
-  describe 'GET #roles' do
-    let(:super_admin) { create(:user, :super_admin) }
-
-    it 'returns a list of user roles' do
-      get '/api/v1/users/roles', headers: authenticated_header(super_admin)
-      expect(response).to have_http_status(:ok)
-      expected_response = {
-        super_admin: User::SUPER_ADMIN_ROLES.keys,
-        admin: User::ADMIN_ROLES.keys,
-        member: User::MEMBER_ROLES.keys
-      }.with_indifferent_access
-      expect(json_response[:data]).to eq(expected_response)
     end
   end
 end

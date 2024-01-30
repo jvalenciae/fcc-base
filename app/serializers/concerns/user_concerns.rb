@@ -4,10 +4,8 @@ module UserConcerns
   def type
     if object.super_admin?
       'super_admin'
-    elsif object.admin?
-      'admin'
     else
-      'member'
+      'user'
     end
   end
 end

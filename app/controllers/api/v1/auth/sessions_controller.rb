@@ -14,7 +14,7 @@ module Api
           render json: {
             status: :ok,
             message: I18n.t('auth.sessions.logged_in_successfully'),
-            data: { user: Users::UserSerializer.new(current_user) }
+            data: { user: UserSerializer.new(current_user) }
           }, status: :ok
         end
 

@@ -9,9 +9,6 @@ es:
       logged_in_successfully: 'Inicio de sesión exitoso'
       logged_out_successfully: 'Cerró sesión exitosamente'
       no_active_session: 'No se pudo encontrar una sesión activa'
-  branch:
-    errors:
-      allies_belongs_to_organization: 'Algunos aliados no pertenecen a la organización de la sede'
   mailer:
     import:
       students: 'Resultado de la carga masiva de estudiantes'
@@ -21,42 +18,13 @@ es:
   unauthorized:
       default: "Error"
       create:
-        ally: "No estás autorizado para crear ese aliado."
-        attendance: "No estás autorizado para crear esa asistencia."
-        branch: "No estás autorizado para crear esa sede."
-        group: "No estás autorizado para crear ese grupo."
-        organization: "No estás autorizado para crear esa organización."
-        report: "No estás autorizado para crear ese reporte."
         user: "No estás autorizado para crear ese usuario."
       destroy:
-        ally: "No estás autorizado para borrar ese aliado."
-        attendance: "No estás autorizado para borrar esa asistencia."
-        branch: "No estás autorizado para borrar esa sede."
-        group: "No estás autorizado para borrar ese grupo."
-        organization: "No estás autorizado para borrar esa organización."
-        report: "No estás autorizado para borrar ese reporte."
         user: "No estás autorizado para borrar ese usuario."
       read:
-        ally: "No estás autorizado para acceder ese aliado."
-        attendance: "No estás autorizado para acceder esa asistencia."
-        branch: "No estás autorizado para acceder esa sede."
-        group: "No estás autorizado para acceder ese grupo."
-        organization: "No estás autorizado para acceder esa organización."
-        report: "No estás autorizado para acceder ese reporte."
         user: "No estás autorizado para acceder ese usuario."
       update:
-        ally: "No estás autorizado para actualizar ese aliado."
-        attendance: "No estás autorizado para actualizar esa asistencia."
-        branch: "No estás autorizado para actualizar esa sede."
-        group: "No estás autorizado para actualizar ese grupo."
-        organization: "No estás autorizado para actualizar esa organización."
-        report: "No estás autorizado para actualizar ese reporte."
         user: "No estás autorizado para actualizar ese usuario."
-  categories:
-    builders: 'Constructores'
-    creators: 'Creadores'
-    explorers: 'Exploradores'
-    promoters: 'Promotores'
   errors:
     message:
       general: 'Se ha producido un error'
@@ -72,13 +40,5 @@ es:
     successful_delete: 'Reporte borrado exitosamente'
   user:
     errors:
-      branches_belongs_to_organization: 'Algunas sedes no pertenecen a la organización del usuario'
       weak_password: 'debe contener por lo menos una letra minúscula, una mayúscula, un número y un carácter especial'
       successful_delete: 'Usuario borrado exitosamente'
-  student:
-    errors:
-      group_belongs_to_branch: 'El grupo no pertenece a la sede'
-    import:
-      missing_file: 'No archivo encontrado'
-      started: 'Carga de estudiantes iniciando...'
-    successful_delete: 'Estudiante borrado exitosamente'

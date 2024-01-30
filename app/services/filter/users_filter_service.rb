@@ -17,9 +17,6 @@ module Filter
 
     def apply_filters(users)
       users = users.by_role(params[:role])
-      users = users.by_categories(params[:categories])
-      users = users.by_departments(params[:departments], params[:countries])
-      users = users.by_countries(params[:countries])
       users = users.search_by_q(params[:q]).with_pg_search_rank if params[:q].present?
       users
     end

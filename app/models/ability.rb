@@ -29,6 +29,20 @@ class Ability
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/blob/develop/docs/define_check_abilities.md
 
-    can :manage, User, { id: user.id }
+    if user.super_admin?
+      define_super_admin_abilities(user)
+    elsif user.user?
+      define_user_abilities(user)
+    end
+  end
+
+  private
+
+  def define_super_admin_abilities(_user)
+    can :manage, User
+  end
+
+  def define_user_abilities(user)
+    can %i[read update], User, { id: user.id }
   end
 end

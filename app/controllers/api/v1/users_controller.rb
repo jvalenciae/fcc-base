@@ -7,12 +7,12 @@ module Api
 
       def index
         @users = User.accessible_by(current_ability).excluding(current_user)
-        fetch_and_render_users(Users::UserSerializer)
+        fetch_and_render_users(UserSerializer)
       end
 
       def show
         authorize!(:read, @user, message: I18n.t('unauthorized.read.user'))
-        render_response(data: @user, serializer: Users::UserSerializer)
+        render_response(data: @user, serializer: UserSerializer)
       end
 
       def create
@@ -21,13 +21,13 @@ module Api
         return unless @user.save!
 
         UserMailer.invitation(@user, current_user).deliver_later
-        render_response(data: @user, serializer: Users::UserSerializer)
+        render_response(data: @user, serializer: UserSerializer)
       end
 
       def update
         @user.assign_attributes(user_params)
         authorize!(:update, @user, message: I18n.t('unauthorized.update.user'))
-        render_response(data: @user, serializer: Users::UserSerializer) if @user.save!
+        render_response(data: @user, serializer: UserSerializer) if @user.save!
       end
 
       def destroy
@@ -43,8 +43,7 @@ module Api
 
       def user_params
         params.require(:user).permit(
-          :first_name, :last_name, :email, :password, :password_confirmation, :phone_number, :country, :role,
-          :organization_id, { branch_ids: [] }
+          :first_name, :last_name, :email, :password, :password_confirmation, :phone_number, :country, :role
         )
       end
 
