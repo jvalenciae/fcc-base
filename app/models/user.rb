@@ -23,8 +23,6 @@ class User < ApplicationRecord
 
   validates :reset_password_token, uniqueness: true, allow_nil: true
 
-  has_many :tasks, dependent: :destroy
-
   ROLES = {
     super_admin: 0,
     user: 1

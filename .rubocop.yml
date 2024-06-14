@@ -72,6 +72,8 @@ Style/ReturnNil:
   Description: 'Use return instead of return nil.'
   Enabled: true
 
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
 # conflicts with fasterer check
 # https://github.com/fastruby/fast-ruby#hash-vs-hashfetch-code
 Style/RedundantFetchBlock:

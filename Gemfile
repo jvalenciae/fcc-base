@@ -119,6 +119,8 @@ group :development, :test do
   gem 'rubocop-performance', '~> 1.14', '>= 1.14.3', require: false
   gem 'rubocop-rails', '~> 2.15', '>= 2.15.2', require: false
   gem 'rubocop-rspec', '~> 2.12', '>= 2.12.1', require: false
+
+  gem 'sqlite3'
 end
 
 group :development, :test, :staging, :uat do

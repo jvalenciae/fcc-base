@@ -1,0 +1,18 @@
+#!/bin/sh
+set -e
+
+if [ -f tmp/pids/server.pid ]; then
+  rm tmp/pids/server.pid
+fi
+
+echo 'Installing deps' \
+  && bundle install \
+  && yarn install --check-files \
+  &&
+
+if ! gem list foreman -i --silent; then
+  echo "Installing foreman..."
+  gem install foreman
+fi
+
+exec foreman start -f Procfile.dev "$@"
