@@ -8,7 +8,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :trackable,
          :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
 
+
+  has_many :transactions
+
   validates :first_name, :last_name, :email, :phone_number, :country, :role, presence: true
+
+  validate :balance_is_positive 
 
   before_validation :set_random_password, on: :create
   after_create :generate_custom_reset_password_token
@@ -71,5 +76,9 @@ class User < ApplicationRecord
 
   def generate_custom_reset_password_token
     generate_reset_password_token(expiration_duration: 7.days)
+  end
+
+  def balance_is_positive
+    balance is positive
   end
 end

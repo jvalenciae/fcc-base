@@ -40,9 +40,11 @@ class Ability
 
   def define_super_admin_abilities(_user)
     can :manage, User
+    # can :manage, Transaction
   end
 
   def define_user_abilities(user)
     can %i[read update], User, { id: user.id }
+    # can %i[read], Transaction, { user_id: user.id }
   end
 end
