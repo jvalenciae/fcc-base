@@ -29,6 +29,13 @@ Rails.application.routes.draw do
 
       resources :users, only: %i[index show create update destroy]
 
+      resources :short_urls, only: %i[create] do
+        collection do
+          get :top100, to: 'short_urls#top100'
+        end
+      end
     end
   end
+
+  get '/:shortened_url', to: 'api/v1/short_urls#redirect', as: :short_url_redirect
 end
