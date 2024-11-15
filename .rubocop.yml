@@ -59,6 +59,9 @@ GitlabSecurity/SystemCommandInjection:
 GitlabSecurity/PublicSend:
   Enabled: true
 
+# Rails
+Rails/SkipsModelValidations:
+  AllowedMethods: ['increment!']
 
 # Style
 Style/FrozenStringLiteralComment:
@@ -113,6 +116,9 @@ RSpec/ExampleLength:
   Enabled: false
 
 RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/VerifiedDoubles:
   Enabled: false
 
 # Lint

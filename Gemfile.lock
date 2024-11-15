@@ -219,7 +219,6 @@ GEM
     method_source (1.0.0)
     mini_magick (4.12.0)
     mini_mime (1.1.2)
-    mini_portile2 (2.8.6)
     minitest (5.18.1)
     msgpack (1.7.1)
     net-imap (0.3.6)
@@ -333,6 +332,9 @@ GEM
       rspec-expectations (~> 3.10)
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
+    rspec-sidekiq (3.1.0)
+      rspec-core (~> 3.0, >= 3.0.0)
+      sidekiq (>= 2.4.0)
     rspec-support (3.12.1)
     rswag-api (2.10.1)
       railties (>= 3.1, < 7.1)
@@ -420,8 +422,9 @@ GEM
       sprockets (>= 3.0.0)
     sql_queries_count (0.0.1)
       rails (> 3.0.0)
-    sqlite3 (2.0.1)
-      mini_portile2 (~> 2.8.0)
+    sqlite3 (2.0.1-arm64-darwin)
+    sqlite3 (2.0.1-x86_64-darwin)
+    sqlite3 (2.0.1-x86_64-linux-gnu)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
     thor (1.2.2)
@@ -499,6 +502,7 @@ DEPENDENCIES
   jbuilder
   jsonapi-serializer
   newrelic_rpm
+  nokogiri
   paranoia
   pg (~> 1.5.3)
   pg_search
@@ -512,6 +516,7 @@ DEPENDENCIES
   reek (~> 6.1, >= 6.1.1)
   rspec (~> 3.11)
   rspec-rails (~> 5.1, >= 5.1.2)
+  rspec-sidekiq (~> 3.1)
   rswag-api
   rswag-specs (~> 2.5, >= 2.5.1)
   rswag-ui

@@ -154,7 +154,7 @@ end
 
 group :test do
   # Simple testing of Sidekiq jobs via a collection of matchers and helpers
-  # gem 'rspec-sidekiq', '~> 3.1'
+  gem 'rspec-sidekiq', '~> 3.1'
   # Fake (In-memory) driver for redis-rb
   # gem 'fakeredis', '~> 0.5.0'
   gem 'database_cleaner', '~> 1.7'
@@ -169,4 +169,6 @@ group :test do
   gem 'webdrivers'
 
   gem 'webmock'
+
+  gem 'nokogiri'
 end

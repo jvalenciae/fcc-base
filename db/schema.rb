@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_02_185001) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_15_153014) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
@@ -47,6 +47,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_02_185001) do
     t.string "jti", null: false
     t.datetime "exp", null: false
     t.index ["jti"], name: "index_jwt_denylist_on_jti"
+  end
+
+  create_table "short_urls", force: :cascade do |t|
+    t.string "original_url"
+    t.string "shortened_url"
+    t.integer "visits", default: 0
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

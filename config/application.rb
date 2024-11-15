@@ -26,7 +26,7 @@ module FccSimeon2Api
     # Add own middleware for catching errors
     config.middleware.use Middleware::CatchRackErrors
 
-    config.i18n.default_locale = :es
+    config.i18n.default_locale = :en
     config.i18n.available_locales = %i[en es]
   end
 end
