@@ -1,71 +1,80 @@
-[Based on the Readme template defined in https://github.com/koombea/readme/edit/master/README.md]: text
-# rails-repository-template
+# URL Shortening API
 
-## Overview
+This is a URL shortening API built using Ruby on Rails, designed to allow users to shorten long URLs and track their usage. The project uses Docker for containerization and includes a number of endpoints to manage short URLs, including creation, redirection, and tracking of the most visited URLs.
 
-This Repository should serve as a template for the default github configurations for Rails apps
+## Technologies Used
+
+- **Ruby 3.1.2**: The backend framework used to develop the API.
+- **Ruby on Rails 7**: The backend framework used to develop the API.
+- **PostgreSQL 14**: The relational database used to store URL data.
+- **Redis**: Used for caching and tracking the number of visits to shortened URLs.
+- **Docker**: Containerization platform for creating a reproducible development and production environment.
+- **RSpec**: Testing framework for writing unit tests.
+
+## Features
+
+- **Shorten URLs**: Convert long URLs into short and easy-to-share links.
+- **Top 100 URLs**: Retrieve a list of the most visited shortened URLs.
+- **URL Redirection**: Redirect users to the original URL based on the shortened URL.
+- **Visit Tracking**: Track the number of times a shortened URL has been visited.
 
 ## Getting Started
 
-## Installation
+### Prerequisites
 
-## Best Practices
+Make sure you have the following tools installed:
 
-## Environments
+- Docker
+- Docker Compose
 
-### Production
-[Add a link and a description of this environment]: text
+### Running the Application with Docker Compose
 
-### UAT
-[Add a link and a description of this environment]: text
+```bash
+docker compose up
+```
 
-### Staging
-[Add a link and a description of this environment]: text
+## Available Endpoints
 
-## Troubleshooting
-[List and describe steps to help solving any known issue (E.g: Rollbacks, Certificates issues, etc).]: text
+### `POST /api/v1/short_urls`
+- **Create a new shortened URL**.
+- **Request body**: 
+  ```json
+  { "url": "http://example.com" }
+  ```
 
-## Contributing
-
-The `master` branch of this repository contains the latest stable source code for the production environment. This branch and the `develop` branch are protected to prevent those from being accidentally deleted. Force pushes are also disabled to enforce following the process described in the [Releasing](#releasing) section.
-
-Please follow this steps for submitting any changes:
-
-1. Create a new branch for any new feature.
-2. Make sure you include tests for your changes.
-3. When the feature is complete, create a pull request to the develop branch.
-
-### Continuous Integration
-
-When a pull requests is submitted to the `develop` branch the CI service will automatically run the tests and generate a new build for testing. A message will be posted to the team's slack channel.
-
-For more information, see our [CONTRIBUTING](CONTRIBUTING.md) guide.
-
-## Releasing
-
-All releases to the main branches (`master` and `develop`) must be code reviewed and approved before being merged by the team's _Release Manager_ following this steps:
-
-1. After a pull request is submitted, the developer must assign the teammates to make a code review.
-2. Once the code review is finished and changes are approved, the _QA Analyst_ would be automatically(?) notified to do the smoke testing.
-3. If all tests passes, and the _QA Analyst_ does not find any issue the code can be merged by the _Release Manager_.
-4. When all the features planned for a release are done, the _Release Manager_ will be in charge of approving and merging the changes to the `master` branch.
-5. The _QA Analyst_ must do a full regression test of the production environment to make sure the new changes did not affect any other functionality.
-
-[NOTE: Each pull request must include the following checklist]: text
-
-### Checklist
-
-Add the [PULL_REQUEST_TEMPLATE](PULL_REQUEST_TEMPLATE.md) to your repo to use it as a template for every pull request.
-
-### Continuous Integration
-
-When a change is merged into the `develop` branch the CI service will automatically run the tests and generate a new build for staging. A message will be posted to the team's slack channel.
-
-When a change is merged into the `master` branch the CI service will automatically run the tests and generate a new build for production. A message will be posted to the team's slack channel.
+### `GET /api/v1/short_urls/top100`
+- **Get the top 100 most visited shortened URLs**.
 
 
-For more information, see our [RELEASING](RELEASING.md) guide.
+### `GET /:shortened_url`
+- **Redirect to the original URL based on the shortened URL**.
+- **Response**: A 301 redirect to the original URL.
 
-## License
+---
 
-Copyright © 2022 Koombea®. All rights reserved.
+## Running Tests
+
+To run the tests with Docker Compose:
+
+```bash
+docker compose exec backend bundle exec rspec
+```
+
+---
+
+## Algorithm for URL Shortening
+
+The URL shortening algorithm involves the following steps:
+
+1. **Generate a Shortened Code**:
+   - When a user submits a long URL, the system generates a unique shortened code.
+   - The shortened code is a string that is generated using a base-62 encoding (lowercase letters, uppercase letters, and numbers).
+   
+   The process of generating a short URL involves:
+   - **Converting the ID**: Taking the ShortUrl generated ID and converting it to base62.
+   - **Mapping the base62 ID**: Next we want to map that base62 number to out base62 string.
+   - **Example**: ID: 123456789 (base10) -> iwaUH base(62) -> short_url: /iwaUH
+
+2. **Generating Shortened URLs**:
+   - The shortened URL is constructed by combining a base URL (e.g., `http://localhost:3000/`) with the shortened code (e.g., `abc123`).
+   - Example: `http://localhost:3000/abc123`

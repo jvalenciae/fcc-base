@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::ShortUrlsController < ApiController
+  skip_before_action :authenticate_user!
+
   def create
     short_url = ShortUrl.new(original_url: url_params[:url])
 
